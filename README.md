@@ -1,7 +1,5 @@
 *The most up-to-date version of this resume can always be found on github: [https://github.com/dreamcodez/resume](https://github.com/dreamcodez/resume)*
 
-***
-
 #Matthew Elder
 
 <img width="200" src="http://i.imgur.com/W6kEcxB.jpg">
