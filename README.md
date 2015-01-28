@@ -1,5 +1,7 @@
 #Matthew Elder
 
+<img width="200" src="http://i.imgur.com/W6kEcxB.jpg">
+
 *Los Angeles, California*
 
 **(213) 640-7067**
