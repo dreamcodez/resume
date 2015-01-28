@@ -1,7 +1,7 @@
 #Matthew Elder
 *Los Angeles, California*
-*(213) 640-7067*
-*sales@lambdasoftware.io*
+**(213) 640-7067**
+**sales@lambdasoftware.io**
 
 ##Summary
 Large Website Software Architect
