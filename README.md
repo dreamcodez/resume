@@ -49,6 +49,7 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 * LiveScript (Expert)
 * CoffeeScript (Expert)
 * Haskell (Fluent)
+* _______ (your NICHE skill here, I am willing to learn!)
 
 ##Education
 #####California State University, Computer Science
