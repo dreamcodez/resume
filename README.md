@@ -8,9 +8,11 @@ On these properties I was responsible for various aspects such as SEO optimizati
 
 ####Experience
 
-#####President, Lambda Software, Inc.
+#####President / Software Developer, Lambda Software, Inc.
 
-<h6>Oct 2014 to Present</h6>
+######Oct 2014 to Present
+
+I formed the Lambda Software to handle my freelance needs and to create an entity to publish the ReactJS book I am collaborating on. I have mainly been consulting people on scaling their software architectures. The ReactJS book will be out in the middle of this year.
 
 #####Co-Founder / Software Developer, Dimension Software
 
