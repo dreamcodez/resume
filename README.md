@@ -1,5 +1,7 @@
 #Matthew Elder
 
+*the most up-to-date version of this resume can always be found [on github](https://github.com/dreamcodez/resume)*
+
 <img width="200" src="http://i.imgur.com/W6kEcxB.jpg">
 
 *Los Angeles, California*
