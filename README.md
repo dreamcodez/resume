@@ -35,8 +35,22 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 
 
 ##Skills
+* HTML/CSS/Javascript (Expert)
+* Ruby/Ruby on Rails (Expert)
+* C/C++ (Fluent)
+* Java (Fluent)
+* SQL/MySQL/PostgreSQL (Expert)
+* Erlang (Basics)
+* Python (Fluent)
+* git/mercurial (Fluent)
+* REST (Expert)
+* Linux / Mac OS X / BSD Command line  (Expert)
+* BASH (Fluent)
+* LiveScript (Expert)
+* CoffeeScript (Expert)
+* Haskell (Fluent)
 
-####Education
+##Education
 #####California State University, Computer Science
 ######2005 - 2008
 Some upper division coursework completed)
