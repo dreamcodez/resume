@@ -1,3 +1,8 @@
+#Matthew Elder
+*Los Angeles, California*
+*(213) 640-7067*
+*sales@lambdasoftware.io*
+
 ##Summary
 Large Website Software Architect
 
@@ -54,7 +59,7 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 ##Education
 #####California State University, Computer Science
 ######2005 - 2008
-Some upper division coursework completed)
+Some upper division coursework completed
 
 
 ##Languages
