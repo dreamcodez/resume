@@ -1,6 +1,9 @@
 #Matthew Elder
+
 *Los Angeles, California*
+
 **(213) 640-7067**
+
 **sales@lambdasoftware.io**
 
 ##Summary
