@@ -30,7 +30,7 @@ Developed backend technology stack to process bitcoin transactions for an online
 ***
 #####Co-Founder / Software Developer, Dimension Software
 ######January 2013 to October 2013 - Los Angeles, California
-We developed a modern, from-scratch bulletin-board webapp in nodejs / livescript. This software aims to be a platform for the business which is a sotware as a service. Currently in beta: _powerbulletin.com_.
+We developed a modern, from-scratch bulletin-board webapp in nodejs / livescript. This software aims to be a platform for the business which is a software as a service. Currently in beta: _powerbulletin.com_.
 ***
 #####Lead Software Developer, WeedMaps Media (_weedmaps.com_)
 ######January 2011 to December 2012 - Newport Beach, California
