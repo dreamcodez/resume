@@ -22,7 +22,7 @@ I formed the Lambda Software to handle my freelance needs and to create an entit
 ***
 #####Lead Software Developer, Standard Crypto
 ######November 2013 to September 2014 - Santa Monica, California
-kjasdlkjasdlkjasdfkljasdfjads
+Developed backend technology stack to process bitcoin transactions for an online casino in nodejs/insight. Tuned the layout/platform/architecture of *mixxtopia.com* to optimize adsense revenue.
 ***
 #####Co-Founder / Software Developer, Dimension Software
 ######January 2013 to October 2013 - Los Angeles, California
