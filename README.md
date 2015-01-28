@@ -36,7 +36,7 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 
 ##Skills
 
-####Education
+##Education
 #####California State University, Computer Science
 ######2005 - 2008
 Some upper division coursework completed)
