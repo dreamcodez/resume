@@ -1,12 +1,12 @@
-####Summary
+##Summary
 Large Website Software Architect
 
-####Career Highlights
+##Career Highlights
 I have worked on several high domain-rank properties including _bolthouse.com_, _weedmaps.com_, _marijuana.com_, _norml.org_, and _mixxtopia.com_ .
 
 On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
 
-####Experience
+##Experience
 
 #####President / Software Developer, Lambda Software, Inc.
 ######October 2014 to Present - Los Angeles, California
@@ -34,7 +34,7 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 
 
 
-#####Skills
+##Skills
 
 ####Education
 #####California State University, Computer Science
@@ -42,7 +42,7 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 Some upper division coursework completed)
 
 
-#####Languages
+##Languages
 
 * English (fluent)
 * Spanish (beginner)
