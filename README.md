@@ -2,7 +2,7 @@
 
 # Matthew Elder
 
-<img width="200" src="http://i.imgur.com/W6kEcxB.jpg">
+<img width="200" src="https://www.dropbox.com/s/jb5bx22q1obxiza/42952.jpeg?dl=1">
 
 *Los Angeles, California*
 
