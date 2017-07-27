@@ -6,17 +6,19 @@
 
 *Los Angeles, California*
 
-**(213) 640-7067**
+**(818) 900-8628**
 
-**sales@lambdasoftware.io**
+**sseses@gmail.com**
 
 ## Summary
-Large Website Software Architect
+Large App Software Architect
 
 ## Career Highlights
 I have worked on several high domain-rank properties including _bolthouse.com_, _weedmaps.com_, _marijuana.com_, _norml.org_, and _mixxtopia.com_.
 
 On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
+
+More recently I worked at _stem.is_ as principal platform architect.  Stem helps music collaborators receive royalties in a fair way.
 
 ## Experience
 
