@@ -1,0 +1,16 @@
+{{define "children-snippet"}}
+<section class="children">
+{{ if .Children }}
+<h1>Child Documents</h1>
+
+<ol class="list">
+{{range .Children}}
+<li class="child">
+	<a href="{{.Route}}" class="child-title child-link">{{.Title}}</a>
+	<p class="child-description">{{.Description}}</p>
+</li>
+{{end}}
+</ol>
+{{end}}
+</section>
+{{end}}

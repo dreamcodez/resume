@@ -1,0 +1,13 @@
+{{define "toplevelnavigation-snippet"}}
+<nav class="toplevel">
+{{ if .ToplevelNavigation}}
+	<ul>
+	{{range .ToplevelNavigation.Entries}}
+	<li>
+		<a href="{{.Path}}">{{.Title}}</a>
+	</li>
+	{{end}}
+	</ul>
+{{end}}
+</nav>
+{{end}}

@@ -1,0 +1,18 @@
+{{define "tags-snippet"}}
+<div class="cleaner"></div>
+<section class="tags">
+{{ if .Tags }}
+	<header>
+		Tags:
+	</header>
+
+	<ul>
+	{{range .Tags}}
+	<li>
+		<a href="{{.Route}}" rel="tag">{{.Name}}</a>
+	</li>
+	{{end}}
+	</ul>
+{{end}}
+</section>
+{{end}}

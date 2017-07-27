@@ -1,0 +1,35 @@
+
+<header>
+<h1 class="title">
+{{.Title}}
+</h1>
+</header>
+
+<section class="description">
+{{.Description}}
+</section>
+
+<section class="content">
+{{ if .Tags }}
+{{ range .Tags }}
+<ul class="tags">
+<li class="tag">
+	<a name="{{.Anchor}}" href={{.Route}}>{{.Name}}</a>
+	{{ if .Children }}
+	<ol class="children">
+		{{range .Children}}
+		<li class="child">
+			<a href="{{.Route}}" class="child-title child-link">{{.Title}}</a>
+			<p class="child-description">{{.Description}}</p>
+		</li>
+		{{end}}
+	</ol>
+	{{ end }}
+</li>
+</ul>
+{{ end }}
+{{ else}}
+-- There are currently not tagged items --
+{{ end }}
+
+</section>

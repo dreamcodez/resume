@@ -1,0 +1,28 @@
+
+<header>
+<h1 class="title" itemprop="name">
+{{.Title}}
+</h1>
+</header>
+
+<section class="description" itemprop="description">
+{{.Description}}
+</section>
+
+{{template "publisher-snippet" .}}
+
+<section class="content" itemprop="articleBody">
+{{.Content}}
+</section>
+
+<div class="cleaner"></div>
+
+{{ if .Children }}
+<section class="preview">
+	<ul>
+	</ul>
+</section>
+{{end}}
+
+{{template "aliases-snippet" .}}
+{{template "tags-snippet" .}}

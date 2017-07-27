@@ -1,0 +1,9 @@
+{{define "breadcrumbnavigation-snippet"}}
+<nav class="breadcrumb" itemprop="breadcrumb">
+{{if .BreadcrumbNavigation.IsAvailable}}
+	{{range .BreadcrumbNavigation.Entries}}
+		<a href="{{.Path}}">{{.Title}}</a>{{if not .IsLast}} » {{end}}
+	{{end}}
+{{end}}
+</nav>
+{{end}}

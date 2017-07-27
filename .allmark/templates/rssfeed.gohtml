@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+
+<title><![CDATA[ {{.Title}} ]]></title>
+<description><![CDATA[ {{.Description}} ]]></description>
+<link>{{.Link}}</link>
+<pubDate>{{.PubDate}}</pubDate>
+<ttl>1800</ttl>
+
+{{ range .Items }}
+<item>
+	<title><![CDATA[ {{.Title}} ]]></title>
+	<description><![CDATA[ {{.Description}} ]]></description>
+	<link>{{.Link}}</link>
+	<pubDate>{{.PubDate}}</pubDate>
+</item>
+{{ end}}
+
+</channel>
+</rss>

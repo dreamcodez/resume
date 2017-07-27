@@ -1,0 +1,23 @@
+{{define "itemnavigation-snippet"}}
+<nav class="navigation">
+{{if .ItemNavigation.IsAvailable}}
+	<div class="navelement parent">
+		{{if .ItemNavigation.Parent.Path}}
+		<a href="{{.ItemNavigation.Parent.Path}}" title="{{.ItemNavigation.Parent.Title}}">↑ Parent</a>
+		{{end}}
+	</div>
+
+	<div class="navelement previous">
+		{{if .ItemNavigation.Previous.Path}}
+		<a class="previous" href="{{.ItemNavigation.Previous.Path}}" title="{{.ItemNavigation.Previous.Title}}">← Previous</a>
+		{{end}}
+	</div>
+
+	<div class="navelement next">
+		{{if .ItemNavigation.Next.Path}}
+		<a class="next" href="{{.ItemNavigation.Next.Path}}" title="{{.ItemNavigation.Next.Title}}">Next →</a>
+		{{end}}
+	</div>
+{{end}}
+</nav>
+{{end}}

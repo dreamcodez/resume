@@ -1,7 +1,14 @@
-FROM python:3.6-alpine3.6
+FROM alpine:3.6
 
+WORKDIR /app
 
 RUN apk add --no-cache curl
-RUN pip install --no-cache-dir grip
+COPY .allmark .
 
-CMD curl https://raw.githubusercontent.com/dreamcodez/resume/master/README.md | grip - 0.0.0.0:6419
+RUN \
+  curl http://allmark.io/bin/files/allmark_linux_amd64 -o /usr/local/bin/allmark &&\
+  chmod a+x /usr/local/bin/allmark
+
+CMD \
+  curl -O https://raw.githubusercontent.com/dreamcodez/resume/master/README.md &&\
+  allmark serve
