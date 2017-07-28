@@ -1,29 +1,25 @@
 version: '1.0'
 steps:
-  build_docker_image:
+  build:
     type: build
-    title: Building Docker Image...
-    image_name: dreamcodez/resume
-    #The directory should be relative to git repository that is used for cloning
-    working_directory: ${{main_clone}}
-    #Dockerfile location should be relative to the working directory
     dockerfile: Dockerfile
-  push_docker_image:
-    type: push
-    title: Pushing Docker Image...
-    candidate: ${{build_docker_image}}
-    tag: ${{CF_SHORT_REVISION}}
     image_name: dreamcodez/resume
+    tag: ${{CF_SHORT_REVISION}}
+  push:
+    type: push
+    candidate: ${{build}}
+    tag: ${{CF_SHORT_REVISION}}
     registry: quay
-    fail_fast: false
     #when:
     #  branch:
     #    only: 
     #      - /^master$/
-#  deploy_to_kubernetes:
-#    title: Deploying to Kubernetes...
-#    image: codefresh/cf-deploy-kubernetes:latest
-#    commands:
-#      -
-#    environment:
-#      - KUBECONFIG=kubeconfig
+  deploy-to-kubernetes:
+    image: codefresh/cf-deploy-kubernetes
+    working-directory: ${{initial-clone}}
+    tag: ${{CF_SHORT_REVISION}}
+    commands:
+      - 'echo -n $KUBECREDENTIALSB64 | base64 -d | tar -xvz'
+      - 'kubectl apply -f deployment.yml'
+    environment:
+      - KUBECONFIG=kubeconfig
