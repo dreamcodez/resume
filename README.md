@@ -1,4 +1,4 @@
-*The most up-to-date version of this resume can always be found on github: [https://github.com/dreamcodez/resume](https://github.com/dreamcodez/resume)*
+<div class="print-only" style="font-size:smaller">The most up-to-date version of this document can always be found on: <span style="font-family:courier;font-size:smaller">github.com/dreamcodez/resume</span></div>
 
 # Matthew Elder
 

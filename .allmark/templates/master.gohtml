@@ -16,7 +16,22 @@
 	{{if .LastModifiedDate}}<meta property="article:modified_time" content="{{.LastModifiedDate}}" />{{end}}
 	{{if .Tags}}{{range .Tags}}
 	<meta property="article:tag" content="{{ .Name }}" />{{end}}{{end}}
+	<!-- https://stackoverflow.com/questions/3463796/how-to-only-show-certain-parts-with-css-for-print -->
+	<style>
+	    .print-only{
+		display: none;
+	    }
 
+	    @media only print {
+		.no-print {
+		    display: none;
+		}
+
+		.print-only{
+		    display: block !important;
+		}
+	    }
+	</style>
 	<link rel="canonical" href="{{ .Route | absolute }}">
 	<link rel="alternate" hreflang="{{.LanguageTag}}" href="{{.Route}}">
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.rss">
