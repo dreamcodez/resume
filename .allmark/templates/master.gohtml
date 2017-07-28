@@ -1,26 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="{{.LanguageTag}}" itemscope itemtype="http://schema.org/WebPage" prefix="og: http://ogp.me/ns#" prefix="article: http://ogp.me/ns/article#">
 <head>
-	<base href="{{ .BaseURL }}">
-
-	<title>{{.PageTitle}}</title>
-	<meta name="description" content="{{.Description}}">
-
-	<link rel="search" type="application/opensearchdescription+xml" title="{{.RepositoryName}}" href="/opensearch.xml" />
-
-	{{if .Publisher.Name }}
-	<meta name="publisher" content="{{.Publisher.Name}}">
-	{{end}}
-
-	{{if .GeoLocation }}
-	{{if .GeoLocation.Coordinates}}
-	<meta name="geo.position" content="{{.GeoLocation.Coordinates}}">
-	{{end}}
-
-	{{if .GeoLocation.PlaceName}}
-	<meta name="geo.placename" content="{{.GeoLocation.PlaceName}}">
-	{{end}}
-	{{end}}
+	<title>Matthew Elder - Resume</title>
+	<meta name="description" content="Matthew Elder Resume, app platform architect">
 
 	<meta property="og:site_name" content="{{ .RepositoryName }}" />
 	<meta property="og:type" content="article" />
@@ -69,32 +51,6 @@
 
 <div class="cleaner"></div>
 
-{{if or .PrintURL .JSONURL .MarkdownURL .DOCXURL}}
-<aside class="export">
-<ul>
-	{{if .PrintURL}}<li><a href="{{.PrintURL}}">Print</a></li>{{end}}
-	{{if .JSONURL}}<li><a href="{{.JSONURL}}">JSON</a></li>{{end}}
-	{{if .MarkdownURL}}<li><a href="{{.MarkdownURL}}">Markdown</a></li>{{end}}
-	{{if .DOCXURL}}<li><a href="{{.DOCXURL}}">DOCX</a></li>{{end}}
-</ul>
-</aside>
-{{end}}
-
-<footer>
-	<nav>
-		<ul>
-			<li><a href="/search">Search</a></li>
-			<li><a href="/tags.html">Tags</a></li>
-			<li><a href="/sitemap.html">Sitemap</a></li>
-			<li><a href="/feed.rss">RSS Feed</a></li>
-			<li><a href="/!">Shortlinks</a></li>
-		</ul>
-	</nav>
-
-	<section class="allmark-promo">
-		powered by <a href="https://github.com/andreaskoch/allmark">allmark - the markdown webserver</a>
-	</section>
-</footer>
 
 <script src="/theme/jquery.js"></script>
 <script src="/theme/jquery.tmpl.js"></script>
@@ -278,15 +234,6 @@ $(function() {
 		Shortlink:
 	</header>
 {{end}}
-
-<ul>
-{{range .Aliases}}
-<li>
-	<input type="text" value="{{.Route | absolute}}" title="Redirects to {{.TargetRoute | absolute}}" readonly="readonly" />
-</li>
-{{end}}
-</ul>
-
 {{end}}
 </section>
 {{end}}
