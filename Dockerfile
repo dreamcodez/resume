@@ -3,6 +3,7 @@ FROM alpine:3.6
 WORKDIR /app
 
 RUN apk add --no-cache curl
+
 COPY .allmark/ .allmark/
 
 RUN \
