@@ -20,7 +20,7 @@ steps:
     tag: ${{CF_SHORT_REVISION}}
     commands:
       - 'echo -n $KUBECREDENTIALSB64 | base64 -d | tar -xvz'
-      - 'kubectl apply -f deployment.yml'
-      - "kubectl delete pod -l 'app=resume'"
+      - '/template.sh deployment.yml | kubectl apply -f -'
+      #- "kubectl delete pod -l 'app=resume'"
     environment:
       - KUBECONFIG=kubeconfig
