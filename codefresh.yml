@@ -21,5 +21,6 @@ steps:
     commands:
       - 'echo -n $KUBECREDENTIALSB64 | base64 -d | tar -xvz'
       - 'kubectl apply -f deployment.yml'
+      - "kubectl delete pod -l 'app=resume'"
     environment:
       - KUBECONFIG=kubeconfig
