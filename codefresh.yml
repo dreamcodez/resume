@@ -12,7 +12,7 @@ steps:
     type: push
     title: Pushing Docker Image...
     candidate: ${{build_docker_image}}
-    tag: ${{CF_SHORT_REVISION}}}
+    tag: ${{CF_SHORT_REVISION}}
     image_name: dreamcodez/resume
     registry: quay
     fail_fast: false
