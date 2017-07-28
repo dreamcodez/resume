@@ -22,9 +22,9 @@ More recently I worked at _stem.is_ as principal platform architect.  Stem helps
 
 ## Experience
 
-##### President / Software Developer, Lambda Software, Inc.
+##### President, Lambda Software, Inc.
 ###### October 2014 to Present - Los Angeles, California
-I formed Lambda Software to handle my freelance and startup dev needs and to create an entity to publish the ReactJS book I am collaborating on. I have mainly been consulting people on scaling their software architectures. The ReactJS book will be out in the middle of this year.
+I formed Lambda Software as a way to seek funding for startup ventures. I also consulted people on scaling their software architectures.
 ***
 ##### Lead Software Developer, Standard Crypto
 ###### November 2013 to September 2014 - Santa Monica, California
