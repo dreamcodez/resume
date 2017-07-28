@@ -11,7 +11,7 @@ steps:
   push_docker_image:
     type: push
     title: Push Docker Image
-    candidate: ${{build_step_name}}
+    candidate: ${{build_docker_image}}
     tag: ${{CF_REVISION}}}
     image_name: dreamcodez/resume
     registry: quay
