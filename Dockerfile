@@ -9,5 +9,6 @@ RUN \
   apk del --no-cache curl
 
 COPY .allmark/ .allmark/
+COPY README.md README.md
 
 CMD allmark serve
