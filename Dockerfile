@@ -3,10 +3,10 @@ FROM alpine:3.6
 WORKDIR /app
 
 RUN apk add --no-cache curl
-COPY .allmark .
+COPY .allmark/ .allmark/
 
 RUN \
-  curl http://allmark.io/bin/files/allmark_linux_amd64 -o /usr/local/bin/allmark &&\
+  curl -s http://allmark.io/bin/files/allmark_linux_amd64 -o /usr/local/bin/allmark &&\
   chmod a+x /usr/local/bin/allmark
 
 CMD \
