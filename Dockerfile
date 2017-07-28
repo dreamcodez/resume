@@ -10,5 +10,5 @@ RUN \
   chmod a+x /usr/local/bin/allmark
 
 CMD \
-  curl -O https://raw.githubusercontent.com/dreamcodez/resume/master/README.md &&\
+  curl -sO https://raw.githubusercontent.com/dreamcodez/resume/master/README.md &&\
   allmark serve
