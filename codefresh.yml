@@ -1,19 +1,19 @@
 version: '1.0'
 steps:
   build:
-    description: 🔨  Building docker image
+    title: 🔨 Building docker image
     type: build
     dockerfile: Dockerfile
     image_name: dreamcodez/resume
     tag: ${{CF_SHORT_REVISION}}
   push:
-    description: 🌟  Pushing to quay.io
+    title: 🌟 Pushing to quay.io
     type: push
     candidate: ${{build}}
     tag: ${{CF_SHORT_REVISION}}
     registry: quay
   deploy_to_kubernetes:
-    description: 🚀  Deploying to kubernetes
+    title: 🚀 Deploying to kubernetes
     image: codefresh/cf-deploy-kubernetes
     working-directory: ${{initial-clone}}
     tag: ${{CF_SHORT_REVISION}}
