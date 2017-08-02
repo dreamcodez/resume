@@ -14,16 +14,23 @@
 Large App Software Architect
 
 ## Career Highlights
+Architected the stem application
+
+Implemented a Graph database inside sql for the stem application in addition to implementing graphql as our api backend.
+
 I have worked on several high domain-rank properties including _bolthouse.com_, _weedmaps.com_, _marijuana.com_, _norml.org_, and _mixxtopia.com_.
 
 On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
 
-More recently I worked at _stem.is_ as principal platform architect.  Stem helps music collaborators receive royalties in a fair way.
-
 ## Experience
 
+##### Principal Platform Architect, Stem Disintermedia, Inc.
+###### October 2015 to July 2017 - Hollywood, California
+Stem helps music collaborators receive royalties in a fair way. I architected the system and wrote much of the prototypal code; we use react/relay/graphql/postgres/rabbitmq as our stack. I also envisioned and wrote some of the prototype code for the open sourced join-monster: "A Query Planning and Batch Data Fetching between GraphQL and SQL".
+https://github.com/stems/join-monster
+***
 ##### President, Lambda Software, Inc.
-###### October 2014 to Present - Los Angeles, California
+###### October 2014 to September 2015 - Los Angeles, California
 I formed Lambda Software as a way to seek funding for startup ventures. I also consulted people on scaling their software architectures.
 ***
 ##### Lead Software Developer, Standard Crypto
