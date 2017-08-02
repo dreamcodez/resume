@@ -26,7 +26,7 @@ On these properties I was responsible for various aspects such as SEO optimizati
 
 ##### Principal Platform Architect, Stem Disintermedia, Inc.
 ###### October 2015 to July 2017 - Hollywood, California
-Stem helps music collaborators receive royalties in a fair way. I architected the system and wrote much of the prototypal code; we use react/relay/graphql/postgres/rabbitmq as our stack. I also envisioned and wrote some of the prototype code for the open sourced join-monster: "A Query Planning and Batch Data Fetching between GraphQL and SQL".
+Stem helps music collaborators receive royalties in a fair way. I architected the system and wrote much of the prototypal code; we used react/relay/graphql/postgres/rabbitmq as our stack. I also envisioned and wrote some of the prototype code for the open sourced join-monster: "A Query Planning and Batch Data Fetching between GraphQL and SQL".
 https://github.com/stems/join-monster
 ***
 ##### President, Lambda Software, Inc.
