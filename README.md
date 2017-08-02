@@ -64,6 +64,9 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 * GraphQL (Fluent)
 * ReactJS (Fluent)
 * SQL/MySQL/PostgreSQL (Expert)
+* Docker
+* Kubernetes
+* Amazon ECS
 * Erlang (Basics)
 * Python (Fluent)
 * git/mercurial (Fluent)
