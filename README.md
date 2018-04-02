@@ -2,7 +2,7 @@
 
 # Matthew Elder
 
-<img width="220" src="https://www.dropbox.com/s/4ksa564fj90ar4f/dreamcodezz.jpg?dl=0">
+<img width="220" src="https://i.imgur.com/Op5uEKS.jpg">
 
 *Los Angeles, California*
 
@@ -23,7 +23,14 @@ I have worked on several high domain-rank properties including _bolthouse.com_, 
 On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
 
 ## Experience
-
+##### Software Architect, LeaseLock, Inc.
+###### November 2017 to Present
+ * Implemented payment processing system in braintree to handle customer transactions
+ * Implemented Continuous deployment with docker, kubernetes, and aws codebuild.
+ * Setup best practices for infrastructure-as-code with technologies such as cloudformation, kops, aws codepipeline/codebuild, and of course good ol' s3.
+ * Refined processes with git for faster release cycles.
+ * Implemented Apache NiFi for dataflow management with regards to shipping our transactions from braintree to postgres
+***
 ##### Principal Platform Architect, Stem Disintermedia, Inc.
 ###### October 2015 to July 2017 - Hollywood, California
 Stem helps music collaborators receive royalties in a fair way. I architected the system and wrote much of the prototypal code; we used react/relay/graphql/postgres/rabbitmq as our stack. I also envisioned and wrote some of the prototype code for the open sourced join-monster: "A Query Planning and Batch Data Fetching between GraphQL and SQL".
