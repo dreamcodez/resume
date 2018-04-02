@@ -29,7 +29,7 @@ On these properties I was responsible for various aspects such as SEO optimizati
  * Implemented Continuous deployment with docker, kubernetes, and aws codebuild.
  * Setup best practices for infrastructure-as-code with technologies such as cloudformation, kops, aws codepipeline/codebuild, and of course good ol' s3.
  * Refined processes with git for faster release cycles.
- * Implemented Apache NiFi for dataflow management with regards to shipping our transactions from braintree to postgres
+ * Implemented Apache NiFi for dataflow management with regards to shipping our transactional status updates from braintree to postgres
 ***
 ##### Principal Platform Architect, Stem Disintermedia, Inc.
 ###### October 2015 to July 2017 - Hollywood, California
