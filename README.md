@@ -30,7 +30,7 @@ On these properties I was responsible for various aspects such as SEO optimizati
  * Setup best practices for infrastructure-as-code with technologies such as cloudformation, kops, aws codepipeline/codebuild, and of course good ol' s3.
  * Refined processes with git for faster release cycles.
  * Implemented Apache NiFi for dataflow management with regards to shipping our transactional status updates from braintree to postgres
- * Redesigned and created a good new portion of database schema to support new features in postgres
+ * Redesigned and created a good new portion of sql database schema to support new product features
  * Assisted in a product-engineer role in designing an internal tool to both dynamically change and visualize business logic which was serialized in a special format for decision trees.
 ***
 ##### Principal Platform Architect, Stem Disintermedia, Inc.
