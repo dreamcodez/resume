@@ -2,7 +2,7 @@
 
 # Matthew Elder
 
-<img width="220" src="https://www.dropbox.com/s/4ksa564fj90ar4f/dreamcodezz.jpg?dl=1">
+<img width="220" src="https://www.dropbox.com/s/4ksa564fj90ar4f/dreamcodezz.jpg?dl=0">
 
 *Los Angeles, California*
 
