@@ -31,7 +31,7 @@ On these properties I was responsible for various aspects such as SEO optimizati
  * Refined processes with git for faster release cycles.
  * Implemented Apache NiFi for dataflow management with regards to shipping our transactional status updates from braintree to postgres
  * Redesigned and created a good new portion of sql database schema to support new product features
- * Assisted in a product-engineer role in designing an internal tool to both dynamically change and visualize business logic which was serialized in a special format for decision trees.
+ * Assisted in a product-engineer role in designing an internal tool to both dynamically change and visualize business logic (it used decision trees) which was serialized in a specialized json format.
 ***
 ##### Principal Platform Architect, Stem Disintermedia, Inc.
 ###### October 2015 to July 2017 - Hollywood, California
