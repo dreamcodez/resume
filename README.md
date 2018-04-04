@@ -89,8 +89,10 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
  * Amazon ECS
  * Docker
  * git/mercurial/version control
+ * Apache NiFi
 #### Amateur
  * Perl
+ * Graph Data Structures
 #### Basics
  * Erlang
  * Smalltalk, Visual Works, AmberJS
