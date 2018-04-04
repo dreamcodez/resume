@@ -65,28 +65,36 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 
 
 ## Skills
-* HTML/CSS/Javascript (Expert)
-* Ruby/Ruby on Rails (Expert)
-* C/C++ (Fluent)
-* Java (Fluent)
-* Perl (Amateur)
-* GraphQL (Fluent)
-* ReactJS (Fluent)
-* SQL/MySQL/PostgreSQL (Expert)
-* Docker
-* Kubernetes
-* Amazon ECS
-* Erlang (Basics)
-* Python (Fluent)
-* git/mercurial (Fluent)
-* REST (Expert)
-* Linux / Mac OS X / BSD Command line  (Expert)
-* BASH (Fluent)
-* LiveScript (Expert)
-* CoffeeScript (Expert)
-* Haskell (Fluent)
-* Smalltalk, Visual Works, AmberJS (Basics)
-* _______ (your NICHE skill here, I am willing to learn!)
+
+#### Expert
+ * HTML/CSS
+ * Javascript / NodeJS
+ * LiveScript (compiles to js)
+ * CoffeeScript (compiles to js)
+ * Babel
+ * Webpack
+ * SQL/MySQL/PostgreSQL
+ * Ruby/Ruby on Rails
+ * Linux / Mac OS X / BSD Command line
+ * REST
+#### Fluent
+ * Haskell
+ * BASH
+ * Python
+ * Java
+ * C/C++
+ * GraphQL
+ * ReactJS
+ * Kubernetes
+ * Amazon ECS
+ * Docker
+ * git/mercurial/version control
+#### Amateur
+ * Perl
+#### Basics
+ * Erlang
+ * Smalltalk, Visual Works, AmberJS
+ * _______ (your NICHE skill here, I am willing to learn!)
 
 ## Education
 ##### California State University, Computer Science
@@ -97,4 +105,4 @@ Some upper division coursework completed
 ## Languages
 
 * English (fluent)
-* Spanish (beginner)
+* Spanish (beginner, limited vocabulary, but it comes in handy!)
