@@ -1,14 +1,26 @@
-FROM alpine:3.6
+FROM node:8-alpine AS build
+
+# build deps
+RUN yarn global add marked
+
+WORKDIR /tmp/resume-build
+
+COPY README.md .
+RUN marked -gfm README.md -o index.html
+
+#COPY .allmark/ .allmark/
+#COPY README.md README.md
+
+#CMD allmark serve
+
+FROM alpine:3.7
+
+# runtime deps
+RUN apk add --no-cache caddy
 
 WORKDIR /app
 
-RUN \
-  apk add --no-cache curl && \
-  curl -s http://allmark.io/bin/files/allmark_linux_amd64 -o /usr/local/bin/allmark && \
-  chmod a+x /usr/local/bin/allmark && \
-  apk del --no-cache curl
+COPY deploy/Caddyfile .
+COPY --from=build /tmp/resume-build/index.html public/
 
-COPY .allmark/ .allmark/
-COPY README.md README.md
-
-CMD allmark serve
+CMD caddy
