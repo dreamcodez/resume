@@ -1,0 +1,22 @@
+version: 0.2
+
+env:
+  variables:
+    CONTAINER_REPO: 341916421549.dkr.ecr.us-east-1.amazonaws.com/resume
+phases:
+  install:
+    commands:
+      - . deploy/bin/init-deploy-env
+      - env
+  pre_build:
+    commands:
+      - echo pre_build
+  build:
+    commands:
+      - /bin/bash deploy/bin/build-and-push-docker-image
+  post_build:
+    commands:
+      - echo post_build
+cache:
+  paths:
+    - container-build-cache.tar.gz
