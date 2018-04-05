@@ -1,0 +1,2 @@
+#!/bin/bash -xeu
+docker save $(docker images -aq) | gzip -9 > container-build-cache.tar.gz
