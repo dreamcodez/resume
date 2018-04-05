@@ -1,2 +1,3 @@
 #!/bin/bash -xu
 gunzip -c container-build-cache.tar.gz | docker load
+exit 0
