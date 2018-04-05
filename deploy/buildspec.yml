@@ -1,8 +1,8 @@
 version: 0.2
 
-env:
-  variables:
-    CONTAINER_REPO: 341916421549.dkr.ecr.us-east-1.amazonaws.com/resume
+#env:
+#  variables:
+#    PLACEHOLDER: foo
 phases:
   install:
     commands:
