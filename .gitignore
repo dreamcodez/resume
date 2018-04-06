@@ -1,1 +1,2 @@
 /deploy/chart/values.yaml
+.gitsecret/keys/random_seed
