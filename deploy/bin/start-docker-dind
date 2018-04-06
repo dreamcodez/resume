@@ -1,0 +1,2 @@
+#!/bin/bash -xeu
+dockerd-entrypoint.sh & 2>&1 > /tmp/dockerd-dind.log

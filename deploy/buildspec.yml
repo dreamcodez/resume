@@ -10,6 +10,8 @@ phases:
       - env
   pre_build:
     commands:
+      - /bin/bash deploy/bin/start-docker-dind
+      - sleep 2
       - /bin/bash deploy/bin/restore-container-build-cache
   build:
     commands:
