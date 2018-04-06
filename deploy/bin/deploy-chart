@@ -1,0 +1,2 @@
+#!/bin/bash -xeu
+helm upgrade "$HELM_CHART_RELEASE" ./deploy/chart/
