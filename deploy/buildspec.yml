@@ -1,8 +1,8 @@
 version: 0.2
 
-#env:
-#  variables:
-#    PLACEHOLDER: foo
+env:
+  variables:
+     KUBECONFIG: deploy/chart/kubeconfig
 phases:
   install:
     commands:
