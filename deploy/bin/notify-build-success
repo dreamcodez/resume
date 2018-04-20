@@ -1,5 +1,4 @@
 #!/bin/bash -xeu
-export TZ=':America/Los_Angeles'
-NOW=$(date '+%Y-%m-%d %I:%M %p %Z')
+NOW=$(TZ=':America/Los_Angeles' date '+%Y-%m-%d %I:%M %p %Z')
 MESSAGE="$(echo -e "dreamcodez:resume [$CONTAINER_TAG]\nRELEASED\n$NOW")"
 aws sns publish --phone-number "$SYSADMIN_PHONE" --message "$MESSAGE"
