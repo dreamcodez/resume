@@ -1,3 +1,3 @@
 #!/bin/bash -xu
-docker save $(docker images -aq) | pigz -11 > container-build-cache.tar.gz
+docker save $(docker images -aq) | pigz -p2 -9 > container-build-cache.tar.gz
 exit 0
