@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-     KUBECONFIG: deploy/chart/kubeconfig
+     KUBECONFIG: deploy/kubeconfig
 phases:
   install:
     commands:
