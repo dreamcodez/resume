@@ -111,4 +111,9 @@ Some upper division coursework completed
 * English (fluent)
 * Spanish (beginner, limited vocabulary, but it comes in handy!)
 
-<div class="corner-ribbon top-right sticky green shadow"><a style="font-weight:bold" href="https://github.com/dreamcodez/resume" target="_blank">view source</a></div>
+## Links
+<div class="corner-ribbon top-right sticky red shadow">
+  <a href="https://dreamcodez.cc/matthew-elder-resume.pdf">Download PDF</a>
+</div>
+
+<a href="https://github.com/dreamcodez/resume" target="_blank">View Source</a>

@@ -1,5 +1,6 @@
 /* https://codepen.io/eode9/pen/twkKm
  * public domain
+ Modified by Matthew Elder <sseses@gmail.com>
 */
 
 /* The ribbons */
@@ -69,6 +70,12 @@
 .corner-ribbon.grey{background: #999;}
 .corner-ribbon.blue{background: #39d;}
 .corner-ribbon.green{background: #2c7;}
+.corner-ribbon.red a:link,
+.corner-ribbon.red a:visited
+{ color: #eee }
+.corner-ribbon.red a:hover,
+.corner-ribbon.red a:active
+{ color: #111 }
 .corner-ribbon.turquoise{background: #1b9;}
 .corner-ribbon.purple{background: #95b;}
 .corner-ribbon.red{background: #e43;}

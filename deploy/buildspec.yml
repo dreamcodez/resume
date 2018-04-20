@@ -12,8 +12,8 @@ phases:
   pre_build:
     commands:
       - /bin/bash -xeu deploy/bin/start-docker-dind
-      - sleep 1
       - /bin/bash -xu deploy/bin/restore-container-build-cache
+      - aws s3 cp s3://deploy-1e16ccd6-002c-43ff-ab0c-455629a17d48/assets/fonts.tar.gz deploy/
   build:
     commands:
       - /bin/bash -xeu deploy/bin/build-and-push-docker-image
