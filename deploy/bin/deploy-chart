@@ -1,2 +1,6 @@
 #!/bin/bash -xeu
-helm upgrade --debug "$HELM_CHART_RELEASE" ./deploy/chart/
+helm upgrade --debug \
+  -f deploy/chart/values.yml \
+  --set image.repository="$CONTAINER_REPO" \
+  --set image.tag="$CONTAINER_TAG" \
+  "$HELM_CHART_RELEASE" ./deploy/chart/
