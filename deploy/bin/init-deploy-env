@@ -1,6 +1,7 @@
 #!/bin/bash -xeu
 
 now_millis(){  python -c 'import time; print(int(time.time() * 1000))'; }
+export -f now_millis
 
 CONTAINER_TAG=$(echo -n "$CODEBUILD_SOURCE_VERSION" | head -c8)
 CONTAINER_IMAGE="$CONTAINER_REPO:$CONTAINER_TAG"
