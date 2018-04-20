@@ -110,4 +110,4 @@ Some upper division coursework completed
 * English (fluent)
 * Spanish (beginner, limited vocabulary, but it comes in handy!)
 
-<div class="corner-ribbon top-right sticky green shadow"><a href="https://github.com/dreamcodez/resume" target="_blank">See the code!</a></div>
+<div class="corner-ribbon top-right sticky green shadow"><a style="font-weight:bold" href="https://github.com/dreamcodez/resume" target="_blank">view source</a></div>
