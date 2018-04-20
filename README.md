@@ -77,6 +77,7 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
  * Ruby/Ruby on Rails
  * Linux / Mac OS X / BSD Command line
  * REST
+
 #### Fluent
  * Haskell
  * BASH
@@ -90,9 +91,11 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
  * Docker
  * git/mercurial/version control
  * Apache NiFi
+
 #### Amateur
  * Perl
  * Graph Data Structures
+
 #### Basics
  * Erlang
  * Smalltalk, Visual Works, AmberJS
