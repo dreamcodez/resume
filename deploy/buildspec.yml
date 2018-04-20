@@ -8,6 +8,7 @@ phases:
     commands:
       - . deploy/bin/init-deploy-env
       - export BENCHMARK_START=$(now_millis)
+      - /bin/bash deploy/bin/credstash-get-deploy-secrets
       - env
   pre_build:
     commands:
