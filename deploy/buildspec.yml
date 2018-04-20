@@ -6,9 +6,7 @@ env:
 phases:
   install:
     commands:
-      - "now_millis(){  python -c 'import time; print(int(time.time() * 1000))'; }"
       - . deploy/bin/init-deploy-env
-      - export BENCHMARK_START=$(now_millis)
       - /bin/bash deploy/bin/credstash-get-deploy-secrets
       - env
   pre_build:
@@ -20,9 +18,6 @@ phases:
     commands:
       - /bin/bash deploy/bin/build-and-push-docker-image
       - /bin/bash deploy/bin/deploy-chart
-      - export BENCHMARK_END=$(now_millis)
-      - export BENCHMARK=$((BENCHMARK_END-BENCHMARK_START))
-      - env
       - /bin/bash deploy/bin/notify-build-success
   post_build:
     commands:

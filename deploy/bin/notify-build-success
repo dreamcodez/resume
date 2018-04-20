@@ -1,4 +1,7 @@
 #!/bin/bash -xeu
+
+export BENCHMARK_END=$(/usr/bin/python deploy/bin/timestamp)
+export BENCHMARK=$((BENCHMARK_END-BENCHMARK_START))
 NOW=$(TZ=':America/Los_Angeles' date '+%Y-%m-%d %I:%M %p %Z')
 MESSAGE="$(echo -e "dreamcodez:resume [$CONTAINER_TAG]\nBuild took ${BENCHMARK}ms.\nRELEASED @ $NOW")"
 aws sns publish --phone-number "$SYSADMIN_PHONE" --message "$MESSAGE"
