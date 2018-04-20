@@ -1,0 +1,7 @@
+#!/bin/bash -xeu
+
+credstash delete deploy/kubeconfig
+credstash put deploy/kubeconfig - < deploy/kubeconfig
+
+credstash delete deploy/chart/values.yaml
+credstash put deploy/chart/values.yaml - < deploy/chart/values.yaml
