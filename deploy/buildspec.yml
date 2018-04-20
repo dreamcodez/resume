@@ -17,6 +17,7 @@ phases:
     commands:
       - /bin/bash deploy/bin/build-and-push-docker-image
       - /bin/bash deploy/bin/deploy-chart
+      - /bin/bash deploy/bin/notify-build-success
   post_build:
     commands:
       - /bin/bash deploy/bin/save-container-build-cache
