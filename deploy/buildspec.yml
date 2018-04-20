@@ -21,6 +21,7 @@ phases:
       - /bin/bash deploy/bin/deploy-chart
       - export BENCHMARK_END=$(now_millis)
       - export BENCHMARK=$((BENCHMARK_END-BENCHMARK_START))
+      - env
       - /bin/bash deploy/bin/notify-build-success
   post_build:
     commands:
