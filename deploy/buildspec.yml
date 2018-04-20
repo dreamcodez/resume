@@ -6,6 +6,7 @@ env:
 phases:
   install:
     commands:
+      - "now_millis(){  python -c 'import time; print(int(time.time() * 1000))'; }"
       - . deploy/bin/init-deploy-env
       - export BENCHMARK_START=$(now_millis)
       - /bin/bash deploy/bin/credstash-get-deploy-secrets
