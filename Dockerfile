@@ -8,11 +8,6 @@ WORKDIR /tmp/resume-build
 COPY README.md .
 RUN marked -gfm README.md -o index.html
 
-#COPY .allmark/ .allmark/
-#COPY README.md README.md
-
-#CMD allmark serve
-
 FROM alpine:3.7
 
 # runtime deps
