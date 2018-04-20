@@ -7,21 +7,21 @@ phases:
   install:
     commands:
       - . deploy/bin/init-deploy-env
-      - /bin/bash deploy/bin/credstash-get-deploy-secrets
+      - /bin/bash -xeu deploy/bin/credstash-get-deploy-secrets
       - env
   pre_build:
     commands:
-      - /bin/bash deploy/bin/start-docker-dind
+      - /bin/bash -xeu deploy/bin/start-docker-dind
       - sleep 1
-      - /bin/bash deploy/bin/restore-container-build-cache
+      - /bin/bash -xu deploy/bin/restore-container-build-cache
   build:
     commands:
-      - /bin/bash deploy/bin/build-and-push-docker-image
-      - /bin/bash deploy/bin/deploy-chart
-      - /bin/bash deploy/bin/notify-build-success
+      - /bin/bash -xeu deploy/bin/build-and-push-docker-image
+      - /bin/bash -xeu deploy/bin/deploy-chart
+      - /bin/bash -xeu deploy/bin/notify-build-success
   post_build:
     commands:
-      - /bin/bash deploy/bin/save-container-build-cache
+      - /bin/bash -xu deploy/bin/save-container-build-cache
 cache:
   paths:
     - container-build-cache.tar.gz
