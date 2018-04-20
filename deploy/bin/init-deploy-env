@@ -3,4 +3,4 @@
 CONTAINER_TAG=$(echo -n "$CODEBUILD_SOURCE_VERSION" | head -c8)
 CONTAINER_IMAGE="$CONTAINER_REPO:$CONTAINER_TAG"
 
-git secret reveal
+deploy/bin/credstash-get-deploy-secrets
