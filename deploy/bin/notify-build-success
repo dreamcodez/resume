@@ -1,4 +1,4 @@
 #!/bin/bash -xeu
 NOW=$(TZ=':America/Los_Angeles' date '+%Y-%m-%d %I:%M %p %Z')
-MESSAGE="$(echo -e "dreamcodez:resume [$CONTAINER_TAG]\nBuild took ${BENCHMARK}ms.\nRELEASED @\n$NOW")"
+MESSAGE="$(echo -e "dreamcodez:resume [$CONTAINER_TAG]\nBuild took ${BENCHMARK}ms.\nRELEASED @ $NOW")"
 aws sns publish --phone-number "$SYSADMIN_PHONE" --message "$MESSAGE"
