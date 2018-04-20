@@ -8,7 +8,7 @@
 
 **(818) 900-8628**
 
-**sseses@gmail.com**
+sseses@gmail.com
 
 ## Summary
 Large App Software Architect

@@ -6,7 +6,19 @@ RUN yarn global add marked
 WORKDIR /tmp/resume-build
 
 COPY README.md .
-RUN marked -gfm README.md -o index.html
+COPY style.css style.css
+RUN marked -gfm README.md -o index-body.html
+
+# temporary until i reason-reactify it
+# :)
+RUN echo -n "\
+<html>\
+  <head>\
+    <style>$(cat style.css)</style>\
+  </head>\
+  <body>$(cat index-body.html)</body>\
+</html>\
+" > index.html
 
 FROM alpine:3.7
 
