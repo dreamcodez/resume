@@ -1,3 +1,2 @@
 #!/bin/bash -xeu
-export KUBECONFIG=deploy/chart/kubeconfig
 helm upgrade "$HELM_CHART_RELEASE" ./deploy/chart/
