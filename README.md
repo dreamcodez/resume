@@ -1,8 +1,5 @@
-<div class="print-only" style="font-size:smaller">The most up-to-date version of this document can always be found on: <span style="font-family:courier;font-size:smaller">github.com/dreamcodez/resume</span></div>
-
-# Matthew Elder
-
 <img style="float:right" width="300" src="https://i.imgur.com/7IxYT2p.jpg">
+# Matthew Elder
 
 *Los Angeles, California*
 
@@ -14,13 +11,14 @@ sseses@gmail.com
 Large App Software Architect
 
 ## Career Highlights
-Architected the stem application
 
-Implemented a Graph database inside sql for the stem application in addition to implementing graphql as our api backend.
+* Architected the stem application
 
-I have worked on several high domain-rank properties including _bolthouse.com_, _weedmaps.com_, _marijuana.com_, _norml.org_, and _mixxtopia.com_.
+* Implemented a Graph database inside sql for the stem application in addition to implementing graphql as our api backend.
 
-On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
+* I have worked on several high domain-rank properties including _bolthouse.com_, _weedmaps.com_, _marijuana.com_, _norml.org_, and _mixxtopia.com_.
+
+* On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
 
 ## Experience
 ##### Software Architect, LeaseLock, Inc.
@@ -111,3 +109,5 @@ Some upper division coursework completed
 
 * English (fluent)
 * Spanish (beginner, limited vocabulary, but it comes in handy!)
+
+<div class="corner-ribbon top-right sticky green shadow"><a href="https://github.com/dreamcodez/resume" target="_blank">See the code!</a></div>

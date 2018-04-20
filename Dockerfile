@@ -6,7 +6,8 @@ RUN yarn global add marked
 WORKDIR /tmp/resume-build
 
 COPY README.md .
-COPY style.css style.css
+COPY style.css .
+COPY corner-ribbons.css .
 RUN marked -gfm README.md -o index-body.html
 
 # temporary until i reason-reactify it
@@ -14,7 +15,7 @@ RUN marked -gfm README.md -o index-body.html
 RUN echo -n "\
 <html>\
   <head>\
-    <style>$(cat style.css)</style>\
+    <style>$(cat style.css)$(cat corner-ribbons.css)</style>\
   </head>\
   <body>$(cat index-body.html)</body>\
 </html>\
