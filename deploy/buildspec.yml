@@ -6,8 +6,8 @@ env:
 phases:
   install:
     commands:
-      - export BENCHMARK_START=`date +%s`
       - . deploy/bin/init-deploy-env
+      - export BENCHMARK_START=$(now_millis)
       - env
   pre_build:
     commands:
@@ -18,7 +18,7 @@ phases:
     commands:
       - /bin/bash deploy/bin/build-and-push-docker-image
       - /bin/bash deploy/bin/deploy-chart
-      - export BENCHMARK_END=`date +%s`
+      - export BENCHMARK_END=$(now_millis)
       - export BENCHMARK=$((BENCHMARK_END-BENCHMARK_START))
       - /bin/bash deploy/bin/notify-build-success
   post_build:
