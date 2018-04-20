@@ -24,4 +24,4 @@ phases:
       - /bin/bash -xu deploy/bin/save-container-build-cache
 cache:
   paths:
-    - container-build-cache.tar.xz
+    - container-build-cache.tar.gz
