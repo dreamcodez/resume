@@ -22,6 +22,7 @@ WORKDIR /tmp/resume-build
 COPY README.md .
 COPY style.css .
 COPY corner-ribbons.css .
+COPY google-analytics.html .
 
 # PDF generation
 RUN markdown-pdf README.md -o matthew-elder-resume.pdf
@@ -34,7 +35,11 @@ RUN marked -gfm README.md -o index-body.html
 RUN echo -n "\
 <html>\
   <head>\
-    <style>$(cat style.css)$(cat corner-ribbons.css)</style>\
+    $(cat google-analytics.html)\
+    <style>\
+      $(cat style.css)\
+      $(cat corner-ribbons.css)\
+    </style>\
   </head>\
   <body>$(cat index-body.html)</body>\
 </html>\
