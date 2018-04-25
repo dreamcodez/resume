@@ -1,4 +1,4 @@
-<img style="float:right" width="300" src="https://i.imgur.com/7IxYT2p.jpg">
+<img style="float:right" width="150" src="https://i.imgur.com/7IxYT2p.jpg">
 
 # Matthew Elder
 
