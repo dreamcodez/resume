@@ -7,7 +7,6 @@ provider:
   runtime: nodejs8.10
   stage: prod
   region: us-east-1
-  #profile: default
 
 plugins:
   - serverless-finch
@@ -15,7 +14,4 @@ plugins:
 custom:
   client:
     distributionFolder: public
-    bucketName: resume-public-345847e8-830a-40f2-86c7-4b6b351d463f
-    redirectAllRequestsTo:
-      hostName: dreamcodez.cc
-      protocol: https
+    bucketName: dreamcodez.cc
