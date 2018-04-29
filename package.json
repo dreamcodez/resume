@@ -1,0 +1,12 @@
+{
+  "name": "resume",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:dreamcodez/resume.git",
+  "author": "Matthew Elder <sseses@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless": "1.26.1",
+    "serverless-finch": "2.1.0"
+  }
+}

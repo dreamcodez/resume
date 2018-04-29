@@ -1,0 +1,17 @@
+service: example-site
+
+frameworkVersion: "=1.26.1"
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: dev
+  region: us-east-1
+  profile: serverless-admin
+
+plugins:
+  - serverless-finch
+
+custom:
+  client:
+    bucketName: resume-public-345847e8-830a-40f2-86c7-4b6b351d463f
