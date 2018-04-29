@@ -1,0 +1,6 @@
+#!/bin/bash -xeu
+rm -rf public
+docker build -t resume-build .
+docker create --name resume-build-tmp resume-build
+docker cp resume-build-tmp:/app/public/ public/
+docker rm resume-build-tmp
