@@ -1,13 +1,9 @@
 version: 0.2
 
-env:
-  variables:
-     KUBECONFIG: deploy/kubeconfig
 phases:
   install:
     commands:
       - . deploy/bin/init-deploy-env
-      - /bin/bash -xeu deploy/bin/credstash-get-deploy-secrets
       - env
   pre_build:
     commands:
@@ -16,8 +12,8 @@ phases:
       - aws s3 cp s3://deploy-1e16ccd6-002c-43ff-ab0c-455629a17d48/assets/fonts.tar.gz deploy/
   build:
     commands:
-      - /bin/bash -xeu deploy/bin/build-and-push-docker-image
-      - /bin/bash -xeu deploy/bin/deploy-chart
+      - /bin/bash -xeu bin/build
+      - yarn serverless client deploy --no-confirm --no-delete-contents
       - /bin/bash -xeu deploy/bin/notify-build-success
   post_build:
     commands:
