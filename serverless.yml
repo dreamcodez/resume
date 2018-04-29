@@ -16,3 +16,6 @@ custom:
   client:
     distributionFolder: public
     bucketName: resume-public-345847e8-830a-40f2-86c7-4b6b351d463f
+    redirectAllRequestsTo:
+      hostName: dreamcodez.cc
+      protocol: https
