@@ -1,4 +1,5 @@
 /node_modules/
+/public/
 /deploy/kubeconfig
 /deploy/chart/values.yaml
 /deploy/fonts.tar.gz
