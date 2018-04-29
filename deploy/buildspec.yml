@@ -13,6 +13,7 @@ phases:
   build:
     commands:
       - /bin/bash -xeu bin/build
+      - yarn install
       - yarn serverless client deploy --no-confirm --no-delete-contents
       - /bin/bash -xeu deploy/bin/notify-build-success
   post_build:
