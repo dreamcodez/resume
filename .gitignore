@@ -1,3 +1,5 @@
+/node_modules/
 /deploy/kubeconfig
 /deploy/chart/values.yaml
 /deploy/fonts.tar.gz
+/yarn-error.log
