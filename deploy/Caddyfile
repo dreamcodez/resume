@@ -1,7 +1,0 @@
-http://*:8080 {
-  root public
-  gzip
-
-  log stdout
-  errors stdout
-}

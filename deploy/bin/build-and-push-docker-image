@@ -1,5 +1,0 @@
-#!/bin/bash -xeu
-
-eval $(aws ecr get-login --no-include-email --region us-east-1)
-docker build -t "$CONTAINER_IMAGE" .
-docker push "$CONTAINER_IMAGE"
