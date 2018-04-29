@@ -5,9 +5,9 @@ frameworkVersion: "=1.26.1"
 provider:
   name: aws
   runtime: nodejs8.10
-  stage: dev
+  stage: prod
   region: us-east-1
-  profile: default
+  #profile: default
 
 plugins:
   - serverless-finch

@@ -5,6 +5,9 @@
   "repository": "git@github.com:dreamcodez/resume.git",
   "author": "Matthew Elder <sseses@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "deploy": "serverless client deploy --no-confirm --no-delete-contents"
+  },
   "devDependencies": {
     "serverless": "1.26.1",
     "serverless-finch": "2.1.0"
