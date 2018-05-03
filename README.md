@@ -22,8 +22,12 @@ Large App Software Architect
 * On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
 
 ## Experience
+##### Software Architect, BroadVoice, Inc.
+###### May 2018 to Present
+ * Working on B2B Voice-Over-IP Telephony product
+
 ##### Software Architect, LeaseLock, Inc.
-###### November 2017 to Present
+###### November 2017 to April 2018
  * Implemented payment processing system in braintree to handle customer transactions
  * Implemented Continuous deployment with docker, kubernetes, and aws codebuild.
  * Setup best practices for infrastructure-as-code with technologies such as cloudformation, kops, aws codepipeline/codebuild, and of course good ol' s3.
@@ -31,24 +35,19 @@ Large App Software Architect
  * Implemented Apache NiFi for dataflow management with regards to shipping our transactional status updates from braintree to postgres
  * Redesigned and created a good new portion of sql database schema to support new product features
  * Assisted in a product-engineer role in designing an internal tool to both dynamically change and visualize business logic (it used decision trees) which was serialized in a specialized json format.
-***
 ##### Principal Platform Architect, Stem Disintermedia, Inc.
 ###### October 2015 to July 2017 - Hollywood, California
 Stem helps music collaborators receive royalties in a fair way. I architected the system and wrote much of the prototypal code; we used react/relay/graphql/postgres/rabbitmq as our stack. I also envisioned and wrote some of the prototype code for the open sourced join-monster: "A Query Planning and Batch Data Fetching between GraphQL and SQL".
 https://github.com/stems/join-monster
-***
 ##### President, Lambda Software, Inc.
 ###### October 2014 to September 2015 - Los Angeles, California
 I formed Lambda Software as a way to seek funding for startup ventures. I also consulted people on scaling their software architectures.
-***
 ##### Lead Software Developer, Standard Crypto
 ###### November 2013 to September 2014 - Santa Monica, California
 Developed backend technology stack to process bitcoin transactions for an online casino in nodejs/insight. Tuned the layout/platform/architecture of *mixxtopia.com* to optimize adsense revenue.
-***
 ##### Co-Founder / Software Developer, Dimension Software
 ###### January 2013 to October 2013 - Los Angeles, California
 We developed a modern, from-scratch bulletin-board webapp in nodejs / livescript. This software aims to be a platform for the business which is a software as a service. Currently in beta: _powerbulletin.com_.
-***
 ##### Lead Software Developer, WeedMaps Media (_weedmaps.com_)
 ###### January 2011 to December 2012 - Newport Beach, California
 I was in charge of scaling the server architecture on _weedmaps.com_ from 10K to 100K unique pageviews per day. I was also responsible for rewriting key parts of the site (homepage, region page, dispensary page, and search system) in a new nodejs codebase to replace the old Joomla equivalents.
