@@ -86,10 +86,7 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 ## Skills
 
 #### Expert
- * HTML/CSS
  * Javascript / NodeJS
- * LiveScript (compiles to js)
- * CoffeeScript (compiles to js)
  * Babel
  * Webpack
  * SQL/MySQL/PostgreSQL
@@ -98,6 +95,8 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
  * REST
 
 #### Fluent
+ * Rust
+ * Typescript
  * Haskell
  * BASH
  * Python
@@ -113,6 +112,7 @@ It was extremely customer satisfaction driven. We authored a couple original Rub
 
 #### Amateur
  * Perl
+ * .NET
  * Graph Data Structures
 
 #### Basics
