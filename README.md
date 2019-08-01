@@ -9,7 +9,7 @@
 sseses@gmail.com
 
 ## Summary
-Large App Software Architect
+Experienced Developer; Software Architect
 
 ## Career Highlights
 
@@ -22,9 +22,26 @@ Large App Software Architect
 * On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
 
 ## Experience
+##### Platform Architect, Whiteblock, Inc.
+###### December 2018 to August 2019
+I architected the initial platform/cloud side of the system and took a hands on role in designing and implementing new systems and extending existing ones.
+
+* Implemented hashicorps' packer and terraform to automatically provision whiteblock genesis images
+* Worked on whiteblock genesis which is a distributed-system/blockchain network emulation/testing automation tool (mainly written in go)
+* Co-authored initial GUI prototype based on redux and react
+* Wrote initial user-aware api for the GUI frontend in rust; extended it to perform genesis data collection and host/ssh-key management as well as an asymmetrical api token system.
+* Wrote initial passwordless authentication/authorization system using a combination of firebase auth and a custom api endpoint
+* Provisioned development and production environments in google cloud platform, helped transition to having more than one environment
+* Designed prototype using google pubsub and google bigquery to rapidly transform and load network data into bigquery tables
+* Built various docker images for microservices
+* Built automatic push-to-deploy build pipelines with google cloud build to deploy to kubernetes
+
 ##### Software Architect, BroadVoice, Inc.
-###### May 2018 to Present
- * Working on B2B Voice-Over-IP Telephony product
+###### May 2018 to December 2018
+ * Worked on B2B Voice-Over-IP Telephony product frontend written in MobX/ReactJS
+ * Improved SIP.js functionality in frontend app to receive phone calls and place them
+ * Built SIP subscription microservice prototype in rust to replace some slow parts of freeswitch
+ * Assisted in troubleshooting various distributed sql database production issues 
 
 ##### Software Architect, LeaseLock, Inc.
 ###### November 2017 to April 2018
