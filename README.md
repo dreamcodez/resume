@@ -31,7 +31,7 @@ I architected the initial platform/cloud side of the system and took a hands on 
 * Co-authored initial GUI prototype based on redux and react
 * Wrote initial user-aware api for the GUI frontend in rust; extended it to perform genesis data collection and host/ssh-key management as well as an asymmetrical api token system.
 * Wrote initial passwordless authentication/authorization system using a combination of firebase auth and a custom api endpoint
-* Provisioned development and production environments in google cloud platform, helped transition to having more than one environment
+* Provisioned development and production environments using kubernetes in google cloud platform, helped transition to having more than one environment
 * Designed prototype using google pubsub and google bigquery to rapidly transform and load network data into bigquery tables
 * Built various docker images for microservices
 * Built automatic push-to-deploy build pipelines with google cloud build to deploy to kubernetes
