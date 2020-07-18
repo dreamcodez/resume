@@ -22,8 +22,18 @@ Experienced Developer; Software Architect
 * On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
 
 ## Experience
+##### Software Engineer, Endpoint Escrow Inc.
+###### August 2019 to Present
+Endpoint is a company which is disrupting escrow/mortgage by streamlining and automating much of the process.
+
+* Implemented (in production) a strategy to communicate with the existing legacy database while building new features.
+* Helping facilitate transition to Microservice Architecture from our monolith
+* Collaborated on GraphQL api to service our internal admin needs
+* Extended & Created new databases schemas (dynamo) for new services being built
+
 ##### Platform Architect, Whiteblock, Inc.
 ###### December 2018 to August 2019
+Whiteblock sells professional testing services to blockchain technology companies. 
 I architected the initial platform/cloud side of the system and took a hands on role in designing and implementing new systems and extending existing ones.
 
 * Implemented hashicorps' packer and terraform to automatically provision whiteblock genesis images
@@ -129,11 +139,5 @@ Some upper division coursework completed
 ## Languages
 
 * English (fluent)
-* Spanish (beginner, limited vocabulary, but it comes in handy!)
+* Spanish (basic)
 
-## Links
-<div class="corner-ribbon top-right sticky red shadow">
-  <a href="https://dreamcodez.cc/matthew-elder-resume.pdf">Download PDF</a>
-</div>
-
-<a href="https://github.com/dreamcodez/resume" target="_blank">View Source</a>
