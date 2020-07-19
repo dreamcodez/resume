@@ -15,6 +15,12 @@
 		margin: 0 0 1em 0;
 		line-height: 1.5;
 	}
+	ul li {
+		padding: 1em;
+	}
+	ul li:hover {
+		background-color: #e9ffdc;
+	}
 	h4 {
 		font-style: italic;
 	}
@@ -33,7 +39,7 @@
 <ul>
 	{#each jobs as job}
 		<li>
-		    <h2>{job.company}</h2>
+		    <h2><a href={job.companyWebsite} target="_blank">{job.company}</a></h2>
 			<h3>{job.jobTitle}</h3>
 			<h4>{job.start} to {job.end || 'Present'}</h4>
 			<p class="companyDescription">{job.companyDescription}</p>

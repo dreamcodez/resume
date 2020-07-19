@@ -1,6 +1,7 @@
 export interface Job {
     company: string;
     companyDescription: string;
+    companyWebsite: string;
     jobTitle: string;
     start: string;
     end: string | null;
@@ -11,6 +12,7 @@ export default [
     {
         company: 'Endpoint Escrow Inc.',
         companyDescription: 'Endpoint is a company which is disrupting escrow/mortgage by streamlining and automating much of the process.',
+        companyWebsite: 'https://endpointclosing.com',
         jobTitle: 'Senior Software Engineer',
         start: '2019-08',
         end: null,
@@ -24,6 +26,7 @@ export default [
     {
         company: 'Whiteblock Inc.',
         companyDescription: 'Whiteblock sells professional testing services to blockchain technology companies.',
+        companyWebsite: 'https://whiteblock.io',
         jobTitle: 'Platform Architect',
         start: '2018-12',
         end: '2019-08',
@@ -33,6 +36,7 @@ export default [
     {
         company: 'BroadVoice Inc.',
         companyDescription: 'Broadvoice sells Cloud Voice-Over-IP and Communications services to small, medium, and enterprise businesses.',
+        companyWebsite: 'https://www.broadvoice.com',
         jobTitle: 'Software Architect',
         start: '2018-05',
         end: '2018-12',
@@ -42,6 +46,7 @@ export default [
     {
         company: 'LeaseLock Inc.',
         companyDescription: 'TODO',
+        companyWebsite: 'https://leaselock.com',
         jobTitle: 'Software Architect',
         start: '2017-11',
         end: '2018-04',
@@ -51,6 +56,7 @@ export default [
     {
         company: 'Stem Disintermedia Inc.',
         companyDescription: 'Stem helps music collaborators receive royalties in a fair way.',
+        companyWebsite: 'https://stem.is',
         jobTitle: 'Principal Platform Architect',
         start: '2015-10',
         end: '2017-07',
