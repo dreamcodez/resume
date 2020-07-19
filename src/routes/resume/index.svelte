@@ -13,12 +13,14 @@
 
 <style>
 	ul {
-		padding: 0;
-		margin: 0;
 		line-height: 1.5;
+	}
+	ul.experience {
+		padding: 1em 0em;
+		margin: 0;
 		list-style: none;
 	}
-	ul li {
+	ul.experience li {
 		margin: 0;
 		padding: 1em;
 	}
@@ -41,7 +43,7 @@
 
 <h1>Experience</h1>
 
-<ul>
+<ul class="experience">
 	{#each jobs as job}
 		<li>
 		    <h2><a href={job.companyWebsite} target="_blank">{job.company}</a></h2>
@@ -49,5 +51,21 @@
 			<h4>{job.start} to {job.end || 'Present'}</h4>
 			<p class="companyDescription">{job.companyDescription}</p>
 		</li>
+	{/each}
+</ul>
+
+<h1>Skills</h1>
+
+<h2>Expert</h2>
+<ul>
+	{#each skills.filter(s => s.level === 'Expert') as skill}
+		<li>{skill.name}</li>
+	{/each}
+</ul>
+
+<h2>Fluent</h2>
+<ul>
+	{#each skills.filter(s => s.level === 'Fluent') as skill}
+		<li>{skill.name}</li>
 	{/each}
 </ul>

@@ -65,6 +65,10 @@ export default [
         level: 'Fluent'
     },
     {
+        name: 'Rust',
+        level: 'Fluent'
+    },
+    {
         name: 'Amazon ECS / Kubernetes',
         level: 'Fluent'
     },
