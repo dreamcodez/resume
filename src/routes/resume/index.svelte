@@ -8,6 +8,7 @@
 
 <script>
 	export let jobs;
+	export let skills;
 </script>
 
 <style>
