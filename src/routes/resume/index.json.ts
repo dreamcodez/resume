@@ -1,13 +1,14 @@
-import posts from './_posts.js';
+import { default as jobs, Job } from './_jobs';
 import { Request } from 'polka';
 import { ServerResponse as Response } from 'http';
 
-const contents = JSON.stringify(posts.map(post => {
-	return {
-		title: post.title,
-		slug: post.slug
-	};
-}));
+export interface ResumeContents {
+	jobs: Job[],
+}
+
+const contents: string = JSON.stringify({
+	jobs
+} as ResumeContents);
 
 export function get(_req: Request, res: Response) {
 	res.writeHead(200, {
