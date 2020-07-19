@@ -13,13 +13,17 @@
 
 <style>
 	ul {
-		margin: 0 0 1em 0;
+		padding: 0;
+		margin: 0;
 		line-height: 1.5;
+		list-style: none;
 	}
 	ul li {
+		margin: 0;
 		padding: 1em;
 	}
 	ul li:hover {
+        border-radius: 25px;
 		background-color: #e9ffdc;
 	}
 	h4 {
