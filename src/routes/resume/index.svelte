@@ -15,6 +15,13 @@
 		margin: 0 0 1em 0;
 		line-height: 1.5;
 	}
+	h4 {
+		font-style: italic;
+	}
+	p.companyDescription {
+		font-size: larger;
+		font-family: 'helvetica';
+	}
 </style>
 
 <svelte:head>
@@ -25,6 +32,11 @@
 
 <ul>
 	{#each jobs as job}
-		<li>{job.company}</li>
+		<li>
+		    <h2>{job.company}</h2>
+			<h3>{job.jobTitle}</h3>
+			<h4>{job.start} to {job.end || 'Present'}</h4>
+			<p class="companyDescription">{job.companyDescription}</p>
+		</li>
 	{/each}
 </ul>
