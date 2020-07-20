@@ -19,6 +19,7 @@ const posts: Post[] = [
 		title: 'So I Built a New Home Page.',
 		slug: 'built-a-new-homepage',
 		html: `
+		    <i>July 19, 2020</i>
 			<p>I used <a href='https://svelte.dev'>Svelte</a> to redo / re-imagine my home page.</p>
 
 			<p>So far, it's a breeze and the framework mostly gets out of the way ;)</p>
