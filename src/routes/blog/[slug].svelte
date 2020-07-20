@@ -16,7 +16,6 @@
 <script>
 	import marked from 'marked';
 	export let post;
-	console.log('T', marked(post.markdownBody));
 </script>
 
 <style>
