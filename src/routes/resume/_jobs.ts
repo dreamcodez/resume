@@ -45,7 +45,7 @@ export default [
     },
     {
         company: 'LeaseLock Inc.',
-        companyDescription: 'TODO',
+        companyDescription: 'LeaseLock powers a modern lease experience that totally eliminates all security deposits, surety bonds and guarantors.',
         companyWebsite: 'https://leaselock.com',
         jobTitle: 'Software Architect',
         start: '2017-11',
