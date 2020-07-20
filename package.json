@@ -6,10 +6,11 @@
     "dev": "sapper dev",
     "build": "sapper build --legacy",
     "export": "sapper export --legacy",
+    "export:clean": "rm -rf __sapper__/export",
     "start": "node __sapper__/build",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "gcp:sync": "gsutil -m rsync -cdR __sapper__/export gs://dreamcodez.cc",
+    "gcp:sync": "yarn export:clean && yarn:export && gsutil -m rsync -cdR __sapper__/export gs://dreamcodez.cc",
     "test": "run-p --race dev cy:run"
   },
   "dependencies": {
