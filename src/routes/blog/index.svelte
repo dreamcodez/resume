@@ -1,7 +1,7 @@
 <script context="module">
 	export function preload({ params, query }) {
 		return this.fetch(`/blog.json`).then(r => r.json()).then(posts => {
-			return { posts };
+			return { posts: posts.reverse() };
 		});
 	}
 </script>
@@ -24,7 +24,7 @@
 <h1>Recent posts</h1>
 
 <ul>
-	{#each posts.reverse() as post}
+	{#each posts as post}
 		<!-- we're using the non-standard `rel=prefetch` attribute to
 				tell Sapper to load the data for the page as soon as
 				the user hovers over the link or taps it, instead of
