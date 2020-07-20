@@ -1,6 +1,8 @@
 {
-  "name": "TODO",
-  "description": "TODO",
+  "name": "dreamcodez-cc",
+  "description": "Matthew Elders' Website",
+  "license": "UNLICENSED",
+  "private": true,
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",
@@ -10,7 +12,7 @@
     "start": "node __sapper__/build",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "gcp:sync": "yarn export:clean && yarn export && gsutil -m rsync -cdr __sapper__/export/ gs://dreamcodez.cc",
+    "gcp:sync": "yarn export:clean && yarn export && (gsutil -m rm -r 'gs://dreamcodez.cc/*' || true) && gsutil -m cp -r __sapper__/export/* gs://dreamcodez.cc",
     "test": "run-p --race dev cy:run"
   },
   "dependencies": {
