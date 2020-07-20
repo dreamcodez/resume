@@ -12,6 +12,9 @@
 </script>
 
 <style>
+    a.company {
+		text-decoration: none;
+	}
 	ul {
 		line-height: 1.5;
 	}
@@ -46,7 +49,7 @@
 <ul class="experience">
 	{#each jobs as job}
 		<li>
-		    <h2><a href={job.companyWebsite} target="_blank">{job.company}</a></h2>
+		    <h2><a class="company" href={job.companyWebsite} target="_blank">{job.company} 🔗 </a></h2>
 			<h3>{job.jobTitle}</h3>
 			<h4>{job.start} to {job.end || 'Present'}</h4>
 			<p class="companyDescription">{job.companyDescription}</p>
