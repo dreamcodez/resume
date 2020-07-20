@@ -44,6 +44,15 @@
 	<title>Matthew Elders' Resume</title>
 </svelte:head>
 
+<p>
+This web-based resume is a work in progress. For the 'stable' version of my resume:
+</p>
+
+<ul>
+<li><a href="https://github.com/dreamcodez/resume/blob/main/README.md">Markdown (GitHub) version</a></li>
+<li><a href="https://github.com/dreamcodez/resume/raw/main/README.pdf">PDF Version</a></li>
+</ul>
+
 <h1>Experience</h1>
 
 <ul class="experience">
