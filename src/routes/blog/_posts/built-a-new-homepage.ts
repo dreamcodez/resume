@@ -7,7 +7,7 @@ The [marked npm package](https://www.npmjs.com/package/marked) is used to conver
 `;
 
 export default {
-    title: 'So I Built a New Home Page.',
+    title: 'So I Built a New Home Page',
     slug: 'built-a-new-homepage',
     date: '2020-07-19',
     markdownBody,
