@@ -9,6 +9,6 @@
 <ul>
     <li>This site is built in <a href="https://sapper.svelte.dev">Svelte + Sapper</a></li>
 	<li>The typescript plugin for Svelte is also used.</li>
-	<li>Deployed on Google Cloud Run w/ minimal container. (see github Dockerfile)</li>
+	<li>Static assets are exported to Google Cloud Storage w/ Cloudflare CDN in front.</li>
 	<li>The code is available on github here.</li>
 </ul>
