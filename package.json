@@ -7,12 +7,9 @@
   "scripts": {
     "dev": "sapper dev",
     "build": "sapper build --legacy",
-    "export": "sapper export --basepath /",
-    "export:clean": "rm -rf __sapper__/export",
     "start": "node __sapper__/build",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "gcp:sync": "yarn export:clean && yarn export && (gsutil -m rm -r 'gs://dreamcodez.cc/*' || true) && gsutil -m cp -r __sapper__/export/* gs://dreamcodez.cc",
     "test": "run-p --race dev cy:run"
   },
   "dependencies": {
