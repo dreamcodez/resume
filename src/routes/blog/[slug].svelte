@@ -14,7 +14,9 @@
 </script>
 
 <script>
+	import marked from 'marked';
 	export let post;
+	console.log('T', marked(post.markdownBody));
 </script>
 
 <style>
@@ -60,5 +62,5 @@
 <h1>{post.title}</h1>
 
 <div class='content'>
-	{@html post.html}
+	{@html marked(post.markdownBody)}
 </div>

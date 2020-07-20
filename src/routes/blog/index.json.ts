@@ -1,4 +1,4 @@
-import posts from './_posts.js';
+import posts from './_posts/index.js';
 import { Request } from 'polka';
 import { ServerResponse as Response } from 'http';
 

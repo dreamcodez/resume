@@ -1,4 +1,4 @@
-import posts from './_posts';
+import posts from './_posts/index';
 import { Request} from 'polka';
 import { ServerResponse as Response } from 'http';
 
