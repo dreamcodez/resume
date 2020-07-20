@@ -13,9 +13,6 @@ jobs:
       run: echo "${{secrets.GCR_TOKEN}}" | base64 -d | docker login -u _json_key --password-stdin gcr.io
     - name: Build & Push
       run: |
-       docker build . -t gcr.io/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
-       docker push gcr.io/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
-      working-directory: 'services/example-action-svc'
-      
-
+        docker build . -t gcr.io/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
+        docker push gcr.io/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
   
