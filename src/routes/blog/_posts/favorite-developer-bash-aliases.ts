@@ -1,7 +1,7 @@
 const markdownBody = `
 I was recently reformatting my laptop for the nth time in the past year and I have been carrying around some bash aliases i've used for years. They need to be on my machine because otherwise my muscle memory will not work :)
 
-A bit ago I decided to put it in a pubic git repo to share and for easy reference for myself. It is available here:
+A bit ago I decided to put it in a public git repo to share and for easy reference for myself. It is available here:
 
 https://github.com/dreamcodez/shell-shortcuts/blob/master/.shortcuts
 
