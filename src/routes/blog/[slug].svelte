@@ -59,6 +59,7 @@
 </svelte:head>
 
 <h1>{post.title}</h1>
+<i>{post.date}</i>
 
 <div class='content'>
 	{@html marked(post.markdownBody)}
