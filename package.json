@@ -1,7 +1,7 @@
 {
   "name": "dreamcodez-cc",
   "description": "Matthew Elders' Website",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "version": "0.0.1",
   "scripts": {
