@@ -10,6 +10,18 @@ export interface Job {
 
 export default [
   {
+    company: "Umee (Now UX Chain)",
+    companyDescription:
+      "UX Chain, formerly UMEE, is a layer-one blockchain within the Cosmos ecosystem, dedicated to enhancing user experience and fostering innovation in decentralised finance (DeFi). As a universal cross-chain DeFi hub, it provides the groundwork for future DApps and financial components, known as “money legos,” within the DeFi landscape.",
+    companyWebsite: "https://www.ux.xyz",
+    jobTitle: "Head Infrastructure Engineer",
+    start: "2021-12",
+    end: "2023-03",
+    markdown: `
+      Automated deployment of several blockchain test networks. Used Pulumi in golang to automate genesis ceremony and wallet funding on these test networks. Built out & trained a team to manage the devops & infrastructure side.
+    `,
+  },
+  {
     company: "HelloTech Inc.",
     companyDescription:
       "HelloTech is an innovative b2b application which enables service workers to be dispatched for technical installations such as TV mounts and Wi-Fi installs with partners like Wal-Mart, Amazon & SimpliSafe.",
