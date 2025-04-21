@@ -101,6 +101,7 @@ export default [
     start: "2011-01",
     end: "2012-12",
     markdown: `
+    Worked on various projects including coupons, menus, and server optimization (linux). I spent a few months overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
         `,
   },
 ] as Job[];
