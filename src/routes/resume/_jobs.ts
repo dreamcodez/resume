@@ -92,6 +92,17 @@ export default [
     markdown: `
         `,
   },
+  {
+    company: "Weedmaps Media",
+    companyDescription:
+      "WeedMaps helps medical marijuana patients find dispensaries and provides helpful reviews and menus.",
+    companyWebsite: "https://stem.is",
+    jobTitle: "Lead Software Developer",
+    start: "2011-01",
+    end: "2012-12",
+    markdown: `
+        `,
+  },
 ] as Job[];
 
 /*
