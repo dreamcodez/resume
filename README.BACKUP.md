@@ -2,15 +2,16 @@
 
 # Matthew Elder
 
-_Los Angeles, California_
+_Denver, Colorado_
+_Orange County, California_
 
 **(818) 900-8628**
 
-sseses@gmail.com
+matt@jupitersoft.net
 
 ## Summary
 
-Experienced Developer; Software Architect
+Experienced Developer; Software Architect -- startup experience.
 
 ## Career Highlights
 

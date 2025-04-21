@@ -4,7 +4,10 @@ import fs from "fs";
 import _jobs from "../src/routes/resume/_jobs";
 let jobs = _jobs.default;
 
-let out = "## Jobs";
+let out = "";
+out += fs.readFileSync("README.preamble.md").toString();
+
+out += "## Jobs";
 
 for (const job of jobs) {
   out += `\n\n### ${job.jobTitle} @ ${job.company}`;
