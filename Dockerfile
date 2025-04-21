@@ -1,4 +1,4 @@
-FROM node:12.18.2-alpine3.12 AS toolchain
+FROM --platform=linux/amd64 node:12.18.2-alpine3.12 AS toolchain
 
 
 FROM toolchain AS built
@@ -16,7 +16,7 @@ COPY static/ static/
 COPY typings/ typings/
 RUN yarn build
 
-FROM node:12.18.2-alpine3.12 AS final
+FROM --platform=linux/amd64 node:12.18.2-alpine3.12 AS final
 
 WORKDIR /opt/app
 
