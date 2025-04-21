@@ -2,17 +2,16 @@ name: Home Page (dreamcodez.cc)
 on:
   push:
     branches:
-    - main
+      - main
 jobs:
   build-and-push:
     name: Build & Push Final Docker Image to GCR
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Login to GCR
-      run: echo "${{secrets.GCR_TOKEN}}" | base64 -d | docker login -u _json_key --password-stdin gcr.io
-    - name: Build & Push
-      run: |
-        docker build . -t gcr.io/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
-        docker push gcr.io/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
-  
+      - uses: actions/checkout@v2
+      - name: Login to GCR
+        run: echo "${{secrets.GCR_TOKEN}}" | base64 -d | docker login -u _json_key --password-stdin gcr.io
+      - name: Build & Push
+        run: |
+          docker build . -t us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
+          docker push us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
