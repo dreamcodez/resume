@@ -1,0 +1,20 @@
+#!npx tsx
+
+import fs from "fs";
+import _jobs from "../src/routes/resume/_jobs";
+let jobs = _jobs.default;
+
+let out = "## Jobs";
+
+for (const job of jobs) {
+  out += `\n\n### ${job.jobTitle} @ ${job.company}`;
+  out += `\n\n*${job.start} to ${job.end}*`;
+  out += "\n\n" + job.companyDescription;
+  out += `\n\n ${job.markdown}`;
+  if (job.companyWebsite) {
+    out += `\n\n[${job.companyWebsite}](${job.companyWebsite})`;
+  }
+}
+
+fs.writeFileSync("README.md", out);
+//console.log(out);

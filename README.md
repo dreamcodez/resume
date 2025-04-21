@@ -1,144 +1,96 @@
-<img style="float:right" width="150" src="https://i.imgur.com/7IxYT2p.jpg">
+## Jobs
 
-# Matthew Elder
+### Head Infrastructure Engineer @ Umee (Now UX Chain)
 
-*Los Angeles, California*
+*2021-12 to 2023-03*
 
-**(818) 900-8628**
+UX Chain, formerly UMEE, is a layer-one blockchain within the Cosmos ecosystem, dedicated to enhancing user experience and fostering innovation in decentralised finance (DeFi). As a universal cross-chain DeFi hub, it provides the groundwork for future DApps and financial components, known as “money legos,” within the DeFi landscape.
 
-sseses@gmail.com
+ 
+      Automated deployment of several blockchain test networks. Used Pulumi in golang to automate genesis ceremony and wallet funding on these test networks. Built out & trained a team to manage the devops & infrastructure side.
+    
 
-## Summary
-Experienced Developer; Software Architect
+[https://www.ux.xyz](https://www.ux.xyz)
 
-## Career Highlights
+### Senior Software Engineer @ HelloTech Inc.
 
-* Architected the stem application
+*2020-12 to 2021-12*
 
-* Implemented a Graph database inside sql for the stem application in addition to implementing graphql as our api backend.
+HelloTech is an innovative b2b application which enables service workers to be dispatched for technical installations such as TV mounts and Wi-Fi installs with partners like Wal-Mart, Amazon & SimpliSafe.
 
-* I have worked on several high domain-rank properties including _bolthouse.com_, _weedmaps.com_, _marijuana.com_, _norml.org_, and _mixxtopia.com_.
+ 
+    Worked on several microservices and designed new database and protobuf schemas to support feature work. Refactored database to improve performance.
+    
 
-* On these properties I was responsible for various aspects such as SEO optimization of content, server architecture design, and software development. I am well versed in Linux, Mac, and Windows systems.
+[https://www.hellotech.com](https://www.hellotech.com)
 
-## Experience
-##### Software Engineer, Endpoint Escrow Inc.
-###### August 2019 to Present
+### Senior Software Engineer @ Endpoint Escrow Inc.
+
+*2019-09 to 2020-12*
+
 Endpoint is a company which is disrupting escrow/mortgage by streamlining and automating much of the process.
 
-* Implemented (in production) a strategy to communicate with the existing legacy database while building new features.
-* Helping facilitate transition to Microservice Architecture from our monolith
-* Collaborated on GraphQL api to service our internal admin needs
-* Extended & Created new databases schemas (dynamo) for new services being built
+ 
+            * Implemented (in production) a strategy to communicate with the existing legacy database while building new features.
+            * Helping facilitate transition to Microservice Architecture from our monolith
+            * Collaborated on GraphQL api to service our internal admin needs
+            * Extended & Created new databases schemas (dynamo) for new services being built
+        
 
-##### Platform Architect, Whiteblock, Inc.
-###### December 2018 to August 2019
-Whiteblock sells professional testing services to blockchain technology companies. 
-I architected the initial platform/cloud side of the system and took a hands on role in designing and implementing new systems and extending existing ones.
+[https://endpointclosing.com](https://endpointclosing.com)
 
-* Implemented hashicorps' packer and terraform to automatically provision whiteblock genesis images
-* Worked on whiteblock genesis which is a distributed-system/blockchain network emulation/testing automation tool (mainly written in go)
-* Co-authored initial GUI prototype based on redux and react
-* Wrote initial user-aware api for the GUI frontend in rust; extended it to perform genesis data collection and host/ssh-key management as well as an asymmetrical api token system.
-* Wrote initial passwordless authentication/authorization system using a combination of firebase auth and a custom api endpoint
-* Provisioned development and production environments using kubernetes in google cloud platform, helped transition to having more than one environment
-* Designed prototype using google pubsub and google bigquery to rapidly transform and load network data into bigquery tables
-* Built various docker images for microservices
-* Built automatic push-to-deploy build pipelines with google cloud build to deploy to kubernetes
+### Platform Architect @ Whiteblock Inc.
 
-##### Software Architect, BroadVoice, Inc.
-###### May 2018 to December 2018
- * Worked on B2B Voice-Over-IP Telephony product frontend written in MobX/ReactJS
- * Improved SIP.js functionality in frontend app to receive phone calls and place them
- * Built SIP subscription microservice prototype in rust to replace some slow parts of freeswitch
- * Assisted in troubleshooting various distributed sql database production issues 
+*2018-12 to 2019-08*
 
-##### Software Architect, LeaseLock, Inc.
-###### November 2017 to April 2018
- * Implemented payment processing system in braintree to handle customer transactions
- * Implemented Continuous deployment with docker, kubernetes, and aws codebuild.
- * Setup best practices for infrastructure-as-code with technologies such as cloudformation, kops, aws codepipeline/codebuild, and of course good ol' s3.
- * Refined processes with git for faster release cycles.
- * Implemented Apache NiFi for dataflow management with regards to shipping our transactional status updates from braintree to postgres
- * Redesigned and created a good new portion of sql database schema to support new product features
- * Assisted in a product-engineer role in designing an internal tool to both dynamically change and visualize business logic (it used decision trees) which was serialized in a specialized json format.
+Whiteblock sells professional testing services to blockchain technology companies.
 
-##### Principal Platform Architect, Stem Disintermedia, Inc.
-###### October 2015 to July 2017 - Hollywood, California
-Stem helps music collaborators receive royalties in a fair way. I architected the system and wrote much of the prototypal code; we used react/relay/graphql/postgres/rabbitmq as our stack. I also envisioned and wrote some of the prototype code for the open sourced join-monster: "A Query Planning and Batch Data Fetching between GraphQL and SQL".
-https://github.com/stems/join-monster
+ 
+        
 
-##### President, Lambda Software, Inc.
-###### October 2014 to September 2015 - Los Angeles, California
-I formed Lambda Software as a way to seek funding for startup ventures. I also consulted people on scaling their software architectures.
+[https://whiteblock.io](https://whiteblock.io)
 
-##### Lead Software Developer, Standard Crypto
-###### November 2013 to September 2014 - Santa Monica, California
-Developed backend technology stack to process bitcoin transactions for an online casino in nodejs/insight. Tuned the layout/platform/architecture of *mixxtopia.com* to optimize adsense revenue.
+### Software Architect @ BroadVoice Inc.
 
-##### Co-Founder / Software Developer, Dimension Software
-###### January 2013 to October 2013 - Los Angeles, California
-We developed a modern, from-scratch bulletin-board webapp in nodejs / livescript. This software aims to be a platform for the business which is a software as a service. Currently in beta: _powerbulletin.com_.
+*2018-05 to 2018-12*
 
-##### Lead Software Developer, WeedMaps Media (_weedmaps.com_)
-###### January 2011 to December 2012 - Newport Beach, California
-I was in charge of scaling the server architecture on _weedmaps.com_ from 10K to 100K unique pageviews per day. I was also responsible for rewriting key parts of the site (homepage, region page, dispensary page, and search system) in a new nodejs codebase to replace the old Joomla equivalents.
+Broadvoice sells Cloud Voice-Over-IP and Communications services to small, medium, and enterprise businesses.
 
-##### Senior System Administrator, Bolthouse Farms (_bolthouse.com_)
-###### February 2009 to December 2010 - Bakersfield, California
-Implemented many software solutions including an HA VMware cluster, Business Objects BI, an HA SQL Server Cluster, several intrusion detection systems, and some internal applications. I was one of 3 responsible for overseeing 200 servers both physical and virtual at the company datacenter. I also assisted the marketing team from a near seo-disaster when they launched a flash-only website and almost lost several years of hard earned link-juice (their old html content pages). We converted the graphical concept to an html-friendly concept and incorporated old good content.
+ 
+        
 
-##### Lead Software Developer, Jupiter Laboratories, Corp.
-###### January 2007 to January 2009 - San Diego, California
-It was extremely customer satisfaction driven. We authored a couple original Ruby on Rails codebases for customers; I was also trusted with tasks such as maintenance of email, web, and dns systems. Overall I was the person people would go to when they ran into a technical challenge.
+[https://www.broadvoice.com](https://www.broadvoice.com)
 
+### Software Architect @ LeaseLock Inc.
 
-## Skills
+*2017-11 to 2018-04*
 
-#### Expert
- * Javascript / NodeJS
- * Babel
- * Webpack
- * SQL/MySQL/PostgreSQL
- * Ruby/Ruby on Rails
- * Linux / Mac OS X / BSD Command line
- * REST
+LeaseLock powers a modern lease experience that totally eliminates all security deposits, surety bonds and guarantors.
 
-#### Fluent
- * Rust
- * Typescript
- * Haskell
- * BASH
- * Python
- * Java
- * C/C++
- * GraphQL
- * ReactJS
- * Kubernetes
- * Amazon ECS
- * Docker
- * git/mercurial/version control
- * Apache NiFi
+ 
+        
 
-#### Amateur
- * Perl
- * .NET
- * Graph Data Structures
+[https://leaselock.com](https://leaselock.com)
 
-#### Basics
- * Erlang
- * Smalltalk, Visual Works, AmberJS
- * _______ (your NICHE skill here, I am willing to learn!)
+### Principal Platform Architect @ Stem Disintermedia Inc.
 
-## Education
-##### California State University, Computer Science
-###### 2005 - 2008
-Some upper division coursework completed
+*2015-10 to 2017-07*
 
+Stem helps music collaborators receive royalties in a fair way.
 
-## Languages
+ 
+        
 
-* English (fluent)
-* Spanish (basic)
+[https://stem.is](https://stem.is)
 
-lkjlkj:
+### Lead Software Developer @ Weedmaps Media
+
+*2011-01 to 2012-12*
+
+WeedMaps helps medical marijuana patients find dispensaries and provides helpful reviews and menus.
+
+ 
+    Worked on various projects including coupons, menus, and server optimization (linux). I spent a few months overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
+        
+
+[https://stem.is](https://stem.is)
