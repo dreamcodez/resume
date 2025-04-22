@@ -18,10 +18,10 @@ jobs:
           service_account: github-docker-access@personal-sandbox-159823.iam.gserviceaccount.com
       - run: gcloud auth configure-docker us-central1-docker.pkg.dev --project=personal-sandbox-159823 --quiet
       - name: Build & Push
-        run: |
-          docker build . -t us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc/web:${{ github.sha}}
-          docker push us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc/web:${{ github.sha}}
-          - id: 'deploy'
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc/web:${{ github.sha}}
       - uses: "google-github-actions/deploy-cloudrun@v2"
         with:
           project_id: personal-sandbox-159823
