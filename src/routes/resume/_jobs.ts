@@ -18,8 +18,7 @@ export default [
     start: "2021-12",
     end: "2023-03",
     markdown: `
-      Automated deployment of several blockchain test networks. Used Pulumi in golang to automate genesis ceremony and wallet funding on these test networks. Built out & trained a team to manage the devops & infrastructure side.
-    `,
+Automated deployment of several blockchain test networks. Used Pulumi in golang to automate genesis ceremony and wallet funding on these test networks. Built out & trained a team to manage the devops & infrastructure side.`,
   },
   {
     company: "HelloTech Inc.",
@@ -30,8 +29,7 @@ export default [
     start: "2020-12",
     end: "2021-12",
     markdown: `
-    Worked on several microservices and designed new database and protobuf schemas to support feature work. Refactored database to improve performance.
-    `,
+Worked on several microservices and designed new database and protobuf schemas to support feature work. Refactored database to improve performance. `,
   },
   {
     company: "Endpoint Escrow Inc.",
@@ -42,11 +40,10 @@ export default [
     start: "2019-09",
     end: "2020-12",
     markdown: `
-            * Implemented (in production) a strategy to communicate with the existing legacy database while building new features.
-            * Helping facilitate transition to Microservice Architecture from our monolith
-            * Collaborated on GraphQL api to service our internal admin needs
-            * Extended & Created new databases schemas (dynamo) for new services being built
-        `,
+* Implemented (in production) a strategy to communicate with the existing legacy database while building new features.
+* Helping facilitate transition to Microservice Architecture from our monolith
+* Collaborated on GraphQL api to service our internal admin needs
+* Extended & Created new databases schemas (dynamo) for new services being built`,
   },
   {
     company: "Whiteblock Inc.",
@@ -101,7 +98,9 @@ export default [
     start: "2011-01",
     end: "2012-12",
     markdown: `
-    Worked on various projects including coupons, menus, and server optimization (linux). I spent a few months overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
+    Worked on various projects including coupons, menus, and server optimization (linux).
+    
+    I spent nearly a year overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
         `,
   },
 ] as Job[];
