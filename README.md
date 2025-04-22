@@ -102,9 +102,8 @@ Stem helps music collaborators receive royalties in a fair way.
 WeedMaps helps medical marijuana patients find dispensaries and provides helpful reviews and menus.
 
  
-    Worked on various projects including coupons, menus, and server optimization (linux).
+Worked on various projects including coupons, menus, and server optimization (linux).
     
-    I spent nearly a year overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
-        
+I spent nearly a year overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
 
 [https://weedmaps.com](https://weedmaps.com)

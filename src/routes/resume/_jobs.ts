@@ -98,10 +98,9 @@ Worked on several microservices and designed new database and protobuf schemas t
     start: "2011-01",
     end: "2012-12",
     markdown: `
-    Worked on various projects including coupons, menus, and server optimization (linux).
+Worked on various projects including coupons, menus, and server optimization (linux).
     
-    I spent nearly a year overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
-        `,
+I spent nearly a year overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.`,
   },
 ] as Job[];
 
