@@ -96,7 +96,7 @@ export default [
     company: "Weedmaps Media",
     companyDescription:
       "WeedMaps helps medical marijuana patients find dispensaries and provides helpful reviews and menus.",
-    companyWebsite: "https://stem.is",
+    companyWebsite: "https://weedmaps.com",
     jobTitle: "Lead Software Developer",
     start: "2011-01",
     end: "2012-12",

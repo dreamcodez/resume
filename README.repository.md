@@ -1,6 +1,7 @@
 # mac markdown-to-pdf pipeline
 
-brew install pandoc pdfly
+brew install pandoc
+brew install --cask mactex
 
 # linux (TODO for github actions integration)
 

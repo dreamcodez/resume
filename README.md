@@ -108,4 +108,4 @@ WeedMaps helps medical marijuana patients find dispensaries and provides helpful
     Worked on various projects including coupons, menus, and server optimization (linux). I spent a few months overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
         
 
-[https://stem.is](https://stem.is)
+[https://weedmaps.com](https://weedmaps.com)
