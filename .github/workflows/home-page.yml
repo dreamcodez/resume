@@ -16,7 +16,7 @@ jobs:
         with:
           workload_identity_provider: projects/1030275258687/locations/global/workloadIdentityPools/github-dreamcodez/providers/github
           service_account: github-docker-access@personal-sandbox-159823.iam.gserviceaccount.com
-      - run: gcloud auth configure-docker us-central1-docker.pkg.dev --project=personal-sandbox-159823
+      - run: gcloud auth configure-docker us-central1-docker.pkg.dev --project=personal-sandbox-159823 --quiet
       - name: Build & Push
         run: |
           docker build . -t us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
