@@ -5,6 +5,9 @@ on:
       - main
 jobs:
   build-and-push:
+    permissions:
+      contents: read
+      id-token: write
     name: Build & Push Final Docker Image to GCR
     runs-on: ubuntu-latest
     steps:
