@@ -11,6 +11,8 @@ matt@jupitersoft.net
 ## Summary
 
 Experienced Developer; Software Architect -- startup experience.
+
+
 ## Jobs
 
 ### Head Infrastructure Engineer @ Umee (Now UX Chain)

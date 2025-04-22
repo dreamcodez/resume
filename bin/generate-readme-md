@@ -7,7 +7,7 @@ let jobs = _jobs.default;
 let out = "";
 out += fs.readFileSync("README.preamble.md").toString();
 
-out += "## Jobs";
+out += "\n\n## Jobs";
 
 for (const job of jobs) {
   out += `\n\n### ${job.jobTitle} @ ${job.company}`;
