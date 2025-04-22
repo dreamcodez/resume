@@ -8,10 +8,17 @@ jobs:
     name: Build & Push Final Docker Image to GCR
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Login to GCR
-        run: echo "${{secrets.GCR_TOKEN}}" | base64 -d | docker login -u _json_key --password-stdin gcr.io
+      - uses: actions/checkout@v4
+      - uses: "google-github-actions/auth@v2"
+        with:
+          workload_identity_provider: projects/1030275258687/locations/global/workloadIdentityPools/github-dreamcodez/providers/github
+          service_account: github-docker-access@personal-sandbox-159823.iam.gserviceaccount.com
       - name: Build & Push
         run: |
           docker build . -t us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
           docker push us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
+          - id: 'deploy'
+      - uses: "google-github-actions/deploy-cloudrun@v2"
+        with:
+          service: "dreamcodez-cc"
+          image: us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc:${{ github.sha}}
