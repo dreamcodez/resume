@@ -22,8 +22,7 @@ Experienced Developer; Software Architect -- startup experience.
 UX Chain, formerly UMEE, is a layer-one blockchain within the Cosmos ecosystem, dedicated to enhancing user experience and fostering innovation in decentralised finance (DeFi). As a universal cross-chain DeFi hub, it provides the groundwork for future DApps and financial components, known as “money legos,” within the DeFi landscape.
 
  
-      Automated deployment of several blockchain test networks. Used Pulumi in golang to automate genesis ceremony and wallet funding on these test networks. Built out & trained a team to manage the devops & infrastructure side.
-    
+Automated deployment of several blockchain test networks. Used Pulumi in golang to automate genesis ceremony and wallet funding on these test networks. Built out & trained a team to manage the devops & infrastructure side.
 
 [https://www.ux.xyz](https://www.ux.xyz)
 
@@ -34,8 +33,7 @@ UX Chain, formerly UMEE, is a layer-one blockchain within the Cosmos ecosystem, 
 HelloTech is an innovative b2b application which enables service workers to be dispatched for technical installations such as TV mounts and Wi-Fi installs with partners like Wal-Mart, Amazon & SimpliSafe.
 
  
-    Worked on several microservices and designed new database and protobuf schemas to support feature work. Refactored database to improve performance.
-    
+Worked on several microservices and designed new database and protobuf schemas to support feature work. Refactored database to improve performance. 
 
 [https://www.hellotech.com](https://www.hellotech.com)
 
@@ -46,11 +44,10 @@ HelloTech is an innovative b2b application which enables service workers to be d
 Endpoint is a company which is disrupting escrow/mortgage by streamlining and automating much of the process.
 
  
-            * Implemented (in production) a strategy to communicate with the existing legacy database while building new features.
-            * Helping facilitate transition to Microservice Architecture from our monolith
-            * Collaborated on GraphQL api to service our internal admin needs
-            * Extended & Created new databases schemas (dynamo) for new services being built
-        
+* Implemented (in production) a strategy to communicate with the existing legacy database while building new features.
+* Helping facilitate transition to Microservice Architecture from our monolith
+* Collaborated on GraphQL api to service our internal admin needs
+* Extended & Created new databases schemas (dynamo) for new services being built
 
 [https://endpointclosing.com](https://endpointclosing.com)
 
@@ -105,7 +102,9 @@ Stem helps music collaborators receive royalties in a fair way.
 WeedMaps helps medical marijuana patients find dispensaries and provides helpful reviews and menus.
 
  
-    Worked on various projects including coupons, menus, and server optimization (linux). I spent a few months overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
+    Worked on various projects including coupons, menus, and server optimization (linux).
+    
+    I spent nearly a year overhauling the search engine in elasticsearch with custom weights. Small team of 3 people.
         
 
 [https://weedmaps.com](https://weedmaps.com)
