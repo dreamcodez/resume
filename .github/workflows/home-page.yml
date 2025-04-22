@@ -16,14 +16,15 @@ jobs:
         with:
           workload_identity_provider: projects/1030275258687/locations/global/workloadIdentityPools/github-dreamcodez/providers/github
           service_account: github-docker-access@personal-sandbox-159823.iam.gserviceaccount.com
-      - run: gcloud auth configure-docker us-central1-docker.pkg.dev --project=personal-sandbox-159823 --quiet
+      - run: gcloud auth configure-docker us-west1-docker.pkg.dev --project=personal-sandbox-159823 --quiet
       - name: Build & Push
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc/web:${{ github.sha}}
+          tags: us-west1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc/web:${{ github.sha}}
       - uses: "google-github-actions/deploy-cloudrun@v2"
         with:
           project_id: personal-sandbox-159823
+          region: us-west1
           service: dreamcodez-cc
-          image: us-central1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc/web:${{ github.sha}}
+          image: us-west1-docker.pkg.dev/personal-sandbox-159823/dreamcodez-cc/web:${{ github.sha}}
