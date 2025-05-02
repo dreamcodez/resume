@@ -12,7 +12,7 @@
 
   <img
     alt="Matthew Elder & Team"
-    style="display:float; float:left; width: 50%; margin: 0 25px 10px 0"
+    style="display:float; float:right; width: 50%; margin: 0 25px 10px 0"
     src="/sophisticated-macman.jpg"
   />
   <h3>
