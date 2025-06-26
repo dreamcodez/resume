@@ -556,6 +556,34 @@ Based on Matthew's extensive experience, we'll craft compelling narratives aroun
 6. **Content Calendar**: Plan regular content updates
 7. **Launch Strategy**: Plan phased rollout and promotion
 
+## Blog System Migration: Summary & Troubleshooting
+
+### What Changed
+
+- Old blog system replaced with Markdown+YAML frontmatter posts in `yew/src/data/blog_posts/`.
+- Rust/Yew parses frontmatter (serde_yaml) and renders Markdown (pulldown-cmark).
+- Draft posts are filtered out; reading time is auto-calculated if not provided.
+- To add a post: drop a `.md` file with frontmatter in the folder.
+- Removed legacy files: `main.rs`, old data modules, and Sapper/Svelte blog logic.
+
+### New Conventions
+
+- All blog post metadata is in YAML frontmatter.
+- Only non-draft posts are shown.
+- Tests for blog parsing/rendering are in Rust test modules.
+
+### Troubleshooting
+
+- **Blank screen after build?**
+  - Check browser console for WASM errors.
+  - Ensure `run_app()` is called in `index.html` after WASM loads.
+  - Verify Trunk output includes the WASM and JS files.
+- **Blog post not showing?**
+  - Confirm `draft: false` in frontmatter.
+  - Check for YAML syntax errors.
+- **Adding a new post:**
+  - Copy an existing `.md` file, update frontmatter, and write content.
+
 ---
 
 _This enhanced plan transforms the resume into a state-of-the-art technical showcase that demonstrates Matthew's expertise while serving as a powerful marketing tool for technical leadership opportunities._

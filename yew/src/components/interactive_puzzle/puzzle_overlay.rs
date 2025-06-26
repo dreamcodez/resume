@@ -29,8 +29,11 @@ pub fn puzzle_overlay(props: &PuzzleOverlayProps) -> Html {
         <div class={classes!(
             "absolute",
             "inset-0",
-            "bg-black bg-opacity-75",
-            "flex items-center justify-center",
+            "bg-black",
+            "bg-opacity-75",
+            "flex",
+            "items-center",
+            "justify-center",
             "backdrop-blur-sm",
             "z-10",
             props.class.clone()
