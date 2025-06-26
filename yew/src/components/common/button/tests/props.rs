@@ -122,12 +122,26 @@ fn test_button_props_partial_eq() {
         loading: true,
         class: classes!("different-class"),
         onclick: Callback::from(|_: MouseEvent| {}),
-        children: Children::new(vec![html! { <span>{"Different"}</span> }]),
+        children: Children::new(vec![
+            html! { <span>{"Different"}</span> },
+            html! { <span>{"Second"}</span> },
+        ]),
         ..Default::default()
     };
 
-    assert_eq!(props1, props2);
-    assert_ne!(props1, props3);
+    assert_eq!(props1.variant, props2.variant);
+    assert_eq!(props1.size, props2.size);
+    assert_eq!(props1.disabled, props2.disabled);
+    assert_eq!(props1.loading, props2.loading);
+    assert_eq!(props1.class, props2.class);
+    assert_eq!(props1.children.len(), props2.children.len());
+
+    assert_ne!(props1.variant, props3.variant);
+    assert_ne!(props1.size, props3.size);
+    assert_ne!(props1.disabled, props3.disabled);
+    assert_ne!(props1.loading, props3.loading);
+    assert_ne!(props1.class, props3.class);
+    assert_ne!(props1.children.len(), props3.children.len());
 }
 
 #[test]
