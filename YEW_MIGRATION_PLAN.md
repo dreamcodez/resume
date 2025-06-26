@@ -17,6 +17,224 @@ This migration transforms Matthew Elders' resume into a **cutting-edge technical
 - **Adding a new blog post** is as simple as dropping a new `.md` file with frontmatter into the folder.
 - **All warnings in the codebase have been cleaned up** for a clean, maintainable foundation.
 
+## Visual Parity Strategy: Page-by-Page Optimization
+
+### Current Status: Playwright Visual Testing Infrastructure ✅ COMPLETED
+
+- **Reference screenshots captured** from live site (dreamcodez.cc) for all key pages
+- **Visual regression testing setup** with Playwright for automated comparison
+- **Reference capture tests disabled** with strongly worded warnings to prevent unnecessary external API calls
+- **Baseline screenshots stored** in `reference-visuals/` directory for comparison
+
+### Visual Parity Implementation Plan
+
+**Objective**: Achieve 75% visual parity with reference screenshots before moving to advanced features
+
+**Approach**: Systematic page-by-page optimization using Playwright visual testing
+
+#### Phase 1: Home Page Parity (Priority 1)
+
+- [ ] **Layout Analysis**: Compare Yew home page with reference screenshot
+- [ ] **Typography Matching**: Ensure font families, sizes, and spacing match
+- [ ] **Color Scheme**: Match exact colors and contrast ratios
+- [ ] **Component Alignment**: Align navigation, hero section, and content blocks
+- [ ] **Responsive Behavior**: Test mobile viewport (375x667) parity
+- [ ] **Interactive Elements**: Match hover states and transitions
+
+#### Phase 2: About Page Parity (Priority 2)
+
+- [ ] **Content Layout**: Match text layout and spacing
+- [ ] **Image Positioning**: Align profile images and graphics
+- [ ] **Typography Hierarchy**: Match heading styles and text flow
+- [ ] **Background Elements**: Match any background patterns or colors
+
+#### Phase 3: Resume Page Parity (Priority 3)
+
+- [ ] **Timeline Layout**: Match job experience timeline structure
+- [ ] **Skill Visualization**: Match skill bars or skill display format
+- [ ] **Education Section**: Match education layout and styling
+- [ ] **Contact Information**: Match contact details presentation
+
+#### Phase 4: Blog Page Parity (Priority 4)
+
+- [ ] **Post Grid**: Match blog post card layout and spacing
+- [ ] **Typography**: Match post titles, summaries, and metadata
+- [ ] **Navigation**: Match pagination or infinite scroll behavior
+- [ ] **Sidebar Elements**: Match any sidebar content or filters
+
+#### Phase 5: Navigation Parity (Priority 5)
+
+- [ ] **Menu Structure**: Match navigation menu layout
+- [ ] **Active States**: Match current page highlighting
+- [ ] **Mobile Menu**: Match mobile navigation behavior
+- [ ] **Logo/Branding**: Match logo positioning and styling
+
+### Implementation Workflow
+
+1. **Run Visual Test**: Execute Playwright visual comparison test for target page
+2. **Analyze Differences**: Review screenshot differences in test output
+3. **Identify Issues**: Document specific visual discrepancies
+4. **Implement Fixes**: Update Yew components and styles to match reference
+5. **Re-test**: Run visual test again to verify improvements
+6. **Document Progress**: Track parity percentage and remaining issues
+7. **Move to Next Page**: Repeat process for next priority page
+
+### Success Criteria
+
+- **75% Visual Parity**: Achieve 75% visual similarity with reference screenshots
+- **Cross-browser Consistency**: Ensure parity across Chrome, Firefox, Safari
+- **Mobile Responsiveness**: Maintain parity on mobile devices
+- **Performance Maintained**: Ensure visual improvements don't impact performance
+- **Documentation Complete**: Document all changes and remaining differences
+
+### Tools and Resources
+
+- **Playwright Visual Testing**: Automated screenshot comparison
+- **Reference Screenshots**: Baseline images in `reference-visuals/` directory
+- **Browser DevTools**: Manual inspection and debugging
+- **CSS Comparison**: Side-by-side style comparison tools
+- **Progress Tracking**: Visual parity percentage tracking
+
+## Blog Series: "Porting to Yew - A Complete Migration Guide"
+
+### Series Overview
+
+**Title**: "Porting to Yew: A Complete Migration Guide from Sapper/Svelte to Rust/WebAssembly"
+**Series**: `yew-migration-guide`
+**Total Parts**: 10
+**Status**: All posts set as drafts initially
+**Drip Schedule**: Every 3 days for complete series coverage (30 days total)
+
+### Series Metadata Structure
+
+Each post will include:
+
+```yaml
+---
+title: "Part X: [Specific Topic]"
+date: [calculated based on drip schedule]
+slug: "yew-migration-part-x-[topic]"
+series: "yew-migration-guide"
+series_part: X
+draft: true
+tags: ["rust", "yew", "webassembly", "migration", "tutorial"]
+summary: "[Brief description of this part]"
+author: "Matthew Elders"
+reading_time: [auto-calculated]
+---
+```
+
+### 10-Part Series Breakdown
+
+#### Part 1: "Why Migrate to Yew? The Business Case for Rust/WebAssembly"
+
+- **Series Part**: 1
+- **Publish Date**: Day 1
+- **Focus**: Business justification, performance benefits, technical advantages
+- **Key Topics**: WebAssembly performance, Rust safety, developer experience
+
+#### Part 2: "Setting Up Your Yew Development Environment"
+
+- **Series Part**: 2
+- **Publish Date**: Day 4
+- **Focus**: Development environment setup, toolchain configuration
+- **Key Topics**: Rust toolchain, Trunk setup, IDE configuration, debugging tools
+
+#### Part 3: "Understanding Yew's Component Architecture"
+
+- **Series Part**: 3
+- **Publish Date**: Day 7
+- **Focus**: Yew component system, lifecycle, state management
+- **Key Topics**: Component structure, props, state, lifecycle methods
+
+#### Part 4: "Routing and Navigation in Yew Applications"
+
+- **Series Part**: 4
+- **Publish Date**: Day 10
+- **Focus**: Routing implementation, navigation patterns
+- **Key Topics**: Yew Router, route guards, navigation state, URL handling
+
+#### Part 5: "Styling Strategies: CSS-in-Rust and TailwindCSS"
+
+- **Series Part**: 5
+- **Publish Date**: Day 13
+- **Focus**: Styling approaches, design system implementation
+- **Key Topics**: Stylist crate, TailwindCSS integration, responsive design
+
+#### Part 6: "Data Management and State Architecture"
+
+- **Series Part**: 6
+- **Publish Date**: Day 16
+- **Focus**: State management patterns, data flow
+- **Key Topics**: Global state, local state, data fetching, caching strategies
+
+#### Part 7: "Performance Optimization and WebAssembly Best Practices"
+
+- **Series Part**: 7
+- **Publish Date**: Day 19
+- **Focus**: Performance tuning, WebAssembly optimization
+- **Key Topics**: Bundle optimization, lazy loading, memory management
+
+#### Part 8: "Testing Strategies for Yew Applications"
+
+- **Series Part**: 8
+- **Publish Date**: Day 22
+- **Focus**: Testing approaches, visual regression testing
+- **Key Topics**: Unit testing, integration testing, Playwright visual testing
+
+#### Part 9: "Deployment and DevOps for Yew Applications"
+
+- **Series Part**: 9
+- **Publish Date**: Day 25
+- **Focus**: Deployment strategies, CI/CD pipelines
+- **Key Topics**: Docker deployment, GitHub Actions, CDN optimization
+
+#### Part 10: "Lessons Learned and Future of WebAssembly"
+
+- **Series Part**: 10
+- **Publish Date**: Day 28
+- **Focus**: Migration insights, industry trends, future outlook
+- **Key Topics**: Migration challenges, performance gains, WebAssembly ecosystem
+
+### Drip Schedule Strategy
+
+**Timeline**: 30 days total (every 3 days)
+
+- **Day 1**: Part 1 - Why Migrate to Yew?
+- **Day 4**: Part 2 - Development Environment
+- **Day 7**: Part 3 - Component Architecture
+- **Day 10**: Part 4 - Routing and Navigation
+- **Day 13**: Part 5 - Styling Strategies
+- **Day 16**: Part 6 - Data Management
+- **Day 19**: Part 7 - Performance Optimization
+- **Day 22**: Part 8 - Testing Strategies
+- **Day 25**: Part 9 - Deployment and DevOps
+- **Day 28**: Part 10 - Lessons Learned
+
+### Content Strategy Benefits
+
+1. **SEO Value**: Comprehensive keyword coverage for Rust/WebAssembly topics
+2. **Thought Leadership**: Establish expertise in modern web development
+3. **Community Building**: Engage with Rust and WebAssembly communities
+4. **Lead Generation**: Attract developers and companies considering migration
+5. **Portfolio Enhancement**: Demonstrate technical writing and teaching ability
+
+### Series Promotion Plan
+
+- **Cross-linking**: Each post links to previous and next in series
+- **Social Media**: Promote each part on Twitter, LinkedIn, Reddit
+- **Community Sharing**: Share in Rust, WebAssembly, and frontend communities
+- **Newsletter**: Include in technical newsletter if available
+- **Conference Talks**: Use content for conference presentations
+
+### Success Metrics
+
+- **Readership**: Track series completion rates
+- **Engagement**: Monitor comments and social shares
+- **SEO Performance**: Track search rankings for target keywords
+- **Lead Generation**: Monitor contact form submissions from series readers
+- **Community Recognition**: Track mentions and citations in technical communities
+
 ## Strategic Vision
 
 ### Primary Objectives
