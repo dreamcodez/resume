@@ -83,8 +83,8 @@ module.exports = defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "trunk serve --port 8080",
-    url: "http://localhost:8080",
+    command: "trunk serve --port 7777",
+    url: "http://localhost:7777",
     reuseExistingServer: !process.env.CI,
     timeout: 20000, // 20 seconds for Yew dev server startup
     cwd: __dirname,

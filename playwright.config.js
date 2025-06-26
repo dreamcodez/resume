@@ -69,8 +69,8 @@ module.exports = defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "trunk serve",
-    url: "http://127.0.0.1:8080",
+    command: "trunk serve --port 7777",
+    url: "http://127.0.0.1:7777",
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
