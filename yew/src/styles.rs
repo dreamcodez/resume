@@ -107,8 +107,6 @@ pub mod animations {
 
 // Component-specific class combinations
 pub mod components {
-    use super::*;
-
     pub const CARD: &str = "card";
     pub const BTN_PRIMARY: &str = "btn-primary";
     pub const BTN_SECONDARY: &str = "btn-secondary";

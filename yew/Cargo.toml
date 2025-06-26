@@ -21,6 +21,7 @@ wasm-bindgen-backend = "0.2"
 base64ct = "1.7.3"
 pulldown-cmark = "0.13.0"
 serde_yaml = "0.9.34"
+console_error_panic_hook = "0.1"
 
 [dev-dependencies]
 wasm-pack = "0.12"

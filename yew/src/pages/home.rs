@@ -1,9 +1,12 @@
 use crate::styles::components;
 use crate::styles::{animations, colors, effects, layout, typography};
+use web_sys::console;
 use yew::prelude::*;
 
 #[function_component(Home)]
 pub fn home() -> Html {
+    console::log_1(&"Home component rendering".into());
+
     html! {
         <div class={layout::CONTAINER}>
             <div class="max-w-4xl mx-auto">

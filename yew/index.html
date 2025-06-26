@@ -28,5 +28,21 @@
   </head>
   <body>
     <div id="app"></div>
+    
+    <!-- Initialize the Yew app after WASM loads -->
+    <script>
+      // Wait for the TrunkApplicationStarted event
+      window.addEventListener('TrunkApplicationStarted', function(event) {
+        console.log('WASM loaded, initializing Yew app...');
+        console.log('Event detail:', event.detail);
+        // Call our run_app function to start the Yew application
+        // The bindings are available globally as window.wasmBindings
+        if (window.wasmBindings && window.wasmBindings.run_app) {
+          window.wasmBindings.run_app();
+        } else {
+          console.error('wasmBindings or run_app not found:', window.wasmBindings);
+        }
+      });
+    </script>
   </body>
 </html> 

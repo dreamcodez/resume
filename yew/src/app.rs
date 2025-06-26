@@ -1,10 +1,11 @@
+use web_sys::console;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
 use crate::pages::{About, Blog, BlogPostPage, Home, Resume};
 use crate::styles::components;
 
-#[derive(Clone, Routable, PartialEq)]
+#[derive(Clone, Debug, Routable, PartialEq)]
 enum Route {
     #[at("/")]
     Home,
@@ -23,6 +24,8 @@ enum Route {
 
 #[function_component(App)]
 pub fn app() -> Html {
+    console::log_1(&"App component rendering".into());
+
     html! {
         <BrowserRouter>
             <div class={components::MAIN_CONTAINER}>
@@ -57,6 +60,8 @@ pub fn app() -> Html {
 }
 
 fn switch(routes: Route) -> Html {
+    console::log_1(&format!("Routing to: {:?}", routes).into());
+
     match routes {
         Route::Home => html! { <Home /> },
         Route::About => html! { <About /> },

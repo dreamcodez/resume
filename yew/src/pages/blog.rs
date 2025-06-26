@@ -1,5 +1,4 @@
 use crate::data::get_blog_posts;
-use crate::styles::components;
 use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
