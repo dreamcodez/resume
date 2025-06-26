@@ -1,12 +1,15 @@
-use crate::styles::components;
+use crate::components::InteractivePuzzle;
 use crate::styles::home;
-use crate::styles::{animations, colors, effects, layout, typography};
-use web_sys::console;
 use yew::prelude::*;
 
 #[function_component(Home)]
 pub fn home() -> Html {
-    console::log_1(&"Home component rendering".into());
+    let on_puzzle_solved = Callback::from(|_: ()| {
+        // Could add analytics or other side effects here
+        unsafe {
+            web_sys::console::log_1(&"Puzzle solved!".into());
+        }
+    });
 
     html! {
         <div class={home::CONTAINER}>
@@ -28,46 +31,7 @@ pub fn home() -> Html {
                 </div>
             </div>
 
-            <div class="relative w-full max-w-4xl mx-auto aspect-[16/5] rounded-2xl shadow-lg group cursor-pointer bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden mb-8">
-                <img
-                    alt="Matthew Elder & Team - Interactive Puzzle"
-                    class="absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:brightness-75 group-hover:contrast-125 filter grayscale group-hover:grayscale-0"
-                    src="/static/sophisticated-macman.jpg"
-                />
-                <div class="absolute inset-0 pointer-events-none group-hover:pointer-events-auto bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <div class="absolute top-4 left-4 bg-green-900 text-green-400 p-2 rounded text-xs font-mono animate-bounce">
-                        {"fn solve_puzzle() -> bool"}
-                    </div>
-                    <div class="absolute top-12 right-8 bg-blue-900 text-blue-400 p-2 rounded text-xs font-mono animate-pulse">
-                        {"let solution = true;"}
-                    </div>
-                    <div class="absolute bottom-8 left-8 bg-purple-900 text-purple-400 p-2 rounded text-xs font-mono animate-ping">
-                        {"match result {"}
-                    </div>
-                    <div class="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
-                        <div class="bg-orange-500 text-white p-3 rounded-full text-2xl animate-spin">
-                            {"🦀"}
-                        </div>
-                    </div>
-                    <div class="absolute top-1/3 right-1/4 transform translate-x-1/2 -translate-y-1/2">
-                        <div class="bg-cyan-500 text-white p-3 rounded-full text-2xl animate-bounce">
-                            {"⚡"}
-                        </div>
-                    </div>
-                    <div class="absolute bottom-1/3 right-1/3 transform translate-x-1/2 translate-y-1/2">
-                        <div class="bg-green-500 text-white p-3 rounded-full text-2xl animate-pulse">
-                            {"🔧"}
-                        </div>
-                    </div>
-                    <div class="absolute bottom-4 right-4 bg-white bg-opacity-90 p-3 rounded-lg text-sm text-gray-800">
-                        <div class="font-bold mb-1">{"🧩 Interactive Puzzle"}</div>
-                        <div>{"Hover to reveal hidden code!"}</div>
-                    </div>
-                </div>
-                <div class="absolute top-2 right-2 bg-yellow-400 text-yellow-900 px-2 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity animate-pulse">
-                    {"Click to Solve!"}
-                </div>
-            </div>
+            <InteractivePuzzle on_solved={Some(on_puzzle_solved)} />
 
             <h3 class={format!("{} {} {}",
                 home::NAME_HEADING,

@@ -34,6 +34,9 @@ module.exports = defineConfig({
 
     /* Take screenshot on failure */
     screenshot: "only-on-failure",
+
+    /* Enable touch support for mobile testing */
+    hasTouch: true,
   },
 
   /* Configure projects for major browsers */

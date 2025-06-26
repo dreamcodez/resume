@@ -26,6 +26,8 @@ console_error_panic_hook = "0.1"
 [dev-dependencies]
 wasm-pack = "0.12"
 trunk = "0.17"
+wasm-bindgen-test = "0.3"
+gloo-utils = "0.2"
 
 [lib]
 crate-type = ["cdylib"]
