@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 /// Card variants for different use cases
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone, Debug)]
 pub enum CardVariant {
     Default,
     Elevated,
@@ -16,7 +16,7 @@ impl Default for CardVariant {
 }
 
 /// Props for the Card component
-#[derive(Properties, PartialEq, Default)]
+#[derive(Properties, PartialEq, Default, Debug)]
 pub struct CardProps {
     /// The visual variant of the card
     #[prop_or_default]
@@ -64,7 +64,7 @@ pub fn card(props: &CardProps) -> Html {
 }
 
 /// Props for the CardHeader component
-#[derive(Properties, PartialEq)]
+#[derive(Properties, PartialEq, Debug)]
 pub struct CardHeaderProps {
     /// Additional CSS classes
     #[prop_or_default]
@@ -87,7 +87,7 @@ pub fn card_header(props: &CardHeaderProps) -> Html {
 }
 
 /// Props for the CardBody component
-#[derive(Properties, PartialEq)]
+#[derive(Properties, PartialEq, Debug)]
 pub struct CardBodyProps {
     /// Additional CSS classes
     #[prop_or_default]
@@ -110,7 +110,7 @@ pub fn card_body(props: &CardBodyProps) -> Html {
 }
 
 /// Props for the CardFooter component
-#[derive(Properties, PartialEq)]
+#[derive(Properties, PartialEq, Debug)]
 pub struct CardFooterProps {
     /// Additional CSS classes
     #[prop_or_default]
@@ -133,39 +133,11 @@ pub fn card_footer(props: &CardFooterProps) -> Html {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_card_variants_have_correct_classes() {
-        let variants = vec![
-            (CardVariant::Default, "bg-white shadow-sm"),
-            (CardVariant::Elevated, "bg-white shadow-lg"),
-            (CardVariant::Bordered, "bg-white border border-gray-200"),
-            (CardVariant::Ghost, "bg-transparent"),
-        ];
-
-        for (variant, expected_class) in variants {
-            let props = CardProps {
-                variant,
-                children: Children::new(vec![html! { <div>{"Test"}</div> }]),
-                ..Default::default()
-            };
-
-            // In a real test, you'd render and check the classes
-            assert!(true); // Placeholder assertion
-        }
-    }
-
-    #[test]
-    fn test_interactive_card_has_hover_classes() {
-        let props = CardProps {
-            interactive: true,
-            children: Children::new(vec![html! { <div>{"Test"}</div> }]),
-            ..Default::default()
-        };
-
-        // In a real test, you'd render and check for hover classes
-        assert!(true); // Placeholder assertion
-    }
+pub mod tests {
+    pub mod accessibility;
+    pub mod edge_cases;
+    pub mod interactions;
+    pub mod props;
+    pub mod rendering;
+    pub mod variants;
 }

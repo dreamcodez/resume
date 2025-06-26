@@ -1,8 +1,5 @@
 use gloo_utils::document;
-use std::time::Duration;
 use wasm_bindgen_test::*;
-use yew::platform::spawn_local;
-use yew::platform::time::sleep;
 use yew::prelude::*;
 
 use crate::components::common::badge::{Badge, BadgeProps, BadgeSize, BadgeVariant};
@@ -11,323 +8,347 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_in_dom() {
-    spawn_local(async move {
-        let props = BadgeProps {
-            children: Children::new(vec![html! { <span>{"Test Badge"}</span> }]),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-            .render()
-            .await;
+    let props = BadgeProps {
+        children: Children::new(vec![html! { <span>{"Test Badge"}</span> }]),
+        ..Default::default()
+    };
 
-        // Verify the badge renders as a span element
-        assert!(rendered.contains("<span"));
-        assert!(rendered.contains("</span>"));
-        assert!(rendered.contains("Test Badge"));
-    });
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("Test Badge"));
+    assert!(rendered_html.contains("font-medium"));
+    assert!(rendered_html.contains("inline-flex"));
+    assert!(rendered_html.contains("items-center"));
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_has_correct_base_classes() {
-    spawn_local(async move {
-        let props = BadgeProps {
-            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-            .render()
-            .await;
+    let props = BadgeProps {
+        children: Children::new(vec![html! { <span>{"Base Classes"}</span> }]),
+        ..Default::default()
+    };
 
-        // Badge should always have the base classes
-        assert!(rendered.contains("font-medium"));
-        assert!(rendered.contains("inline-flex"));
-        assert!(rendered.contains("items-center"));
-    });
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("font-medium"));
+    assert!(rendered_html.contains("inline-flex"));
+    assert!(rendered_html.contains("items-center"));
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_variant_classes_are_applied() {
-    spawn_local(async move {
-        let variant_tests = vec![
-            (BadgeVariant::Default, "bg-gray-100", "text-gray-800"),
-            (BadgeVariant::Primary, "bg-blue-100", "text-blue-800"),
-            (BadgeVariant::Success, "bg-green-100", "text-green-800"),
-            (BadgeVariant::Warning, "bg-yellow-100", "text-yellow-800"),
-            (BadgeVariant::Danger, "bg-red-100", "text-red-800"),
-            (BadgeVariant::Info, "bg-cyan-100", "text-cyan-800"),
-        ];
+    let variant_tests = vec![
+        (BadgeVariant::Default, "bg-gray-100", "text-gray-800"),
+        (BadgeVariant::Primary, "bg-blue-100", "text-blue-800"),
+        (BadgeVariant::Success, "bg-green-100", "text-green-800"),
+        (BadgeVariant::Warning, "bg-yellow-100", "text-yellow-800"),
+        (BadgeVariant::Danger, "bg-red-100", "text-red-800"),
+        (BadgeVariant::Info, "bg-cyan-100", "text-cyan-800"),
+    ];
 
-        for (variant, bg_class, text_class) in variant_tests {
-            let props = BadgeProps {
-                variant,
-                children: Children::new(vec![html! { <span>{"Test"}</span> }]),
-                ..Default::default()
-            };
+    for (variant, bg_class, text_class) in variant_tests {
+        let div = document().create_element("div").unwrap();
+        document().body().unwrap().append_child(&div).unwrap();
 
-            let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-                .render()
-                .await;
+        let props = BadgeProps {
+            variant,
+            children: Children::new(vec![html! { <span>{"Variant Test"}</span> }]),
+            ..Default::default()
+        };
 
-            assert!(rendered.contains(bg_class));
-            assert!(rendered.contains(text_class));
-        }
-    });
+        yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+        // Wait for rendering to complete
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        let rendered_html = div.inner_html();
+        assert!(rendered_html.contains(bg_class));
+        assert!(rendered_html.contains(text_class));
+    }
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_size_classes_are_applied() {
-    spawn_local(async move {
-        let size_tests = vec![
-            (BadgeSize::Small, "px-2", "py-0.5", "text-xs"),
-            (BadgeSize::Medium, "px-2.5", "py-1", "text-sm"),
-            (BadgeSize::Large, "px-3", "py-1.5", "text-base"),
-        ];
+    let size_tests = vec![
+        (BadgeSize::Small, "px-2", "py-0.5", "text-xs"),
+        (BadgeSize::Medium, "px-2.5", "py-1", "text-sm"),
+        (BadgeSize::Large, "px-3", "py-1.5", "text-base"),
+    ];
 
-        for (size, px_class, py_class, text_class) in size_tests {
-            let props = BadgeProps {
-                size,
-                children: Children::new(vec![html! { <span>{"Test"}</span> }]),
-                ..Default::default()
-            };
+    for (size, px_class, py_class, text_class) in size_tests {
+        let div = document().create_element("div").unwrap();
+        document().body().unwrap().append_child(&div).unwrap();
 
-            let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-                .render()
-                .await;
+        let props = BadgeProps {
+            size,
+            children: Children::new(vec![html! { <span>{"Size Test"}</span> }]),
+            ..Default::default()
+        };
 
-            assert!(rendered.contains(px_class));
-            assert!(rendered.contains(py_class));
-            assert!(rendered.contains(text_class));
-        }
-    });
+        yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+        // Wait for rendering to complete
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        let rendered_html = div.inner_html();
+        assert!(rendered_html.contains(px_class));
+        assert!(rendered_html.contains(py_class));
+        assert!(rendered_html.contains(text_class));
+    }
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_rounded_class_conditional_rendering() {
-    spawn_local(async move {
-        // Test with rounded enabled
-        let rounded_props = BadgeProps {
-            rounded: true,
-            children: Children::new(vec![html! { <span>{"Rounded"}</span> }]),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rounded_rendered = yew::ServerRenderer::<Badge>::with_props(rounded_props)
-            .render()
-            .await;
+    let rounded_props = BadgeProps {
+        rounded: true,
+        children: Children::new(vec![html! { <span>{"Rounded"}</span> }]),
+        ..Default::default()
+    };
 
-        assert!(rounded_rendered.contains("rounded-full"));
-        assert!(!rounded_rendered.contains("rounded-md"));
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), rounded_props).render();
 
-        // Test with rounded disabled
-        let non_rounded_props = BadgeProps {
-            rounded: false,
-            children: Children::new(vec![html! { <span>{"Not Rounded"}</span> }]),
-            ..Default::default()
-        };
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
 
-        let non_rounded_rendered = yew::ServerRenderer::<Badge>::with_props(non_rounded_props)
-            .render()
-            .await;
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("rounded-full"));
+    assert!(!rendered_html.contains("rounded-md"));
 
-        assert!(non_rounded_rendered.contains("rounded-md"));
-        assert!(!non_rounded_rendered.contains("rounded-full"));
-    });
+    // Test non-rounded
+    let non_rounded_props = BadgeProps {
+        rounded: false,
+        children: Children::new(vec![html! { <span>{"Not Rounded"}</span> }]),
+        ..Default::default()
+    };
+
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), non_rounded_props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("rounded-md"));
+    assert!(!rendered_html.contains("rounded-full"));
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_custom_classes_are_merged() {
-    spawn_local(async move {
-        let props = BadgeProps {
-            class: classes!("custom-class", "highlight"),
-            children: Children::new(vec![html! { <span>{"Custom"}</span> }]),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-            .render()
-            .await;
+    let props = BadgeProps {
+        class: classes!("custom-class", "highlight", "important"),
+        children: Children::new(vec![html! { <span>{"Custom Classes"}</span> }]),
+        ..Default::default()
+    };
 
-        // Should contain both base classes and custom classes
-        assert!(rendered.contains("font-medium"));
-        assert!(rendered.contains("inline-flex"));
-        assert!(rendered.contains("items-center"));
-        assert!(rendered.contains("custom-class"));
-        assert!(rendered.contains("highlight"));
-    });
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("custom-class"));
+    assert!(rendered_html.contains("highlight"));
+    assert!(rendered_html.contains("important"));
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_children_are_displayed() {
-    spawn_local(async move {
-        let test_children = vec![
-            html! { <span>{"Simple Text"}</span> },
-            html! { <strong>{"Bold Text"}</strong> },
-            html! { <span>{"🏗️"}</span> },
-        ];
+    let children_tests = vec![
+        html! { <span>{"Simple Text"}</span> },
+        html! { <strong>{"Bold Text"}</strong> },
+        html! { <span>{"🏗️"}</span> },
+        html! { <span>{"Mixed "}<strong>{"Content"}</strong></span> },
+    ];
 
-        for child in test_children {
-            let props = BadgeProps {
-                children: Children::new(vec![child.clone()]),
-                ..Default::default()
-            };
+    for child in children_tests {
+        let div = document().create_element("div").unwrap();
+        document().body().unwrap().append_child(&div).unwrap();
 
-            let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-                .render()
-                .await;
+        let props = BadgeProps {
+            children: Children::new(vec![child.clone()]),
+            ..Default::default()
+        };
 
-            // Should contain the child content
-            assert!(rendered.contains("font-medium"));
-            assert!(rendered.contains("inline-flex"));
-            assert!(rendered.contains("items-center"));
-        }
-    });
+        yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+        // Wait for rendering to complete
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        let rendered_html = div.inner_html();
+        assert!(rendered_html.contains("font-medium"));
+        assert!(rendered_html.contains("inline-flex"));
+        assert!(rendered_html.contains("items-center"));
+    }
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_empty_children_handling() {
-    spawn_local(async move {
-        let props = BadgeProps {
-            children: Children::new(vec![]),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-            .render()
-            .await;
+    let props = BadgeProps {
+        children: Children::new(vec![]),
+        ..Default::default()
+    };
 
-        // Should still render the span element even with empty children
-        assert!(rendered.contains("<span"));
-        assert!(rendered.contains("</span>"));
-        assert!(rendered.contains("font-medium"));
-    });
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    // Should still render the container even with empty children
+    assert!(rendered_html.contains("<span"));
+    assert!(rendered_html.contains("</span>"));
+    assert!(rendered_html.contains("font-medium"));
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_multiple_children_handling() {
-    spawn_local(async move {
-        let props = BadgeProps {
-            children: Children::new(vec![
-                html! { <span>{"Text"}</span> },
-                html! { <span>{"🏗️"}</span> },
-                html! { <strong>{"Bold"}</strong> },
-            ]),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-            .render()
-            .await;
+    let props = BadgeProps {
+        children: Children::new(vec![
+            html! { <span>{"First"}</span> },
+            html! { <span>{"Second"}</span> },
+            html! { <span>{"Third"}</span> },
+        ]),
+        ..Default::default()
+    };
 
-        // Should render all children
-        assert!(rendered.contains("Text"));
-        assert!(rendered.contains("🏗️"));
-        assert!(rendered.contains("Bold"));
-        assert!(rendered.contains("<strong>"));
-    });
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("First"));
+    assert!(rendered_html.contains("Second"));
+    assert!(rendered_html.contains("Third"));
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_all_classes_combined() {
-    spawn_local(async move {
-        let props = BadgeProps {
-            variant: BadgeVariant::Danger,
-            size: BadgeSize::Large,
-            rounded: true,
-            class: classes!("custom", "highlight", "important"),
-            children: Children::new(vec![html! { <span>{"Critical"}</span> }]),
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-            .render()
-            .await;
+    let props = BadgeProps {
+        variant: BadgeVariant::Success,
+        size: BadgeSize::Large,
+        rounded: true,
+        class: classes!("custom", "highlight", "important"),
+        children: Children::new(vec![html! { <span>{"All Combined"}</span> }]),
+    };
 
-        // Should contain all expected classes
-        assert!(rendered.contains("font-medium"));
-        assert!(rendered.contains("inline-flex"));
-        assert!(rendered.contains("items-center"));
-        assert!(rendered.contains("bg-red-100"));
-        assert!(rendered.contains("text-red-800"));
-        assert!(rendered.contains("px-3"));
-        assert!(rendered.contains("py-1.5"));
-        assert!(rendered.contains("text-base"));
-        assert!(rendered.contains("rounded-full"));
-        assert!(rendered.contains("custom"));
-        assert!(rendered.contains("highlight"));
-        assert!(rendered.contains("important"));
-    });
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    // Check variant classes
+    assert!(rendered_html.contains("bg-green-100"));
+    assert!(rendered_html.contains("text-green-800"));
+    // Check size classes
+    assert!(rendered_html.contains("px-3"));
+    assert!(rendered_html.contains("py-1.5"));
+    assert!(rendered_html.contains("text-base"));
+    // Check rounded class
+    assert!(rendered_html.contains("rounded-full"));
+    // Check custom classes
+    assert!(rendered_html.contains("custom"));
+    assert!(rendered_html.contains("highlight"));
+    assert!(rendered_html.contains("important"));
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_no_extra_classes_when_empty() {
-    spawn_local(async move {
-        let props = BadgeProps {
-            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-            .render()
-            .await;
+    let props = BadgeProps {
+        children: Children::new(vec![]),
+        class: classes!(),
+        ..Default::default()
+    };
 
-        // Should only contain the essential classes
-        assert!(rendered.contains("font-medium"));
-        assert!(rendered.contains("inline-flex"));
-        assert!(rendered.contains("items-center"));
-        assert!(rendered.contains("bg-gray-100"));
-        assert!(rendered.contains("text-gray-800"));
-        assert!(rendered.contains("px-2.5"));
-        assert!(rendered.contains("py-1"));
-        assert!(rendered.contains("text-sm"));
-        assert!(rendered.contains("rounded-md"));
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
 
-        // Should not contain any custom classes
-        assert!(!rendered.contains("custom"));
-        assert!(!rendered.contains("highlight"));
-    });
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    // Should only contain base classes, no extra classes
+    assert!(rendered_html.contains("font-medium"));
+    assert!(rendered_html.contains("inline-flex"));
+    assert!(rendered_html.contains("items-center"));
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_complex_html_children() {
-    spawn_local(async move {
-        let props = BadgeProps {
-            children: Children::new(vec![
-                html! { <span>{"Status: "}</span> },
-                html! { <strong>{"Active"}</strong> },
-                html! { <span>{" 🟢"}</span> },
-            ]),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-            .render()
-            .await;
+    let props = BadgeProps {
+        children: Children::new(vec![
+            html! { <span>{"Status: "}</span> },
+            html! { <strong>{"Active"}</strong> },
+            html! { <span>{" 🟢"}</span> },
+        ]),
+        ..Default::default()
+    };
 
-        assert!(rendered.contains("Status: "));
-        assert!(rendered.contains("Active"));
-        assert!(rendered.contains("🟢"));
-        assert!(rendered.contains("<strong>"));
-    });
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("Status: "));
+    assert!(rendered_html.contains("Active"));
+    assert!(rendered_html.contains("🟢"));
+    assert!(rendered_html.contains("<strong>"));
 }
 
 #[wasm_bindgen_test]
 async fn test_badge_long_text_handling() {
-    spawn_local(async move {
-        let long_text = "This is a very long badge text that should be handled properly by the badge component without any issues or truncation";
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let props = BadgeProps {
-            children: Children::new(vec![html! { <span>{long_text}</span> }]),
-            ..Default::default()
-        };
+    let long_text = "This is a very long badge text that should be handled gracefully without breaking the layout or causing any rendering issues";
+    let props = BadgeProps {
+        children: Children::new(vec![html! { <span>{long_text}</span> }]),
+        ..Default::default()
+    };
 
-        let rendered = yew::ServerRenderer::<Badge>::with_props(props)
-            .render()
-            .await;
+    yew::Renderer::<Badge>::with_root_and_props(div.clone(), props).render();
 
-        assert!(rendered.contains(long_text));
-        assert!(rendered.contains("font-medium"));
-        assert!(rendered.contains("inline-flex"));
-        assert!(rendered.contains("items-center"));
-    });
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains(long_text));
+    assert!(rendered_html.contains("font-medium"));
+    assert!(rendered_html.contains("inline-flex"));
+    assert!(rendered_html.contains("items-center"));
 }

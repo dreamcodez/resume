@@ -1,8 +1,5 @@
 use gloo_utils::document;
-use std::time::Duration;
 use wasm_bindgen_test::*;
-use yew::platform::spawn_local;
-use yew::platform::time::sleep;
 use yew::prelude::*;
 
 use crate::components::common::icon::{Icon, IconProps, IconSize};
@@ -11,337 +8,383 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 async fn test_icon_renders_semantic_span() {
-    spawn_local(async move {
-        let props = IconProps {
-            icon: "🏗️".to_string(),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-            .render()
-            .await;
+    let props = IconProps {
+        icon: "🏗️".to_string(),
+        ..Default::default()
+    };
 
-        // Icon should render as a span element for semantic correctness
-        assert!(rendered.contains("<span"));
-        assert!(rendered.contains("</span>"));
-    });
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("🏗️"));
+    assert!(rendered_html.contains("<span"));
+    assert!(rendered_html.contains("</span>"));
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_content_is_visible() {
-    spawn_local(async move {
-        let test_icons = vec!["🏗️", "⚡", "🔧", "🧩", "✅"];
+    let content_tests = vec!["Simple Text", "🏗️", "Mixed Content"];
 
-        for icon in test_icons {
-            let props = IconProps {
-                icon: icon.to_string(),
-                ..Default::default()
-            };
+    for content in content_tests {
+        let div = document().create_element("div").unwrap();
+        document().body().unwrap().append_child(&div).unwrap();
 
-            let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-                .render()
-                .await;
+        let props = IconProps {
+            icon: content.to_string(),
+            ..Default::default()
+        };
 
-            // Icon content should be visible in the rendered output
-            assert!(rendered.contains(icon));
-        }
-    });
+        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+        // Wait for rendering to complete
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        let rendered_html = div.inner_html();
+        assert!(rendered_html.contains(content));
+        assert!(rendered_html.contains("inline-block"));
+    }
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_has_inline_block_display() {
-    spawn_local(async move {
-        let props = IconProps {
-            icon: "⚡".to_string(),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-            .render()
-            .await;
+    let props = IconProps {
+        icon: "Test Icon".to_string(),
+        ..Default::default()
+    };
 
-        // Icon should have inline-block display for proper layout
-        assert!(rendered.contains("inline-block"));
-    });
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("inline-block"));
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_size_classes_are_accessible() {
-    spawn_local(async move {
-        let size_tests = vec![
-            (IconSize::Small, "text-sm"),
-            (IconSize::Medium, "text-base"),
-            (IconSize::Large, "text-lg"),
-            (IconSize::XLarge, "text-2xl"),
-        ];
+    let size_tests = vec![
+        (IconSize::Small, "text-sm"),
+        (IconSize::Medium, "text-base"),
+        (IconSize::Large, "text-lg"),
+        (IconSize::XLarge, "text-2xl"),
+    ];
 
-        for (size, expected_class) in size_tests {
-            let props = IconProps {
-                icon: "🏗️".to_string(),
-                size,
-                ..Default::default()
-            };
+    for (size, text_class) in size_tests {
+        let div = document().create_element("div").unwrap();
+        document().body().unwrap().append_child(&div).unwrap();
 
-            let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-                .render()
-                .await;
+        let props = IconProps {
+            icon: "Size Test".to_string(),
+            size,
+            ..Default::default()
+        };
 
-            // Size classes should be applied for proper visual scaling
-            assert!(rendered.contains(expected_class));
-        }
-    });
+        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+        // Wait for rendering to complete
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        let rendered_html = div.inner_html();
+        assert!(rendered_html.contains(text_class));
+        assert!(rendered_html.contains("inline-block"));
+    }
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_animation_does_not_affect_accessibility() {
-    spawn_local(async move {
-        let animated_props = IconProps {
-            icon: "⚡".to_string(),
-            animated: true,
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let animated_rendered = yew::ServerRenderer::<Icon>::with_props(animated_props)
-            .render()
-            .await;
+    // Test with animation enabled
+    let animated_props = IconProps {
+        icon: "Animated".to_string(),
+        animated: true,
+        ..Default::default()
+    };
 
-        // Animation should not prevent content from being accessible
-        assert!(animated_rendered.contains("⚡"));
-        assert!(animated_rendered.contains("inline-block"));
-    });
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), animated_props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("Animated"));
+    assert!(rendered_html.contains("animate-bounce"));
+    assert!(rendered_html.contains("inline-block"));
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_custom_classes_do_not_break_accessibility() {
-    spawn_local(async move {
-        let props = IconProps {
-            icon: "🔧".to_string(),
-            class: classes!("custom-class", "accessibility-friendly"),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-            .render()
-            .await;
+    let props = IconProps {
+        icon: "Custom Classes".to_string(),
+        class: classes!("custom-class", "highlight"),
+        ..Default::default()
+    };
 
-        // Custom classes should not interfere with basic accessibility
-        assert!(rendered.contains("🔧"));
-        assert!(rendered.contains("inline-block"));
-        assert!(rendered.contains("custom-class"));
-        assert!(rendered.contains("accessibility-friendly"));
-    });
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("Custom Classes"));
+    assert!(rendered_html.contains("custom-class"));
+    assert!(rendered_html.contains("highlight"));
+    assert!(rendered_html.contains("inline-block"));
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_empty_content_still_renders() {
-    spawn_local(async move {
-        let props = IconProps {
-            icon: "".to_string(),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-            .render()
-            .await;
+    let props = IconProps {
+        icon: "".to_string(),
+        ..Default::default()
+    };
 
-        // Empty icon should still render the container for layout consistency
-        assert!(rendered.contains("<span"));
-        assert!(rendered.contains("</span>"));
-        assert!(rendered.contains("inline-block"));
-    });
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    // Should still render the span element even with empty content
+    assert!(rendered_html.contains("<span"));
+    assert!(rendered_html.contains("</span>"));
+    assert!(rendered_html.contains("inline-block"));
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_special_characters_are_preserved() {
-    spawn_local(async move {
-        let special_chars = vec!["&", "<", ">", "'", "\""];
+    let special_chars = vec!["&", "<", ">", "'", "\"", "!", "@", "#", "$", "%"];
 
-        for char in special_chars {
-            let props = IconProps {
-                icon: char.to_string(),
-                ..Default::default()
-            };
+    for char in special_chars {
+        let div = document().create_element("div").unwrap();
+        document().body().unwrap().append_child(&div).unwrap();
 
-            let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-                .render()
-                .await;
+        let props = IconProps {
+            icon: char.to_string(),
+            ..Default::default()
+        };
 
-            // Special characters should be preserved for screen readers
-            assert!(rendered.contains(char));
-        }
-    });
+        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+        // Wait for rendering to complete
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        let rendered_html = div.inner_html();
+        assert!(rendered_html.contains(char));
+        assert!(rendered_html.contains("inline-block"));
+    }
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_unicode_characters_are_accessible() {
-    spawn_local(async move {
-        let unicode_icons = vec!["🎉", "🚀", "💡", "🎯", "🌟", "🔥", "💎", "🌈", "🎨", "🎭"];
+    let unicode_chars = vec!["🚀", "🎉", "🌟", "🔥", "💎", "🎨", "🎭", "🎪", "🎟️", "🎫"];
 
-        for icon in unicode_icons {
-            let props = IconProps {
-                icon: icon.to_string(),
-                ..Default::default()
-            };
+    for unicode in unicode_chars {
+        let div = document().create_element("div").unwrap();
+        document().body().unwrap().append_child(&div).unwrap();
 
-            let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-                .render()
-                .await;
+        let props = IconProps {
+            icon: unicode.to_string(),
+            ..Default::default()
+        };
 
-            // Unicode characters should be preserved for accessibility
-            assert!(rendered.contains(icon));
-        }
-    });
+        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+        // Wait for rendering to complete
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        let rendered_html = div.inner_html();
+        assert!(rendered_html.contains(unicode));
+        assert!(rendered_html.contains("inline-block"));
+    }
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_whitespace_is_preserved() {
-    spawn_local(async move {
-        let props = IconProps {
-            icon: "  spaced  content  ".to_string(),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-            .render()
-            .await;
+    let whitespace_text = "  Preserved  Whitespace  ";
+    let props = IconProps {
+        icon: whitespace_text.to_string(),
+        ..Default::default()
+    };
 
-        // Whitespace should be preserved for screen readers
-        assert!(rendered.contains("  spaced  content  "));
-    });
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains(whitespace_text));
+    assert!(rendered_html.contains("inline-block"));
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_newlines_are_preserved() {
-    spawn_local(async move {
-        let props = IconProps {
-            icon: "line1\nline2\nline3".to_string(),
-            ..Default::default()
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-            .render()
-            .await;
+    let newline_text = "Line 1\nLine 2\nLine 3";
+    let props = IconProps {
+        icon: newline_text.to_string(),
+        ..Default::default()
+    };
 
-        // Newlines should be preserved for screen readers
-        assert!(rendered.contains("line1\nline2\nline3"));
-    });
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains(newline_text));
+    assert!(rendered_html.contains("inline-block"));
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_long_content_is_accessible() {
-    spawn_local(async move {
-        let long_content = "This is a very long text that should be fully accessible to screen readers and other assistive technologies without any truncation or modification";
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let props = IconProps {
-            icon: long_content.to_string(),
-            ..Default::default()
-        };
+    let long_text = "This is a very long icon text that should be accessible and readable by screen readers and other assistive technologies";
+    let props = IconProps {
+        icon: long_text.to_string(),
+        ..Default::default()
+    };
 
-        let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-            .render()
-            .await;
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
 
-        // Long content should be fully preserved for accessibility
-        assert!(rendered.contains(long_content));
-    });
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains(long_text));
+    assert!(rendered_html.contains("inline-block"));
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_all_size_variants_are_accessible() {
-    spawn_local(async move {
-        let sizes = vec![
-            IconSize::Small,
-            IconSize::Medium,
-            IconSize::Large,
-            IconSize::XLarge,
-        ];
+    let size_variants = vec![
+        IconSize::Small,
+        IconSize::Medium,
+        IconSize::Large,
+        IconSize::XLarge,
+    ];
 
-        for size in sizes {
-            let props = IconProps {
-                icon: "🏗️".to_string(),
-                size,
-                ..Default::default()
-            };
+    for size in size_variants {
+        let div = document().create_element("div").unwrap();
+        document().body().unwrap().append_child(&div).unwrap();
 
-            let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-                .render()
-                .await;
+        let props = IconProps {
+            icon: "Size Variant Test".to_string(),
+            size,
+            ..Default::default()
+        };
 
-            // All size variants should maintain accessibility
-            assert!(rendered.contains("🏗️"));
-            assert!(rendered.contains("inline-block"));
-        }
-    });
+        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+        // Wait for rendering to complete
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        let rendered_html = div.inner_html();
+        assert!(rendered_html.contains("Size Variant Test"));
+        assert!(rendered_html.contains("inline-block"));
+    }
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_animation_and_size_combination_accessibility() {
-    spawn_local(async move {
-        let combinations = vec![
-            (IconSize::Small, true),
-            (IconSize::Medium, false),
-            (IconSize::Large, true),
-            (IconSize::XLarge, false),
-        ];
+    let combinations = vec![
+        (IconSize::Small, true),
+        (IconSize::Medium, false),
+        (IconSize::Large, true),
+        (IconSize::XLarge, false),
+    ];
 
-        for (size, animated) in combinations {
-            let props = IconProps {
-                icon: "⚡".to_string(),
-                size,
-                animated,
-                ..Default::default()
-            };
+    for (size, animated) in combinations {
+        let div = document().create_element("div").unwrap();
+        document().body().unwrap().append_child(&div).unwrap();
 
-            let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-                .render()
-                .await;
+        let props = IconProps {
+            icon: "Combination Test".to_string(),
+            size,
+            animated,
+            ..Default::default()
+        };
 
-            // All combinations should maintain accessibility
-            assert!(rendered.contains("⚡"));
-            assert!(rendered.contains("inline-block"));
-        }
-    });
+        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+        // Wait for rendering to complete
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        let rendered_html = div.inner_html();
+        assert!(rendered_html.contains("Combination Test"));
+        assert!(rendered_html.contains("inline-block"));
+    }
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_complex_class_combinations_accessibility() {
-    spawn_local(async move {
-        let props = IconProps {
-            icon: "🔧".to_string(),
-            size: IconSize::Large,
-            animated: true,
-            class: classes!("custom", "highlight", "important", "accessible"),
-        };
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-            .render()
-            .await;
+    let props = IconProps {
+        icon: "Complex Classes".to_string(),
+        size: IconSize::Large,
+        animated: true,
+        class: classes!("custom", "highlight", "important", "accessible"),
+    };
 
-        // Complex class combinations should not break accessibility
-        assert!(rendered.contains("🔧"));
-        assert!(rendered.contains("inline-block"));
-        assert!(rendered.contains("text-lg"));
-        assert!(rendered.contains("animate-bounce"));
-        assert!(rendered.contains("custom"));
-        assert!(rendered.contains("highlight"));
-        assert!(rendered.contains("important"));
-        assert!(rendered.contains("accessible"));
-    });
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("Complex Classes"));
+    assert!(rendered_html.contains("text-lg"));
+    assert!(rendered_html.contains("animate-bounce"));
+    assert!(rendered_html.contains("custom"));
+    assert!(rendered_html.contains("highlight"));
+    assert!(rendered_html.contains("important"));
+    assert!(rendered_html.contains("accessible"));
+    assert!(rendered_html.contains("inline-block"));
 }
 
 #[wasm_bindgen_test]
 async fn test_icon_default_props_accessibility() {
-    spawn_local(async move {
-        let props = IconProps::default();
+    let div = document().create_element("div").unwrap();
+    document().body().unwrap().append_child(&div).unwrap();
 
-        let rendered = yew::ServerRenderer::<Icon>::with_props(props)
-            .render()
-            .await;
+    let props = IconProps {
+        icon: "Default Props".to_string(),
+        ..Default::default()
+    };
 
-        // Default props should still provide basic accessibility
-        assert!(rendered.contains("<span"));
-        assert!(rendered.contains("</span>"));
-        assert!(rendered.contains("inline-block"));
-        assert!(rendered.contains("text-base"));
-    });
+    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    let rendered_html = div.inner_html();
+    assert!(rendered_html.contains("Default Props"));
+    assert!(rendered_html.contains("inline-block"));
+    assert!(rendered_html.contains("text-base"));
 }
