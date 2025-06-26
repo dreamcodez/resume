@@ -21,9 +21,7 @@ command_arguments = ["run", "build:css:prod"]
 [[hooks]]
 stage = "pre_build"
 command = "sh"
-command_arguments = ["-c", "mkdir -p dist"]
-
-[[hooks]]
-stage = "pre_build"
-command = "sh"
-command_arguments = ["-c", "cp -r ../static/* dist/"]
+command_arguments = [
+    "-c",
+    "mkdir -p dist/static && cp -r static/* dist/static/"
+]
