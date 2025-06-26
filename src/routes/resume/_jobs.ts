@@ -134,6 +134,51 @@ export default [
 `,
   },
   {
+    company: "Lambda Software, Inc.",
+    companyDescription:
+      "Lambda Software was formed as a way to seek funding for startup ventures and provide software architecture consulting services.",
+    companyWebsite: "",
+    jobTitle: "President",
+    start: "2014-10",
+    end: "2015-09",
+    markdown: `
+* **Founded and led** software consulting company focused on scaling software architectures
+* **Provided technical consulting** to clients on system design and scalability challenges
+* **Sought funding** for startup ventures and technology innovations
+* **Demonstrated entrepreneurial leadership** in software industry
+`,
+  },
+  {
+    company: "Standard Crypto",
+    companyDescription:
+      "Standard Crypto developed backend technology for processing bitcoin transactions for online gaming platforms.",
+    companyWebsite: "",
+    jobTitle: "Lead Software Developer",
+    start: "2013-11",
+    end: "2014-09",
+    markdown: `
+* **Developed backend technology stack** to process bitcoin transactions for online casino using Node.js/Insight
+* **Tuned layout/platform/architecture** of mixxtopia.com to optimize AdSense revenue
+* **Built cryptocurrency payment processing** systems for high-volume transactions
+* **Optimized web platform performance** and monetization strategies
+`,
+  },
+  {
+    company: "Dimension Software",
+    companyDescription:
+      "Dimension Software developed modern bulletin-board web applications as a software-as-a-service platform.",
+    companyWebsite: "https://powerbulletin.com",
+    jobTitle: "Co-Founder / Software Developer",
+    start: "2013-01",
+    end: "2013-10",
+    markdown: `
+* **Co-founded software company** developing modern bulletin-board web applications
+* **Built from-scratch platform** using Node.js and LiveScript for business SaaS
+* **Developed powerbulletin.com** platform currently in beta
+* **Demonstrated full-stack development** and entrepreneurial skills
+`,
+  },
+  {
     company: "Weedmaps Media",
     companyDescription:
       "WeedMaps helps medical marijuana patients find dispensaries and provides helpful reviews and menus.",
@@ -149,6 +194,39 @@ export default [
 * **Designed and built** features for dispensary discovery and patient services
 * **Maintained and scaled** platform supporting thousands of dispensaries and patients
 * **Praised for encyclopedic technical knowledge and ability to deliver results**
+`,
+  },
+  {
+    company: "Bolthouse Farms",
+    companyDescription:
+      "Bolthouse Farms is a leading producer of carrots and other healthy food products.",
+    companyWebsite: "https://bolthouse.com",
+    jobTitle: "Senior System Administrator",
+    start: "2009-02",
+    end: "2010-12",
+    markdown: `
+* **Implemented high-availability VMware cluster** and HA SQL Server Cluster for enterprise infrastructure
+* **Deployed Business Objects BI** systems and multiple intrusion detection systems
+* **Oversaw 200 servers** (physical and virtual) at company datacenter as one of 3 responsible administrators
+* **Assisted marketing team** in SEO recovery from flash-only website launch, preserving years of link equity
+* **Converted graphical concepts** to HTML-friendly implementations while incorporating legacy content
+* **Built internal applications** and maintained email, web, and DNS systems
+`,
+  },
+  {
+    company: "Jupiter Laboratories, Corp.",
+    companyDescription:
+      "Jupiter Laboratories provided customer satisfaction-driven software development and technical consulting services.",
+    companyWebsite: "",
+    jobTitle: "Lead Software Developer",
+    start: "2007-01",
+    end: "2009-01",
+    markdown: `
+* **Authored original Ruby on Rails codebases** for customer projects
+* **Maintained email, web, and DNS systems** for client infrastructure
+* **Served as primary technical consultant** for challenging technical problems
+* **Demonstrated customer-focused development** and system administration skills
+* **Built and maintained** multiple client applications and infrastructure
 `,
   },
 ] as Job[];
