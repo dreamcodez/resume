@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 /// Badge variants for different contexts
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone, Debug)]
 pub enum BadgeVariant {
     Default,
     Primary,
@@ -18,7 +18,7 @@ impl Default for BadgeVariant {
 }
 
 /// Badge sizes
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone, Debug)]
 pub enum BadgeSize {
     Small,
     Medium,
@@ -32,7 +32,7 @@ impl Default for BadgeSize {
 }
 
 /// Props for the Badge component
-#[derive(Properties, PartialEq, Default)]
+#[derive(Properties, PartialEq, Default, Debug)]
 pub struct BadgeProps {
     /// The visual variant of the badge
     #[prop_or_default]
@@ -92,29 +92,11 @@ pub fn badge(props: &BadgeProps) -> Html {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_badge_variants_have_correct_classes() {
-        let variants = vec![
-            (BadgeVariant::Default, "bg-gray-100"),
-            (BadgeVariant::Primary, "bg-blue-100"),
-            (BadgeVariant::Success, "bg-green-100"),
-            (BadgeVariant::Warning, "bg-yellow-100"),
-            (BadgeVariant::Danger, "bg-red-100"),
-            (BadgeVariant::Info, "bg-cyan-100"),
-        ];
-
-        for (variant, expected_class) in variants {
-            let props = BadgeProps {
-                variant,
-                children: Children::new(vec![html! { <span>{"Test"}</span> }]),
-                ..Default::default()
-            };
-
-            // In a real test, you'd render and check the classes
-            assert!(true); // Placeholder assertion
-        }
-    }
+pub mod tests {
+    pub mod accessibility;
+    pub mod edge_cases;
+    pub mod interactions;
+    pub mod props;
+    pub mod rendering;
+    pub mod variants;
 }

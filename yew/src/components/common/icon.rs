@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
 /// Icon sizes
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone, Debug)]
 pub enum IconSize {
     Small,
     Medium,
@@ -16,7 +16,7 @@ impl Default for IconSize {
 }
 
 /// Props for the Icon component
-#[derive(Properties, PartialEq, Default)]
+#[derive(Properties, PartialEq, Default, Debug)]
 pub struct IconProps {
     /// The icon content (emoji or text)
     pub icon: String,
@@ -79,39 +79,11 @@ pub mod icons {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_icon_sizes_have_correct_classes() {
-        let sizes = vec![
-            (IconSize::Small, "text-sm"),
-            (IconSize::Medium, "text-base"),
-            (IconSize::Large, "text-lg"),
-            (IconSize::XLarge, "text-2xl"),
-        ];
-
-        for (size, expected_class) in sizes {
-            let props = IconProps {
-                icon: "🏗️".to_string(),
-                size,
-                ..Default::default()
-            };
-
-            // In a real test, you'd render and check the classes
-            assert!(true); // Placeholder assertion
-        }
-    }
-
-    #[test]
-    fn test_animated_icon_has_animation_class() {
-        let props = IconProps {
-            icon: "⚡".to_string(),
-            animated: true,
-            ..Default::default()
-        };
-
-        // In a real test, you'd render and check for animation classes
-        assert!(true); // Placeholder assertion
-    }
+pub mod tests {
+    pub mod accessibility;
+    pub mod edge_cases;
+    pub mod interactions;
+    pub mod props;
+    pub mod rendering;
+    pub mod variants;
 }

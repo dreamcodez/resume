@@ -257,3 +257,328 @@ When reviewing component changes:
 - Integrate a code coverage tool (e.g., tarpaulin for Rust) into CI.
 - Require a minimum code coverage threshold for merges (document the threshold).
 - Document how to run and interpret coverage reports in the README.
+
+# Yew Component Testing - Critical Rules
+
+## 🚨 **CRITICAL: Test Module Structure Requirements**
+
+### **Mandatory 6-Category Testing Pattern**
+
+Every Yew component MUST follow this exact testing structure:
+
+```
+components/common/component_name/
+├── mod.rs              # Main component (under 200 lines)
+├── tests/
+│   ├── mod.rs          # Test module declaration
+│   ├── props.rs        # Props struct tests
+│   ├── rendering.rs    # HTML rendering tests
+│   ├── variants.rs     # Component variant tests
+│   ├── interactions.rs # User interaction tests
+│   ├── accessibility.rs # A11y compliance tests
+│   └── edge_cases.rs   # Edge case tests
+└── README.md           # Component documentation
+```
+
+**CRITICAL**: All 6 test modules MUST be created for every component. No exceptions.
+
+### **Test Module Declaration Pattern**
+
+```rust
+// Test modules for ComponentName component
+pub mod props;
+pub mod rendering;
+pub mod variants;
+pub mod interactions;
+pub mod accessibility;
+pub mod edge_cases;
+```
+
+### **Component Test Module Integration**
+
+```rust
+#[cfg(test)]
+pub mod tests {
+    pub mod props;
+    pub mod rendering;
+    pub mod variants;
+    pub mod interactions;
+    pub mod accessibility;
+    pub mod edge_cases;
+}
+```
+
+## 🚨 **CRITICAL: Import and Dependency Patterns**
+
+### **Test File Import Structure**
+
+Every test file MUST use this exact import pattern:
+
+```rust
+use wasm_bindgen_test::*;
+use yew::platform::spawn_local;
+use yew::platform::time::sleep;
+use yew::prelude::*;
+use gloo_utils::document;
+use std::time::Duration;
+
+use crate::components::common::component_name::{ComponentName, ComponentNameProps, ComponentNameEnum};
+```
+
+### **WASM Test Configuration**
+
+Every test file MUST include:
+
+```rust
+wasm_bindgen_test_configure!(run_in_browser);
+```
+
+### **Async Test Pattern**
+
+Every test MUST use this pattern:
+
+```rust
+#[wasm_bindgen_test]
+async fn test_name() {
+    spawn_local(async move {
+        // Test implementation
+    });
+}
+```
+
+## 🚨 **CRITICAL: Component Derive Requirements**
+
+### **Mandatory Derives for All Components**
+
+Every component MUST have these derives:
+
+```rust
+#[derive(PartialEq, Clone, Debug)]
+pub enum ComponentEnum {
+    // variants
+}
+
+#[derive(Properties, PartialEq, Default, Debug)]
+pub struct ComponentProps {
+    // props
+}
+```
+
+**CRITICAL**: Missing `Debug` derive will cause compilation errors in tests.
+
+## 🚨 **CRITICAL: Test Content Patterns**
+
+### **Children Props Testing**
+
+When testing components with `Children` props:
+
+```rust
+// CORRECT: Use Children::new with vec of html! elements
+let props = ComponentProps {
+    children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+    ..Default::default()
+};
+
+// INCORRECT: Don't reference other components that may not be available
+let props = ComponentProps {
+    children: Children::new(vec![html! { <Icon icon="🏗️" /> }]), // ❌
+    ..Default::default()
+};
+```
+
+### **Unicode and Special Character Testing**
+
+Always test with these edge cases:
+
+```rust
+// Test empty content
+let props = ComponentProps { content: "".to_string(), ..Default::default() };
+
+// Test whitespace
+let props = ComponentProps { content: "   ".to_string(), ..Default::default() };
+
+// Test very long content
+let props = ComponentProps { content: "a".repeat(1000), ..Default::default() };
+
+// Test HTML entities
+let props = ComponentProps { content: "&amp;&lt;&gt;&quot;&#39;&nbsp;" };
+
+// Test Unicode sequences
+let props = ComponentProps { content: "🏗️⚡🔧🧩✅⚠️❌ℹ️⏳✓✗→←↑↓".to_string(), ..Default::default() };
+```
+
+## 🚨 **CRITICAL: Rendering Test Patterns**
+
+### **ServerRenderer Pattern**
+
+Use this exact pattern for rendering tests:
+
+```rust
+let rendered = yew::ServerRenderer::<ComponentName>::with_props(props)
+    .render()
+    .await;
+
+// Test for expected content
+assert!(rendered.contains("expected-content"));
+assert!(rendered.contains("expected-class"));
+```
+
+### **CSS Class Testing**
+
+Always test for both presence and absence:
+
+```rust
+// Test for expected classes
+assert!(rendered.contains("expected-class"));
+
+// Test for absence of unexpected classes
+assert!(!rendered.contains("unexpected-class"));
+```
+
+## 🚨 **CRITICAL: Edge Case Testing Requirements**
+
+### **Mandatory Edge Cases**
+
+Every component MUST test these edge cases:
+
+1. **Empty Content**: `""` or empty `Children::new(vec![])`
+2. **Whitespace Only**: `"   "` or whitespace children
+3. **Very Long Content**: `"a".repeat(1000)` or long children
+4. **HTML Entities**: `"&amp;&lt;&gt;&quot;&#39;&nbsp;"`
+5. **Control Characters**: `"\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0A\x0B\x0C\x0D\x0E\x0F"`
+6. **Unicode Combining**: `"e\u{0301}", "a\u{0308}", "o\u{0302}"`
+7. **Emoji Sequences**: `"👨‍👩‍👧‍👦", "🏳️‍🌈", "👨‍💻"`
+8. **Mixed Content**: `"🏗️ & <script>alert('test')</script> → ✓"`
+9. **Null Bytes**: `"text\u{0000}with\u{0000}nulls"`
+10. **Surrogate Pairs**: `"text\u{1F600}\u{1F601}\u{1F602}with\u{1F603}\u{1F604}emojis"`
+
+### **Component-Specific Edge Cases**
+
+Test all prop combinations:
+
+```rust
+for variant in &variants {
+    for size in &sizes {
+        for &rounded in &rounded_states {
+            for class in &custom_classes {
+                let props = ComponentProps {
+                    variant: variant.clone(),
+                    size: size.clone(),
+                    rounded,
+                    class: class.clone(),
+                    // ... other props
+                };
+                // Test the combination
+            }
+        }
+    }
+}
+```
+
+## 🚨 **CRITICAL: Accessibility Testing Requirements**
+
+### **Mandatory Accessibility Tests**
+
+Every component MUST test:
+
+1. **Semantic HTML**: Verify correct HTML elements are used
+2. **Content Visibility**: Ensure content is rendered and accessible
+3. **Screen Reader Support**: Test with complex children and Unicode
+4. **Layout Consistency**: Verify layout works with empty content
+5. **Class Combinations**: Ensure custom classes don't break accessibility
+
+### **Accessibility Test Pattern**
+
+```rust
+#[wasm_bindgen_test]
+async fn test_component_accessibility() {
+    spawn_local(async move {
+        let props = ComponentProps {
+            // Test with various content types
+            children: Children::new(vec![
+                html! { <span>{"Text"}</span> },
+                html! { <strong>{"Bold"}</strong> },
+                html! { <span>{"🏗️"}</span> },
+            ]),
+            ..Default::default()
+        };
+
+        let rendered = yew::ServerRenderer::<ComponentName>::with_props(props)
+            .render()
+            .await;
+
+        // Verify accessibility requirements
+        assert!(rendered.contains("font-medium")); // Base classes
+        assert!(rendered.contains("Text"));
+        assert!(rendered.contains("Bold"));
+        assert!(rendered.contains("🏗️"));
+    });
+}
+```
+
+## 🚨 **CRITICAL: Documentation Requirements**
+
+### **Mandatory README Structure**
+
+Every component MUST have a comprehensive README with:
+
+1. **Features Section**: List all component capabilities
+2. **Usage Examples**: Basic, with variants, with custom classes
+3. **Props Documentation**: Table with types, defaults, descriptions
+4. **CSS Classes**: Document all applied classes
+5. **Examples**: Different sizes, variants, combinations
+6. **Accessibility**: How the component supports a11y
+7. **Testing**: How to run tests and test categories
+8. **Best Practices**: Usage guidelines and recommendations
+9. **Migration Guide**: Breaking changes and updates
+10. **Related Components**: Links to related components
+
+## 🚨 **CRITICAL: Common Pitfalls to Avoid**
+
+### **Import Errors**
+
+- ❌ Don't import components that may not be available in test context
+- ❌ Don't use `super::super::tests` imports
+- ❌ Don't create duplicate module names
+
+### **Test Structure Errors**
+
+- ❌ Don't skip any of the 6 mandatory test categories
+- ❌ Don't use placeholder assertions (`assert!(true)`)
+- ❌ Don't forget the `wasm_bindgen_test_configure!` macro
+
+### **Component Structure Errors**
+
+- ❌ Don't forget `Debug` derives on enums and structs
+- ❌ Don't use `class_list` instead of `class_name` in web-sys
+- ❌ Don't forget to handle empty content gracefully
+
+### **Rendering Test Errors**
+
+- ❌ Don't test for exact HTML structure (too brittle)
+- ❌ Don't forget to test both presence and absence of classes
+- ❌ Don't skip edge case testing
+
+## 🚨 **CRITICAL: Performance and Reliability**
+
+### **Test Execution**
+
+- Keep individual tests under 5 seconds
+- Use `spawn_local` for all async operations
+- Avoid blocking operations in tests
+
+### **Test Coverage**
+
+- Aim for 100% coverage of all code paths
+- Test all enum variants and prop combinations
+- Test both positive and negative cases
+
+### **Test Maintenance**
+
+- Update tests when component props change
+- Keep test names descriptive and consistent
+- Document any test-specific setup requirements
+
+---
+
+**CRITICAL**: These rules are mandatory for all Yew component development. Violating any of these rules will result in inconsistent, unreliable, and poorly tested components.
