@@ -10,12 +10,10 @@ const { test, expect } = require("@playwright/test");
 test("Puzzle should progress through states correctly with clicks", async ({
   page,
 }) => {
-  await page.goto("http://localhost:8080/", { timeout: 10000 });
+  await page.goto("http://localhost:8080/");
 
   // Wait for the puzzle to be visible
-  await page.waitForSelector('img[alt*="Interactive Puzzle"]', {
-    timeout: 10000,
-  });
+  await page.waitForSelector('img[alt*="Interactive Puzzle"]');
 
   // Check initial state - should show progress indicators
   const progressIndicators = await page.locator(".flex.gap-1 > div").count();
@@ -70,12 +68,10 @@ test("Puzzle should progress through states correctly with clicks", async ({
 test("Puzzle should work with touch events on mobile", async ({ page }) => {
   // Set mobile viewport
   await page.setViewportSize({ width: 375, height: 667 });
-  await page.goto("http://localhost:8080/", { timeout: 10000 });
+  await page.goto("http://localhost:8080/");
 
   // Wait for the puzzle to be visible
-  await page.waitForSelector('img[alt*="Interactive Puzzle"]', {
-    timeout: 10000,
-  });
+  await page.waitForSelector('img[alt*="Interactive Puzzle"]');
 
   // Touch the first emoji (Foundation)
   await page.locator('button:has-text("🏗️")').tap();
@@ -106,12 +102,10 @@ test("Puzzle should work with touch events on mobile", async ({ page }) => {
 });
 
 test("Puzzle reset should work correctly", async ({ page }) => {
-  await page.goto("http://localhost:8080/", { timeout: 10000 });
+  await page.goto("http://localhost:8080/");
 
   // Wait for the puzzle to be visible
-  await page.waitForSelector('img[alt*="Interactive Puzzle"]', {
-    timeout: 10000,
-  });
+  await page.waitForSelector('img[alt*="Interactive Puzzle"]');
 
   // Complete the puzzle
   await page.locator('button:has-text("🏗️")').click();

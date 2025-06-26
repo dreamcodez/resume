@@ -23,7 +23,7 @@ test.describe("Home Page Visual Parity", () => {
 
       // Load the reference screenshot
       const referencePath = path.resolve(
-        "reference-visuals/home-page-reference.png"
+        "../reference-visuals/home-page-reference.png"
       );
       if (!fs.existsSync(referencePath)) {
         throw new Error(`Reference screenshot not found: ${referencePath}`);

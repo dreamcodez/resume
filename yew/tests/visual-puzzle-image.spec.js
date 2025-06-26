@@ -9,12 +9,10 @@ const { test, expect } = require("@playwright/test");
  */
 test("Puzzle image must not be broken", async ({ page }) => {
   // Use port 8080 where the Yew app is actually running
-  await page.goto("http://localhost:8080/", { timeout: 10000 });
+  await page.goto("http://localhost:8080/");
 
   // Wait for the puzzle image to be in the DOM
-  const img = await page.waitForSelector('img[alt*="Interactive Puzzle"]', {
-    timeout: 10000,
-  });
+  const img = await page.waitForSelector('img[alt*="Interactive Puzzle"]');
 
   // Check if the image loaded successfully
   const isLoaded = await img.evaluate(

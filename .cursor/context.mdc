@@ -38,6 +38,7 @@ This is **Matthew Elders' Resume Website** - a dual-technology showcase featurin
 5. **📝 ALWAYS Run Tests** - Both Rust and Playwright tests must pass
 6. **🔒 ALWAYS Maintain Visual Parity** - Yew version should match Svelte version
 7. **🎯 ALWAYS Follow Component Patterns** - Use established component architecture
+8. **⏱️ ALWAYS Use Global Timeouts** - Never use explicit timeouts in individual tests to prevent hanging
 
 ## Quick Reference
 

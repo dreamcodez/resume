@@ -253,3 +253,14 @@ cd yew && npx playwright test --debug tests/puzzle-functionality.spec.js
 - [ ] CI/CD pipeline green
 - [ ] Test coverage > 80%
 - [ ] Test execution time < 5 minutes
+
+## Critical Rules (NEVER Violate)
+
+1. **❌ NEVER Break Existing Functionality** - Both Svelte and Yew versions must work
+2. **❌ NEVER Ignore Test Failures** - All tests must pass before committing
+3. **❌ NEVER Use Arbitrary Styling** - Follow established design patterns
+4. **❌ NEVER Skip Documentation** - All changes must be documented
+5. **📝 ALWAYS Run Tests** - Both Rust and Playwright tests must pass
+6. **🔒 ALWAYS Maintain Visual Parity** - Yew version should match Svelte version
+7. **🎯 ALWAYS Follow Component Patterns** - Use established component architecture
+8. **⏱️ ALWAYS Use Global Timeouts** - Never use explicit timeouts in individual tests to prevent hanging

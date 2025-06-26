@@ -37,6 +37,10 @@ module.exports = defineConfig({
 
     /* Enable touch support for mobile testing */
     hasTouch: true,
+
+    /* Short timeouts to prevent hanging */
+    actionTimeout: 3000,
+    navigationTimeout: 5000,
   },
 
   /* Configure projects for major browsers */
@@ -82,7 +86,10 @@ module.exports = defineConfig({
     command: "trunk serve --port 8080",
     url: "http://localhost:8080",
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    timeout: 20000, // 20 seconds for Yew dev server startup
     cwd: __dirname,
   },
+
+  /* Global timeout for all tests */
+  timeout: 10000, // 10 seconds per test
 });
