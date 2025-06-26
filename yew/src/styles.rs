@@ -128,6 +128,17 @@ pub mod components {
         "inline-block bg-success-100 text-success-800 px-3 py-1 rounded-full text-sm font-medium";
 }
 
+pub mod home {
+    pub const CONTAINER: &str = "w-4/5 mx-auto"; // width: 80%; margin: 0 auto
+    pub const HERO_HEADING: &str = "font-serif italic text-left text-[1.7em]";
+    pub const HERO_CODE: &str = "block my-4";
+    pub const HERO_IMG: &str = "float-right w-1/2 mr-6 mb-2 rounded-2xl shadow-lg";
+    pub const NAME_HEADING: &str = "text-[2.5em] font-bold leading-tight";
+    pub const NAME_EM: &str = "italic";
+    pub const ROLE: &str = "text-base text-gray-700";
+    pub const PARAGRAPH: &str = "mb-4 text-base text-gray-800";
+}
+
 // Helper function to combine multiple classes
 pub fn combine_classes(classes: &[&str]) -> String {
     classes.join(" ")

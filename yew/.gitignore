@@ -1,10 +1,16 @@
-/dist/
-/node_modules/
-/target/
-
-# Playwright
+# Ignore node modules and build output
 node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+dist/
+
+# Ignore Playwright test artifacts
+playwright-report/
+test-results/
+
+# Ignore other test artifacts
+# (do NOT ignore tests/reference-screenshots/ or any test source files)
+tests/*.log
+
+# Ignore OS files
+.DS_Store
+
+/target/

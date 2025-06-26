@@ -9,6 +9,10 @@ watch = ["src", "index.html", "styles"]
 address = "127.0.0.1"
 port = 8080
 
+[[copy]]
+source = "static"
+destination = "static"
+
 [[hooks]]
 stage = "pre_build"
 command = "npm"
@@ -18,3 +22,8 @@ command_arguments = ["run", "build:css:prod"]
 stage = "pre_build"
 command = "sh"
 command_arguments = ["-c", "mkdir -p dist"]
+
+[[hooks]]
+stage = "pre_build"
+command = "sh"
+command_arguments = ["-c", "cp -r ../static/* dist/"]
