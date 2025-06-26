@@ -12,3 +12,22 @@
 - **When in doubt, ask for clarification on project structure, test location, or asset management before making changes.**
 - **Always keep a clear separation between generated artifacts and source files in both code and documentation.**
 - **If you learn a new best practice or hit a pitfall, document it immediately in `docs/ai-context/rules/critical/`.**
+- **If you encounter a recurring or non-obvious test failure pattern (e.g., web-sys API mismatch, missing derives, or browser-only test failures), document the workaround or fix in the rules folder immediately.**
+
+## Test Environment & CI Rules
+
+- Always document any required browser, toolchain, or test runner setup (e.g., wasm-bindgen-test, Trunk, Node version) in the README or a dedicated setup guide.
+- If tests require a specific browser or headless mode, state this clearly.
+- All test failures should output full error messages and stack traces.
+- If a test is flaky or non-deterministic, mark it and document the conditions under which it fails.
+- Run rustfmt and clippy on all test files as part of CI. Document any exceptions or lints that must be disabled and why.
+- Always pin versions for all test dependencies in Cargo.toml to avoid breakage from upstream changes.
+- Document any known incompatibilities between versions of Yew, wasm-bindgen, gloo, etc.
+- Integrate a code coverage tool (e.g., tarpaulin for Rust) and require a minimum coverage threshold for merges. Document how to run and interpret coverage reports.
+
+## Linting, Formatting, and Dependency Management
+
+- Run rustfmt and clippy on all test and source files as part of CI.
+- Document any exceptions or lints that must be disabled and why in the README or a dedicated linting guide.
+- Always pin versions for all dependencies and dev-dependencies in Cargo.toml to avoid breakage from upstream changes.
+- Document any known incompatibilities between versions of Yew, wasm-bindgen, gloo, etc.

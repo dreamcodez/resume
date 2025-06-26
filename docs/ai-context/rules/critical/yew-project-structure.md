@@ -8,3 +8,9 @@
 - Always update documentation and config when reorganizing files or directories.
 - When debugging image loading, check the static asset path, Trunk copy config, and direct browser access.
 - Interactive/animated features should be self-contained in the Yew app and not depend on root-level assets or config.
+
+## Test Data & Fixture Management
+
+- All test fixtures and static data must be stored in a dedicated directory (e.g., tests/fixtures/).
+- Never hardcode large data blobs in test files—reference them from fixtures.
+- Document the structure and usage of fixtures in the test README.

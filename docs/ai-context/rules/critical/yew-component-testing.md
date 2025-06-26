@@ -236,3 +236,24 @@ When reviewing component changes:
 
 **Last Updated**: Component testing pattern established
 **Next Review**: After implementing for all common components
+
+## 🛑 Common Pitfalls & Troubleshooting
+
+- Always check for missing #[derive(Default, Clone, PartialEq)] on props structs if tests fail to compile.
+- Use gloo_utils::document instead of gloo::utils::document for DOM access in tests.
+- Use .class_name() instead of .class_list() for class assertions on web_sys::Element.
+- Always add all required props (including optional ones) in test initializations to avoid missing field errors.
+- If a test closure needs to mutate state, use Rc<RefCell<T>> or similar patterns to avoid Fn/FnMut trait errors.
+
+## Advanced Testing Practices
+
+- Test function names should describe the scenario and expected outcome (e.g., test_button_disabled_renders_with_opacity).
+- Group related tests in modules and use doc comments to explain the intent of each group.
+- Store all test fixtures and static data in a dedicated directory (e.g., tests/fixtures/). Never hardcode large data blobs in test files—reference them from fixtures.
+- If the project targets multiple browsers or platforms, document and automate tests for each supported environment.
+
+## Test Coverage Reporting
+
+- Integrate a code coverage tool (e.g., tarpaulin for Rust) into CI.
+- Require a minimum code coverage threshold for merges (document the threshold).
+- Document how to run and interpret coverage reports in the README.

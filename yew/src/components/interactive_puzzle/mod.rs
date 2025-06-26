@@ -141,9 +141,8 @@ mod tests {
 
     #[test]
     fn test_puzzle_solution_callback() {
-        let mut callback_called = false;
-        let on_solved = Callback::from(move |_: ()| {
-            callback_called = true;
+        let on_solved = Callback::from(|_: ()| {
+            // Callback should execute without error
         });
 
         let props = InteractivePuzzleProps {

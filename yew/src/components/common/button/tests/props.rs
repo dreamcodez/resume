@@ -16,6 +16,7 @@ mod tests {
         let props = ButtonProps {
             children: Children::new(vec![html! { <span>{"Click me"}</span> }]),
             onclick: Callback::from(|_: MouseEvent| {}),
+            ontouchstart: None,
             ..Default::default()
         };
 
@@ -34,6 +35,7 @@ mod tests {
             loading: true,
             children: Children::new(vec![html! { <span>{"Submit"}</span> }]),
             onclick: Callback::from(|_: MouseEvent| {}),
+            ontouchstart: None,
             class: Classes::from("custom-class"),
         };
 
@@ -50,6 +52,7 @@ mod tests {
             size: ButtonSize::Medium,
             children: Children::new(vec![html! { <span>{"Test"}</span> }]),
             onclick: Callback::from(|_: MouseEvent| {}),
+            ontouchstart: None,
             ..Default::default()
         };
 
@@ -58,6 +61,7 @@ mod tests {
             size: ButtonSize::Medium,
             children: Children::new(vec![html! { <span>{"Test"}</span> }]),
             onclick: Callback::from(|_: MouseEvent| {}),
+            ontouchstart: None,
             ..Default::default()
         };
 
