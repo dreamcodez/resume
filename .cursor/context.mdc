@@ -1,0 +1,174 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+⚠️ **IMPORTANT: DEVELOPMENT GUIDELINES** ⚠️
+
+**Before making any code or documentation changes, please:**
+
+1. **Review the `docs/` directory** to understand established patterns, architecture, and conventions
+2. **MUST follow `docs/ai-context/`** - These comprehensive development guidelines are mandatory and non-negotiable
+3. **Maintain documentation consistency** - update docs to reflect any code changes made
+
+**About `docs/ai-context/`:**
+This directory contains specific instructions and rules for any AI agent working on this codebase. When a human requests new AI rules, guidelines, or behavioral patterns to be added to the project, these should be documented in the appropriate files within `docs/ai-context/` to ensure all future AI interactions follow the same standards.
+
+**Documentation Best Practices:**
+- **Reuse existing docs**: Leverage content from the `docs/` directory whenever possible instead of duplicating information
+- **Link rather than duplicate**: In `docs/ai-context/`, link to relevant markdown files rather than copying the same information
+- **Human-readable standards**: All documentation should be readable by humans, aesthetically pleasing, and properly formatted
+- **Clear language**: Use precise, accurate language appropriate to the topic at hand
+- **Prefer docs over context.mdc**: Add new data, rules, or guidelines to `docs/ai-context/` or the `docs/` directory rather than duplicating them in this context.mdc file
+
+---
+
+## Project Overview
+
+This is **Matthew Elders' Resume Website** - a dual-technology showcase featuring:
+- **Svelte/Sapper** (legacy) - `src/` directory
+- **Rust/Yew** (modern) - `yew/` directory
+
+## Critical Rules (NEVER Violate)
+
+1. **❌ NEVER Break Existing Functionality** - Both Svelte and Yew versions must work
+2. **❌ NEVER Ignore Test Failures** - All tests must pass before committing
+3. **❌ NEVER Use Arbitrary Styling** - Follow established design patterns
+4. **❌ NEVER Skip Documentation** - All changes must be documented
+5. **📝 ALWAYS Run Tests** - Both Rust and Playwright tests must pass
+6. **🔒 ALWAYS Maintain Visual Parity** - Yew version should match Svelte version
+7. **🎯 ALWAYS Follow Component Patterns** - Use established component architecture
+
+## Quick Reference
+
+### File Structure
+- **Svelte App**: `src/` (legacy, being migrated)
+- **Yew App**: `yew/` (modern, primary focus)
+- **Documentation**: `docs/` and `docs/ai-context/`
+- **Tests**: `tests/` (Svelte), `yew/tests/` (Yew)
+- **Data**: `data/` (LinkedIn exports)
+- **Tools**: `tools/` (utility scripts)
+
+### Common Commands
+```bash
+# Svelte (Legacy)
+npm run dev              # Start Svelte dev server
+npm run build           # Build Svelte for production
+npm run test            # Run Svelte tests
+
+# Yew (Modern)
+cd yew
+cargo test              # Run Rust unit tests
+npx playwright test     # Run Playwright integration tests
+trunk serve             # Start Yew dev server
+trunk build             # Build Yew for production
+
+# Documentation
+npm run generate-readme-md    # Generate README.md
+npm run generate-readme-pdf   # Generate README.pdf
+```
+
+### Test Commands
+```bash
+# Rust Tests (149 tests)
+cd yew && cargo test
+
+# Playwright Tests (42 tests)
+cd yew && npx playwright test
+
+# Update Playwright screenshots
+cd yew && npx playwright test --update-snapshots
+
+# Show test reports
+cd yew && npx playwright show-report
+```
+
+### Verification Commands
+```bash
+# Check Rust compilation
+cd yew && cargo check
+
+# Check TypeScript (Svelte)
+npm run typecheck
+
+# Check for test failures
+cd yew && cargo test && npx playwright test
+
+# Verify visual parity
+cd yew && npx playwright test tests/visual-parity-home.spec.js
+```
+
+## Technology Stack
+
+### Svelte/Sapper (Legacy)
+- **Framework**: Svelte 3 + Sapper
+- **Styling**: Global CSS
+- **Build**: Rollup
+- **Status**: Being migrated to Yew
+
+### Rust/Yew (Modern)
+- **Framework**: Yew 0.21 + Rust 2021
+- **Styling**: Tailwind CSS
+- **Build**: Trunk
+- **Testing**: wasm-bindgen-test + Playwright
+- **Status**: Primary development focus
+
+## Development Workflow
+
+### 1. Feature Development
+1. **Start with Yew version** - Primary development happens in `yew/`
+2. **Write tests first** - Follow TDD approach
+3. **Maintain visual parity** - Ensure Yew matches Svelte design
+4. **Update documentation** - Keep docs current
+
+### 2. Testing Strategy
+1. **Rust unit tests** - Component logic and data processing
+2. **Playwright integration tests** - End-to-end functionality
+3. **Visual regression tests** - Ensure UI consistency
+4. **Accessibility tests** - Screen reader and keyboard navigation
+
+### 3. Migration Process
+1. **Identify Svelte component** in `src/components/`
+2. **Create Yew equivalent** in `yew/src/components/`
+3. **Write comprehensive tests** for both versions
+4. **Verify visual parity** between implementations
+5. **Update documentation** to reflect changes
+
+## AI Context Resolution Rules
+
+## AI Context Resolution
+When looking for AI context instructions, follow this precedence order:
+
+1. Look for `docs/ai-context/` in the current directory
+2. If not found, look in parent directories up to the repository root
+3. Higher priority is given to more deeply nested context files
+4. In case of ambiguity, the most specific (deepest) context takes precedence
+
+Example:
+```
+/resume/
+  ├── docs/ai-context/           # Base repository context
+  ├── yew/
+  │   ├── docs/ai-context/      # Yew-specific context
+  │   └── src/
+  │       ├── components/
+  │       │   └── docs/ai-context/  # Components-specific context (highest priority)
+```
+
+## Context Inheritance
+- Each context file should be self-contained
+- More specific contexts can override or extend parent contexts
+- Parent contexts provide fallback guidance when specific contexts don't address an issue
+- Always check the most specific context first before falling back to parent contexts
+
+## Success Metrics
+
+- [ ] All 149 Rust tests passing
+- [ ] All 42 Playwright tests passing
+- [ ] Visual parity between Svelte and Yew versions
+- [ ] Documentation up to date
+- [ ] No test failures in CI/CD
+- [ ] Accessibility standards met
+- [ ] Performance benchmarks achieved
+
+This ensures code quality and maintains consistency across the project.
