@@ -1,6 +1,6 @@
-use crate::models::BlogPost;
+use crate::data::get_blog_posts;
+use crate::styles::components;
 use yew::prelude::*;
-use yew_router::prelude::*;
 
 #[derive(Properties, PartialEq)]
 pub struct BlogPostProps {
@@ -9,13 +9,7 @@ pub struct BlogPostProps {
 
 #[function_component(Blog)]
 pub fn blog() -> Html {
-    // TODO: Load blog posts from API or static files
-    let posts = vec![BlogPost {
-        slug: "built-a-new-homepage".to_string(),
-        title: "Built a New Homepage".to_string(),
-        date: "2023-01-01".to_string(),
-        content: "".to_string(),
-    }];
+    let posts = get_blog_posts();
 
     html! {
         <div class="blog-container">
@@ -35,7 +29,7 @@ pub fn blog() -> Html {
     }
 }
 
-#[function_component(BlogPost)]
+#[function_component(BlogPostPage)]
 pub fn blog_post(props: &BlogPostProps) -> Html {
     // TODO: Load specific blog post content
     html! {

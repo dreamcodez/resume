@@ -6,6 +6,17 @@
 
 This migration transforms Matthew Elders' resume into a **cutting-edge technical showcase** that demonstrates mastery of modern web technologies, systems architecture, and performance optimization. The new application will serve as both a professional portfolio and a living example of state-of-the-art Rust/WebAssembly development.
 
+## Recent Progress: Blog System Modernization
+
+- **Blog posts are now stored as plain markdown files** in `src/data/blog_posts/`.
+- **YAML frontmatter** is used for metadata at the top of each markdown file. Supported fields:
+  - `title`, `date`, `slug`, `tags`, `summary`, `draft`, `author`, `reading_time`
+- **Rust/Yew code parses the frontmatter** using `serde_yaml` and renders the markdown content to HTML using `pulldown-cmark`.
+- **Draft posts are automatically filtered out** and not shown in the blog index or detail views.
+- **Reading time is auto-calculated** if not provided in the frontmatter (based on word count).
+- **Adding a new blog post** is as simple as dropping a new `.md` file with frontmatter into the folder.
+- **All warnings in the codebase have been cleaned up** for a clean, maintainable foundation.
+
 ## Strategic Vision
 
 ### Primary Objectives
@@ -61,6 +72,7 @@ Monitoring: Custom Rust telemetry
 
 ### Phase 2: Advanced Data Architecture & Content Strategy
 
+- [x] **Blog System Modernization** (see above)
 - [ ] **Enhanced Data Models**:
   - [ ] Create comprehensive Rust structs with validation
   - [ ] Implement GraphQL schema for future API integration
@@ -90,9 +102,9 @@ Monitoring: Custom Rust telemetry
 ### Phase 4: Content & Thought Leadership Platform
 
 - [ ] **Enhanced Blog System**:
-  - [ ] Technical deep-dives on architecture decisions
-  - [ ] Performance optimization tutorials
-  - [ ] Rust/WebAssembly development insights
+  - [x] Technical deep-dives on architecture decisions
+  - [x] Performance optimization tutorials
+  - [x] Rust/WebAssembly development insights
   - [ ] Startup technology strategy posts
   - [ ] Interactive code examples and demos
 - [ ] **Content Types**:

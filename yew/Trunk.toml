@@ -8,3 +8,13 @@ watch = ["src", "index.html", "styles"]
 [serve]
 address = "127.0.0.1"
 port = 8080
+
+[[hooks]]
+stage = "pre_build"
+command = "npm"
+command_arguments = ["run", "build:css:prod"]
+
+[[hooks]]
+stage = "pre_build"
+command = "sh"
+command_arguments = ["-c", "mkdir -p dist"]
