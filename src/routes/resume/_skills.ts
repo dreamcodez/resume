@@ -1,79 +1,46 @@
 export interface Skill {
-    name: string;
-    level: 'Expert' | 'Fluent';
+  name: string;
+  level: "Expert" | "Fluent";
 }
 
 export default [
-    {
-        name: 'Javascript / NodeJS',
-        level: 'Expert',
-    },
-    {
-        name: 'SQL/MySQL/PostgreSQL',
-        level: 'Expert'
-    },
-    {
-        name: 'BASH / Linux / BSD Commandline',
-        level: 'Expert'
-    },
-    {
-        name: 'REST',
-        level: 'Expert'
-    },
-    {
-        name: 'git version control',
-        level: 'Expert'
-    },
-    {
-        name: 'GraphQL',
-        level: 'Fluent'
-    },
-    {
-        name: 'Babel',
-        level: 'Fluent',
-    },
-    {
-        name: 'Webpack',
-        level: 'Fluent',
-    },
-    {
-        name: 'TypeScript',
-        level: 'Fluent',
-    },
-    {
-        name: 'ReactJS',
-        level: 'Fluent',
-    },
-    {
-        name: 'Ruby / Ruby On Rails',
-        level: 'Fluent'
-    },
-    {
-        name: 'Haskell',
-        level: 'Fluent'
-    },
-    {
-        name: 'Python',
-        level: 'Fluent'
-    },
-    {
-        name: 'Java',
-        level: 'Fluent'
-    },
-    {
-        name: 'C/C++',
-        level: 'Fluent'
-    },
-    {
-        name: 'Rust',
-        level: 'Fluent'
-    },
-    {
-        name: 'Amazon ECS / Kubernetes',
-        level: 'Fluent'
-    },
-    {
-        name: 'Docker',
-        level: 'Fluent'
-    },
+  { name: "Javascript / NodeJS", level: "Expert" },
+  { name: "TypeScript", level: "Expert" },
+  { name: "Golang", level: "Expert" },
+  { name: "Rust", level: "Fluent" },
+  { name: "Python", level: "Fluent" },
+  { name: "Java", level: "Fluent" },
+  { name: "C/C++", level: "Fluent" },
+  { name: "SQL/MySQL/PostgreSQL", level: "Expert" },
+  { name: "DynamoDB", level: "Fluent" },
+  { name: "Elasticsearch", level: "Fluent" },
+  { name: "GraphQL", level: "Fluent" },
+  { name: "REST", level: "Expert" },
+  { name: "API Design", level: "Expert" },
+  { name: "Microservices", level: "Expert" },
+  { name: "Docker", level: "Expert" },
+  { name: "Kubernetes", level: "Expert" },
+  { name: "AWS", level: "Fluent" },
+  { name: "GCP", level: "Fluent" },
+  { name: "Cloud Computing", level: "Expert" },
+  { name: "Infrastructure as Code", level: "Fluent" },
+  { name: "Pulumi", level: "Fluent" },
+  { name: "DevOps", level: "Expert" },
+  { name: "CI/CD", level: "Expert" },
+  { name: "Linux/Unix/BSD Commandline", level: "Expert" },
+  { name: "Git", level: "Expert" },
+  { name: "System/Software Architecture", level: "Expert" },
+  { name: "Database Design", level: "Expert" },
+  { name: "Agile/Scrum", level: "Fluent" },
+  { name: "Leadership", level: "Expert" },
+  { name: "Team Management", level: "Expert" },
+  { name: "Mentoring/Training", level: "Fluent" },
+  { name: "Communication/Collaboration", level: "Expert" },
+  { name: "Security", level: "Fluent" },
+  { name: "Testing/QA", level: "Fluent" },
+  { name: "Project Management", level: "Fluent" },
+  { name: "SaaS Integrations", level: "Fluent" },
+  { name: "Message Queues", level: "Fluent" },
+  { name: "Braintree/Payment Systems", level: "Fluent" },
+  { name: "Monitoring/Observability", level: "Fluent" },
 ] as Skill[];
