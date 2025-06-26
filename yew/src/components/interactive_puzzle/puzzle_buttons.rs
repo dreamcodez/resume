@@ -3,7 +3,6 @@
 //! Handles the interactive emoji buttons that users click/tap to solve the puzzle.
 //! Each button is positioned strategically and provides visual feedback.
 
-use crate::components::common::{icons, Button, ButtonVariant, Icon};
 use crate::components::interactive_puzzle::puzzle_state::{PuzzleState, PuzzleStep};
 use yew::prelude::*;
 

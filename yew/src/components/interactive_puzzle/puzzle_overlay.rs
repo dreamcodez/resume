@@ -3,7 +3,7 @@
 //! Displays the solution overlay when the puzzle is completed.
 //! Shows statistics, explanation, and reset functionality.
 
-use crate::components::common::{icons, Button, ButtonVariant, Icon};
+use crate::components::common::{Button, ButtonVariant};
 use crate::components::interactive_puzzle::puzzle_state::PuzzleState;
 use yew::prelude::*;
 

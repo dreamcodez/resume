@@ -1,162 +1,276 @@
-use super::super::*;
-use wasm_bindgen_test::*;
-use yew::platform::spawn_local;
+use yew::prelude::*;
 
-wasm_bindgen_test_configure!(run_in_browser);
+use crate::components::common::button::{ButtonProps, ButtonSize, ButtonVariant};
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use wasm_bindgen_test::*;
+#[test]
+fn test_button_props_default_values() {
+    let props = ButtonProps {
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![]),
+        ..Default::default()
+    };
 
-    wasm_bindgen_test_configure!(run_in_browser);
+    assert_eq!(props.variant, ButtonVariant::Primary);
+    assert_eq!(props.size, ButtonSize::Medium);
+    assert_eq!(props.disabled, false);
+    assert_eq!(props.loading, false);
+    assert!(props.class.is_empty());
+    assert!(props.children.is_empty());
+}
 
-    #[test]
-    fn test_button_props_default_values() {
+#[test]
+fn test_button_props_custom_values() {
+    let props = ButtonProps {
+        variant: ButtonVariant::Success,
+        size: ButtonSize::Large,
+        disabled: true,
+        loading: true,
+        class: classes!("custom-class"),
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Test Content"}</span> }]),
+        ..Default::default()
+    };
+
+    assert_eq!(props.variant, ButtonVariant::Success);
+    assert_eq!(props.size, ButtonSize::Large);
+    assert_eq!(props.disabled, true);
+    assert_eq!(props.loading, true);
+    assert!(!props.class.is_empty());
+    assert!(!props.children.is_empty());
+}
+
+#[test]
+fn test_button_variant_enum_values() {
+    let variants = vec![
+        ButtonVariant::Primary,
+        ButtonVariant::Secondary,
+        ButtonVariant::Success,
+        ButtonVariant::Warning,
+        ButtonVariant::Danger,
+        ButtonVariant::Info,
+        ButtonVariant::Ghost,
+    ];
+
+    for variant in variants {
         let props = ButtonProps {
-            children: Children::new(vec![html! { <span>{"Click me"}</span> }]),
+            variant: variant.clone(),
             onclick: Callback::from(|_: MouseEvent| {}),
-            ontouchstart: None,
+            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
             ..Default::default()
         };
 
-        assert_eq!(props.variant, ButtonVariant::Primary);
-        assert_eq!(props.size, ButtonSize::Medium);
-        assert_eq!(props.disabled, false);
-        assert_eq!(props.loading, false);
+        assert_eq!(props.variant, variant);
     }
+}
 
-    #[test]
-    fn test_button_props_custom_values() {
+#[test]
+fn test_button_variant_default() {
+    let default_variant = ButtonVariant::default();
+    assert_eq!(default_variant, ButtonVariant::Primary);
+}
+
+#[test]
+fn test_button_size_enum_values() {
+    let sizes = vec![ButtonSize::Small, ButtonSize::Medium, ButtonSize::Large];
+
+    for size in sizes {
         let props = ButtonProps {
-            variant: ButtonVariant::Success,
-            size: ButtonSize::Large,
-            disabled: true,
-            loading: true,
-            children: Children::new(vec![html! { <span>{"Submit"}</span> }]),
+            size: size.clone(),
             onclick: Callback::from(|_: MouseEvent| {}),
-            ontouchstart: None,
-            class: Classes::from("custom-class"),
-        };
-
-        assert_eq!(props.variant, ButtonVariant::Success);
-        assert_eq!(props.size, ButtonSize::Large);
-        assert_eq!(props.disabled, true);
-        assert_eq!(props.loading, true);
-    }
-
-    #[test]
-    fn test_button_props_partial_eq() {
-        let props1 = ButtonProps {
-            variant: ButtonVariant::Primary,
-            size: ButtonSize::Medium,
             children: Children::new(vec![html! { <span>{"Test"}</span> }]),
-            onclick: Callback::from(|_: MouseEvent| {}),
-            ontouchstart: None,
             ..Default::default()
         };
 
-        let props2 = ButtonProps {
-            variant: ButtonVariant::Primary,
-            size: ButtonSize::Medium,
-            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
-            onclick: Callback::from(|_: MouseEvent| {}),
-            ontouchstart: None,
-            ..Default::default()
-        };
-
-        assert_eq!(props1.variant, props2.variant);
-        assert_eq!(props1.size, props2.size);
+        assert_eq!(props.size, size);
     }
+}
 
-    #[test]
-    fn test_button_variant_default() {
-        let variant = ButtonVariant::default();
-        assert_eq!(variant, ButtonVariant::Primary);
-    }
+#[test]
+fn test_button_size_default() {
+    let default_size = ButtonSize::default();
+    assert_eq!(default_size, ButtonSize::Medium);
+}
 
-    #[test]
-    fn test_button_size_default() {
-        let size = ButtonSize::default();
-        assert_eq!(size, ButtonSize::Medium);
-    }
+#[test]
+fn test_button_props_partial_eq() {
+    let props1 = ButtonProps {
+        variant: ButtonVariant::Success,
+        size: ButtonSize::Medium,
+        disabled: false,
+        loading: false,
+        class: classes!("test-class"),
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+        ..Default::default()
+    };
 
-    #[test]
-    fn test_button_variant_clone() {
-        let variant = ButtonVariant::Success;
-        let cloned = variant.clone();
-        assert_eq!(variant, cloned);
-    }
+    let props2 = ButtonProps {
+        variant: ButtonVariant::Success,
+        size: ButtonSize::Medium,
+        disabled: false,
+        loading: false,
+        class: classes!("test-class"),
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+        ..Default::default()
+    };
 
-    #[test]
-    fn test_button_size_clone() {
-        let size = ButtonSize::Large;
-        let cloned = size.clone();
-        assert_eq!(size, cloned);
-    }
+    let props3 = ButtonProps {
+        variant: ButtonVariant::Danger,
+        size: ButtonSize::Large,
+        disabled: true,
+        loading: true,
+        class: classes!("different-class"),
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Different"}</span> }]),
+        ..Default::default()
+    };
 
-    #[test]
-    fn test_all_button_variants() {
-        let variants = vec![
-            ButtonVariant::Primary,
-            ButtonVariant::Secondary,
-            ButtonVariant::Success,
-            ButtonVariant::Danger,
-            ButtonVariant::Warning,
-            ButtonVariant::Info,
-            ButtonVariant::Ghost,
-        ];
+    assert_eq!(props1, props2);
+    assert_ne!(props1, props3);
+}
 
-        for variant in variants {
-            let cloned = variant.clone();
-            assert_eq!(variant, cloned);
+#[test]
+fn test_button_props_disabled_states() {
+    let disabled_props = ButtonProps {
+        disabled: true,
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+        ..Default::default()
+    };
+
+    let enabled_props = ButtonProps {
+        disabled: false,
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+        ..Default::default()
+    };
+
+    assert_eq!(disabled_props.disabled, true);
+    assert_eq!(enabled_props.disabled, false);
+}
+
+#[test]
+fn test_button_props_loading_states() {
+    let loading_props = ButtonProps {
+        loading: true,
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+        ..Default::default()
+    };
+
+    let non_loading_props = ButtonProps {
+        loading: false,
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+        ..Default::default()
+    };
+
+    assert_eq!(loading_props.loading, true);
+    assert_eq!(non_loading_props.loading, false);
+}
+
+#[test]
+fn test_button_props_with_custom_classes() {
+    let props = ButtonProps {
+        class: classes!("custom-class", "another-class"),
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+        ..Default::default()
+    };
+
+    assert!(!props.class.is_empty());
+    assert!(props.class.contains("custom-class"));
+    assert!(props.class.contains("another-class"));
+}
+
+#[test]
+fn test_button_props_with_children() {
+    let children = Children::new(vec![
+        html! { <span>{"Child 1"}</span> },
+        html! { <span>{"Child 2"}</span> },
+    ]);
+
+    let props = ButtonProps {
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: children.clone(),
+        ..Default::default()
+    };
+
+    assert!(!props.children.is_empty());
+    assert_eq!(props.children.len(), 2);
+}
+
+#[test]
+fn test_button_props_all_combinations() {
+    let variants = vec![
+        ButtonVariant::Primary,
+        ButtonVariant::Success,
+        ButtonVariant::Danger,
+    ];
+    let sizes = vec![ButtonSize::Small, ButtonSize::Medium, ButtonSize::Large];
+    let disabled_states = vec![true, false];
+    let loading_states = vec![true, false];
+    let custom_classes = vec![
+        classes!(),
+        classes!("custom"),
+        classes!("highlight", "important"),
+    ];
+
+    for variant in &variants {
+        for size in &sizes {
+            for &disabled in &disabled_states {
+                for &loading in &loading_states {
+                    for class in &custom_classes {
+                        let props = ButtonProps {
+                            variant: variant.clone(),
+                            size: size.clone(),
+                            disabled,
+                            loading,
+                            class: class.clone(),
+                            onclick: Callback::from(|_: MouseEvent| {}),
+                            ontouchstart: None,
+                            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+                        };
+
+                        assert_eq!(props.variant, *variant);
+                        assert_eq!(props.size, *size);
+                        assert_eq!(props.disabled, disabled);
+                        assert_eq!(props.loading, loading);
+                        assert_eq!(props.class, *class);
+                    }
+                }
+            }
         }
     }
+}
 
-    #[test]
-    fn test_all_button_sizes() {
-        let sizes = vec![ButtonSize::Small, ButtonSize::Medium, ButtonSize::Large];
+#[test]
+fn test_button_props_empty_children() {
+    let props = ButtonProps {
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![]),
+        ..Default::default()
+    };
 
-        for size in sizes {
-            let cloned = size.clone();
-            assert_eq!(size, cloned);
-        }
-    }
+    assert!(props.children.is_empty());
+    assert_eq!(props.children.len(), 0);
+}
 
-    #[test]
-    fn test_button_variant_partial_eq() {
-        let variant1 = ButtonVariant::Primary;
-        let variant2 = ButtonVariant::Primary;
-        let variant3 = ButtonVariant::Success;
+#[test]
+fn test_button_props_complex_children() {
+    let children = Children::new(vec![
+        html! { <div>{"Complex"}</div> },
+        html! { <span>{"Nested"}</span> },
+        html! { <strong>{"Content"}</strong> },
+    ]);
 
-        assert_eq!(variant1, variant2);
-        assert_ne!(variant1, variant3);
-    }
+    let props = ButtonProps {
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: children.clone(),
+        ..Default::default()
+    };
 
-    #[test]
-    fn test_button_size_partial_eq() {
-        let size1 = ButtonSize::Medium;
-        let size2 = ButtonSize::Medium;
-        let size3 = ButtonSize::Large;
-
-        assert_eq!(size1, size2);
-        assert_ne!(size1, size3);
-    }
-
-    #[test]
-    fn test_button_boolean_states() {
-        let states = vec![(true, false), (false, true), (true, true), (false, false)];
-
-        for (disabled, loading) in states {
-            let props = ButtonProps {
-                disabled,
-                loading,
-                children: Children::new(vec![html! { <span>{"Test"}</span> }]),
-                onclick: Callback::from(|_: MouseEvent| {}),
-                ..Default::default()
-            };
-            assert_eq!(props.disabled, disabled);
-            assert_eq!(props.loading, loading);
-        }
-    }
+    assert!(!props.children.is_empty());
+    assert_eq!(props.children.len(), 3);
 }

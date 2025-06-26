@@ -33,7 +33,7 @@ impl Default for ButtonSize {
 }
 
 /// Props for the Button component
-#[derive(Properties, PartialEq, Default, Clone)]
+#[derive(Properties, PartialEq, Default, Clone, Debug)]
 pub struct ButtonProps {
     /// The visual variant of the button
     #[prop_or_default]

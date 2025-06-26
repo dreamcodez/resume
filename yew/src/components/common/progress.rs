@@ -142,7 +142,7 @@ pub fn progress_steps(props: &ProgressStepsProps) -> Html {
         .map(|step| {
             let is_completed = step < props.current;
             let is_current = step == props.current;
-            let is_future = step > props.current;
+            let _is_future = step > props.current;
 
             let step_classes = classes!(
                 "flex-1",

@@ -6,9 +6,7 @@ use yew::prelude::*;
 pub fn home() -> Html {
     let on_puzzle_solved = Callback::from(|_: ()| {
         // Could add analytics or other side effects here
-        unsafe {
-            web_sys::console::log_1(&"Puzzle solved!".into());
-        }
+        web_sys::console::log_1(&"Puzzle solved!".into());
     });
 
     html! {

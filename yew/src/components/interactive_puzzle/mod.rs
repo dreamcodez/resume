@@ -13,7 +13,6 @@ pub use puzzle_overlay::*;
 pub use puzzle_progress::*;
 pub use puzzle_state::*;
 
-use crate::components::common::{icons, Button, ButtonVariant, Icon, Progress, ProgressVariant};
 use yew::prelude::*;
 
 /// Props for the InteractivePuzzle component
@@ -73,7 +72,7 @@ pub fn interactive_puzzle(props: &InteractivePuzzleProps) -> Html {
         })
     };
 
-    let on_button_click = {
+    let _on_button_click = {
         let puzzle_state = puzzle_state.clone();
         Callback::from(move |step: PuzzleStep| {
             puzzle_state.set(PuzzleState {
