@@ -38,16 +38,18 @@ pub fn interactive_puzzle(props: &InteractivePuzzleProps) -> Html {
         let on_solved = on_solved.clone();
 
         Callback::from(move |_: MouseEvent| {
-            puzzle_state.update(|state| {
-                state.increment_attempts();
-                state.advance_state();
+            let mut new_state = (*puzzle_state).clone();
+            new_state.increment_attempts();
+            new_state.advance_state();
 
-                if state.is_solved() {
-                    if let Some(on_solved) = &on_solved {
-                        on_solved.emit(());
-                    }
+            let is_solved = new_state.is_solved();
+            puzzle_state.set(new_state);
+
+            if is_solved {
+                if let Some(on_solved) = &on_solved {
+                    on_solved.emit(());
                 }
-            });
+            }
         })
     };
 
@@ -56,16 +58,18 @@ pub fn interactive_puzzle(props: &InteractivePuzzleProps) -> Html {
         let on_solved = on_solved.clone();
 
         Callback::from(move |_: TouchEvent| {
-            puzzle_state.update(|state| {
-                state.increment_attempts();
-                state.advance_state();
+            let mut new_state = (*puzzle_state).clone();
+            new_state.increment_attempts();
+            new_state.advance_state();
 
-                if state.is_solved() {
-                    if let Some(on_solved) = &on_solved {
-                        on_solved.emit(());
-                    }
+            let is_solved = new_state.is_solved();
+            puzzle_state.set(new_state);
+
+            if is_solved {
+                if let Some(on_solved) = &on_solved {
+                    on_solved.emit(());
                 }
-            });
+            }
         })
     };
 

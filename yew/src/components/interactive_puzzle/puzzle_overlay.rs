@@ -27,7 +27,8 @@ pub fn puzzle_overlay(props: &PuzzleOverlayProps) -> Html {
 
     html! {
         <div class={classes!(
-            "absolute inset-0",
+            "absolute",
+            "inset-0",
             "bg-black bg-opacity-75",
             "flex items-center justify-center",
             "backdrop-blur-sm",
@@ -68,25 +69,25 @@ pub fn puzzle_overlay(props: &PuzzleOverlayProps) -> Html {
                             <div class="flex items-start space-x-2">
                                 <span class="text-lg">{"Foundation"}</span>
                                 <div>
-                                    <strong>Foundation First:</strong> Start with solid architecture and clean code principles.
+                                    {"Foundation First: Start with solid architecture and clean code principles."}
                                 </div>
                             </div>
                             <div class="flex items-start space-x-2">
                                 <span class="text-lg">{"Performance"}</span>
                                 <div>
-                                    <strong>Performance Matters:</strong> Optimize for speed, efficiency, and user experience.
+                                    {"Performance Matters: Optimize for speed, efficiency, and user experience."}
                                 </div>
                             </div>
                             <div class="flex items-start space-x-2">
                                 <span class="text-lg">{"Tools"}</span>
                                 <div>
-                                    <strong>Right Tools:</strong> Choose the best technology stack for each problem.
+                                    {"Right Tools: Choose the best technology stack for each problem."}
                                 </div>
                             </div>
                             <div class="flex items-start space-x-2">
                                 <span class="text-lg">{"Solution"}</span>
                                 <div>
-                                    <strong>Perfect Solution:</strong> Piece together elegant, maintainable solutions.
+                                    {"Perfect Solution: Piece together elegant, maintainable solutions."}
                                 </div>
                             </div>
                         </div>
@@ -99,7 +100,6 @@ pub fn puzzle_overlay(props: &PuzzleOverlayProps) -> Html {
                             onclick={props.on_reset.clone()}
                             class="flex-1"
                         >
-                            <Icon icon={icons::Refresh} class="w-4 h-4 mr-2" />
                             {"Try Again"}
                         </Button>
                     </div>

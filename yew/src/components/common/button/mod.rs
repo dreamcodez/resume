@@ -1,7 +1,7 @@
 use yew::prelude::*;
 
-/// Button variants that match our design system
-#[derive(PartialEq, Clone)]
+/// Button visual variants
+#[derive(PartialEq, Clone, Debug)]
 pub enum ButtonVariant {
     Primary,
     Secondary,
@@ -18,8 +18,8 @@ impl Default for ButtonVariant {
     }
 }
 
-/// Button sizes for different contexts
-#[derive(PartialEq, Clone)]
+/// Button sizes
+#[derive(PartialEq, Clone, Debug)]
 pub enum ButtonSize {
     Small,
     Medium,
@@ -33,7 +33,7 @@ impl Default for ButtonSize {
 }
 
 /// Props for the Button component
-#[derive(Properties, PartialEq)]
+#[derive(Properties, PartialEq, Default)]
 pub struct ButtonProps {
     /// The visual variant of the button
     #[prop_or_default]
