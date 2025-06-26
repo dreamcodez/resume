@@ -1,0 +1,242 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* App container */
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation */
+.navbar {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #333;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    width: 100%;
+}
+
+/* Home page styles */
+.home-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.home-subtitle {
+    font-family: serif;
+    font-style: italic;
+    text-align: left;
+    font-size: 1.7em;
+    margin-bottom: 1rem;
+}
+
+.status-code {
+    display: block;
+    margin: 15px 0;
+    font-family: monospace;
+    background-color: #f8f9fa;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.home-content {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-top: 2rem;
+}
+
+.home-image {
+    width: 50%;
+    max-width: 400px;
+    border-radius: 8px;
+}
+
+.home-text {
+    flex: 1;
+}
+
+.home-title {
+    font-size: 2.5em;
+    font-weight: bolder;
+    margin-bottom: 0.5rem;
+}
+
+.home-initial {
+    font-size: 2.5em;
+    font-weight: bolder;
+}
+
+/* Resume page styles */
+.resume-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.experience {
+    padding: 1em 0;
+    margin: 0;
+    list-style: none;
+}
+
+.job-item {
+    margin: 0;
+    padding: 1em;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.job-item:hover {
+    background-color: #e9ffdc;
+    border-radius: 25px;
+}
+
+.company {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.company:hover {
+    text-decoration: underline;
+}
+
+.company-description {
+    font-size: larger;
+    font-family: 'helvetica';
+    margin-top: 0.5rem;
+}
+
+/* Blog page styles */
+.blog-container ul {
+    margin: 0 0 1em 0;
+    line-height: 1.5;
+    list-style: none;
+}
+
+.blog-container li {
+    margin-bottom: 0.5rem;
+}
+
+.blog-container a {
+    text-decoration: none;
+    color: #333;
+}
+
+.blog-container a:hover {
+    text-decoration: underline;
+}
+
+/* About page styles */
+.about-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.about-container ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.about-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.about-container a:hover {
+    text-decoration: underline;
+}
+
+/* 404 page styles */
+.not-found {
+    text-align: center;
+    padding: 2rem;
+}
+
+.not-found h1 {
+    margin-bottom: 1rem;
+}
+
+.not-found a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.not-found a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .nav-menu {
+        gap: 1rem;
+    }
+
+    .home-content {
+        flex-direction: column;
+    }
+
+    .home-image {
+        width: 100%;
+        max-width: none;
+    }
+
+    .home-container {
+        width: 100%;
+    }
+}
