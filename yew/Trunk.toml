@@ -3,25 +3,13 @@ target = "index.html"
 dist = "dist"
 
 [watch]
-watch = ["src", "index.html", "styles"]
+watch = ["src", "index.html", "styles", "static"]
 
 [serve]
 address = "127.0.0.1"
-port = 8080
 
-[[copy]]
-source = "static"
-destination = "static"
-
+# port will be provided by Playwright
 [[hooks]]
 stage = "pre_build"
 command = "npm"
 command_arguments = ["run", "build:css:prod"]
-
-[[hooks]]
-stage = "pre_build"
-command = "sh"
-command_arguments = [
-    "-c",
-    "mkdir -p dist/static && cp -r static/* dist/static/"
-]

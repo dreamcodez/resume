@@ -2,15 +2,10 @@
 const { defineConfig, devices } = require("@playwright/test");
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
  * @see https://playwright.dev/docs/test-configuration
+ *
+ * Note: Uses fixed port 8080 due to Playwright 1.53.1 bug with {{port}} substitution.
+ * The trunk-serve-retry.js script handles dynamic port conflicts automatically.
  */
 module.exports = defineConfig({
   testDir: "./tests",
@@ -23,11 +18,11 @@ module.exports = defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  reporter: [["html", { open: "never" }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "http://127.0.0.1:8080",
+    baseURL: "http://localhost:8080",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
@@ -38,9 +33,12 @@ module.exports = defineConfig({
     /* Enable touch support for mobile testing */
     hasTouch: true,
 
-    /* Short timeouts to prevent hanging */
-    actionTimeout: 3000,
-    navigationTimeout: 5000,
+    /* Aggressive timeouts to prevent hanging - nothing longer than 5 seconds */
+    actionTimeout: 3000, // 3 seconds for actions
+    navigationTimeout: 5000, // 5 seconds for navigation
+    expect: {
+      timeout: 3000, // 3 seconds for assertions
+    },
   },
 
   /* Configure projects for major browsers */
@@ -61,14 +59,14 @@ module.exports = defineConfig({
     },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
+    {
+      name: "Mobile Chrome",
+      use: { ...devices["Pixel 5"] },
+    },
+    {
+      name: "Mobile Safari",
+      use: { ...devices["iPhone 12"] },
+    },
 
     /* Test against branded browsers. */
     // {
@@ -83,13 +81,20 @@ module.exports = defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "trunk serve --port 7777",
-    url: "http://localhost:7777",
+    command: "node trunk-serve-retry.js",
+    url: "http://localhost:8080",
     reuseExistingServer: !process.env.CI,
-    timeout: 20000, // 20 seconds for Yew dev server startup
+    timeout: 30000, // 30 seconds for server startup (only startup, not tests)
     cwd: __dirname,
   },
 
-  /* Global timeout for all tests */
+  /* Global timeout for all tests - prevents hanging */
   timeout: 10000, // 10 seconds per test
+  expect: {
+    timeout: 3000, // 3 seconds for assertions
+  },
+  /* Global setup timeout */
+  globalSetup: undefined,
+  /* Global teardown timeout */
+  globalTeardown: undefined,
 });
