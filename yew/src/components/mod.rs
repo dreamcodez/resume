@@ -12,6 +12,10 @@ pub mod common;
 // Higher-level components that compose common primitives
 pub mod interactive_puzzle;
 
+// Router components for navigation
+pub mod router;
+
 // Re-export commonly used components
 pub use common::*;
 pub use interactive_puzzle::*;
+pub use router::*;

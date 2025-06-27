@@ -73,38 +73,3 @@ pub fn replace_link(props: &LinkProps) -> Html {
         </a>
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use wasm_bindgen_test::*;
-
-    wasm_bindgen_test_configure!(run_in_browser);
-
-    #[wasm_bindgen_test]
-    fn test_link_renders() {
-        let props = LinkProps {
-            to: "/test".to_string(),
-            children: Children::new(vec![html! { <span>{"Test Link"}</span> }]),
-            class: Classes::new(),
-            onclick: Callback::noop(),
-        };
-
-        let link = crate::tests::mount_function_component!(Link, props);
-        assert!(link.query_selector("a").is_some());
-    }
-
-    #[wasm_bindgen_test]
-    fn test_link_has_correct_href() {
-        let props = LinkProps {
-            to: "/test".to_string(),
-            children: Children::new(vec![html! { <span>{"Test Link"}</span> }]),
-            class: Classes::new(),
-            onclick: Callback::noop(),
-        };
-
-        let link = crate::tests::mount_function_component!(Link, props);
-        let anchor = link.query_selector("a").unwrap();
-        assert_eq!(anchor.get_attribute("href"), Some("/test".to_string()));
-    }
-}

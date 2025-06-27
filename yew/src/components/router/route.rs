@@ -2,21 +2,40 @@ use std::collections::HashMap;
 
 /// Parse a route path and extract parameters
 pub fn parse_route(path: &str, pattern: &str) -> Option<HashMap<String, String>> {
-    let path_segments: Vec<&str> = path.split('/').filter(|s| !s.is_empty()).collect();
-    let pattern_segments: Vec<&str> = pattern.split('/').filter(|s| !s.is_empty()).collect();
+    // Handle exact string match for root paths
+    if path == "/" && pattern == "/" {
+        return Some(HashMap::new());
+    }
 
-    if path_segments.len() != pattern_segments.len() {
+    // Handle empty paths
+    if path.is_empty() && pattern.is_empty() {
+        return Some(HashMap::new());
+    }
+
+    // Check if both paths have trailing slashes or both don't
+    let path_has_trailing = path.ends_with('/');
+    let pattern_has_trailing = pattern.ends_with('/');
+
+    if path_has_trailing != pattern_has_trailing {
         return None;
     }
 
+    let mut path_iter = path.split('/').filter(|s| !s.is_empty());
+    let mut pattern_iter = pattern.split('/').filter(|s| !s.is_empty());
     let mut params = HashMap::new();
 
-    for (path_seg, pattern_seg) in path_segments.iter().zip(pattern_segments.iter()) {
-        if pattern_seg.starts_with(':') {
-            let param_name = &pattern_seg[1..];
-            params.insert(param_name.to_string(), path_seg.to_string());
-        } else if path_seg != pattern_seg {
-            return None;
+    loop {
+        match (path_iter.next(), pattern_iter.next()) {
+            (Some(path_seg), Some(pattern_seg)) => {
+                if pattern_seg.starts_with(':') {
+                    let param_name = &pattern_seg[1..];
+                    params.insert(param_name.to_string(), path_seg.to_string());
+                } else if path_seg != pattern_seg {
+                    return None;
+                }
+            }
+            (None, None) => break, // Both iterators exhausted - success
+            _ => return None,      // Different lengths - no match
         }
     }
 

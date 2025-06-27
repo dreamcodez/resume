@@ -1,6 +1,5 @@
-use std::collections::HashMap;
 use wasm_bindgen::JsCast;
-use web_sys::{window, History, PopStateEvent};
+use web_sys::{window, History};
 
 /// Get the current URL pathname
 pub fn get_pathname() -> Option<String> {

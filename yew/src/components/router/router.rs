@@ -1,5 +1,8 @@
-use crate::components::router::{hash, history, query, route};
+use crate::components::router::{history, query, route};
 use std::collections::HashMap;
+use wasm_bindgen::closure::Closure;
+use wasm_bindgen::JsCast;
+use web_sys;
 use yew::prelude::*;
 
 /// Information about the current route
@@ -46,18 +49,15 @@ pub fn router(props: &RouterProps) -> Html {
         let state = state.clone();
         let on_route_change = on_route_change.clone();
 
-        use_effect_with_deps(
-            move |_| {
-                let current_route = get_current_route_info();
-                state.set(RouterState {
-                    current_route: current_route.clone(),
-                    is_loading: false,
-                });
-                on_route_change.emit(current_route);
-                || ()
-            },
-            (),
-        );
+        use_effect(move || {
+            let current_route = get_current_route_info();
+            state.set(RouterState {
+                current_route: current_route.clone(),
+                is_loading: false,
+            });
+            on_route_change.emit(current_route);
+            || ()
+        });
     }
 
     // Listen for popstate events
@@ -65,26 +65,23 @@ pub fn router(props: &RouterProps) -> Html {
         let state = state.clone();
         let on_route_change = on_route_change.clone();
 
-        use_effect_with_deps(
-            move |_| {
-                let window = web_sys::window().unwrap();
-                let callback = Closure::wrap(Box::new(move |_: web_sys::Event| {
-                    let current_route = get_current_route_info();
-                    state.set(RouterState {
-                        current_route: current_route.clone(),
-                        is_loading: false,
-                    });
-                    on_route_change.emit(current_route);
-                }) as Box<dyn FnMut(_)>);
+        use_effect(move || {
+            let window = web_sys::window().unwrap();
+            let callback = Closure::wrap(Box::new(move |_: web_sys::Event| {
+                let current_route = get_current_route_info();
+                state.set(RouterState {
+                    current_route: current_route.clone(),
+                    is_loading: false,
+                });
+                on_route_change.emit(current_route);
+            }) as Box<dyn FnMut(_)>);
 
-                window
-                    .add_event_listener_with_callback("popstate", callback.as_ref().unchecked_ref())
-                    .unwrap();
-                callback.forget();
-                || ()
-            },
-            (),
-        );
+            window
+                .add_event_listener_with_callback("popstate", callback.as_ref().unchecked_ref())
+                .unwrap();
+            callback.forget();
+            || ()
+        });
     }
 
     html! {
