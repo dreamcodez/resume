@@ -6,6 +6,10 @@ use yew::prelude::*;
 
 wasm_bindgen_test_configure!(run_in_browser);
 
+// Test modules
+pub mod browser;
+pub mod visual;
+
 /// Generic helper to mount any Yew component and return the root element
 ///
 /// # Arguments

@@ -135,6 +135,7 @@ pub fn button(props: &ButtonProps) -> Html {
             disabled={props.disabled}
             onclick={props.onclick.clone()}
             ontouchstart={props.ontouchstart.clone()}
+            tabindex="0"
         >
             if props.loading {
                 <span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
