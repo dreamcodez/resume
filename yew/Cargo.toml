@@ -17,17 +17,13 @@ web-sys = { version = "0.3", features = [
     "Node"
 ] }
 js-sys = "0.3"
-gloo-timers = { version = "0.3", features = ["futures"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 wasm-logger = "0.2"
 log = "0.4"
-wasm-bindgen-backend = "0.2"
-base64ct = "1.7.3"
 pulldown-cmark = "0.13.0"
 serde_yaml = "0.9.34"
 console_error_panic_hook = "0.1"
-getrandom = { version = "0.3", features = ["wasm_js"] }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
@@ -40,10 +36,3 @@ trunk = "0.17"
 
 [lib]
 crate-type = ["cdylib"]
-
-[features]
-default = []
-wasm-support = ["getrandom/wasm_js"]
-
-[workspace.dependencies]
-getrandom = { version = "0.3", features = ["wasm_js"] }

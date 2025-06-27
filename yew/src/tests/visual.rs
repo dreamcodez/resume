@@ -20,9 +20,6 @@ async fn test_puzzle_image_loading() {
     // Render the app
     yew::Renderer::<App>::with_root(div.clone()).render();
 
-    // Wait for the app to load
-    gloo_timers::future::TimeoutFuture::new(500).await;
-
     // Find the puzzle image by alt text
     let img_selector = "img[alt*='Sophisticated MacMan']";
     let img_element = div
@@ -84,9 +81,6 @@ async fn test_home_page_screenshot() {
     // Render the app
     yew::Renderer::<App>::with_root(div.clone()).render();
 
-    // Wait for the app to load completely
-    gloo_timers::future::TimeoutFuture::new(1000).await;
-
     // Set viewport size for consistent screenshots
     let window = web_sys::window().unwrap();
     let inner_width = window.inner_width().unwrap().as_f64().unwrap() as u32;
@@ -137,9 +131,6 @@ async fn test_responsive_design() {
 
     // Render the app
     yew::Renderer::<App>::with_root(div.clone()).render();
-
-    // Wait for the app to load
-    gloo_timers::future::TimeoutFuture::new(500).await;
 
     // Test that the page is responsive by checking for responsive CSS classes
     let body = document.body().unwrap();

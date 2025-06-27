@@ -36,9 +36,6 @@ where
         yew::Renderer::<T>::with_root_and_props(div_clone, props_clone).render();
     });
 
-    // Wait for rendering
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
     div.query_selector(selector)
         .unwrap()
         .unwrap()
@@ -92,9 +89,6 @@ where
         yew::Renderer::<T>::with_root_and_props(div_clone, props_clone).render();
     });
 
-    // Wait for rendering
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
     div.dyn_into::<HtmlElement>().unwrap()
 }
 
@@ -115,9 +109,6 @@ where
     spawn_local(async move {
         yew::Renderer::<T>::with_root_and_props(div_clone, props_clone).render();
     });
-
-    // Wait for rendering
-    gloo_timers::future::TimeoutFuture::new(100).await;
 
     div.dyn_into::<HtmlElement>().unwrap()
 }
@@ -140,9 +131,6 @@ macro_rules! mount_function_component_as_button {
         spawn_local(async move {
             yew::Renderer::<$component>::with_root_and_props(div_clone, props_clone).render();
         });
-
-        // Wait for rendering
-        gloo_timers::future::TimeoutFuture::new(100).await;
 
         div.query_selector($selector)
             .unwrap()

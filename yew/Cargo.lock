@@ -1085,11 +1085,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "26145e563e54f2cadc477553f1ec5ee650b00862f0a58bcd12cbdc5f0ea2d2f4"
 dependencies = [
  "cfg-if",
- "js-sys",
  "libc",
  "r-efi",
  "wasi 0.14.2+wasi-0.2.4",
- "wasm-bindgen",
 ]
 
 [[package]]
@@ -1377,8 +1375,6 @@ version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bbb143cf96099802033e0d4f4963b19fd2e0b728bcf076cd9cf7f6634f092994"
 dependencies = [
- "futures-channel",
- "futures-core",
  "js-sys",
  "wasm-bindgen",
 ]
@@ -2970,10 +2966,7 @@ checksum = "95325155c684b1c89f7765e30bc1c42e4a6da51ca513615660cb8a62ef9a88e3"
 name = "resume-yew"
 version = "0.1.0"
 dependencies = [
- "base64ct",
  "console_error_panic_hook",
- "getrandom 0.3.3",
- "gloo-timers 0.3.0",
  "headless_chrome",
  "image",
  "js-sys",
@@ -2984,7 +2977,6 @@ dependencies = [
  "serde_yaml",
  "trunk",
  "wasm-bindgen",
- "wasm-bindgen-backend",
  "wasm-bindgen-futures",
  "wasm-bindgen-test",
  "wasm-logger",

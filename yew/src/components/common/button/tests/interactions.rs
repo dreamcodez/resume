@@ -30,9 +30,6 @@ async fn test_button_click_event() {
     let click_event = web_sys::MouseEvent::new("click").unwrap();
     button.dispatch_event(&click_event).unwrap();
 
-    // Wait for event processing
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
     assert_eq!(click_count.get(), 1);
 }
 
@@ -59,9 +56,6 @@ async fn test_button_touch_event() {
     // Simulate touch
     let touch_event = web_sys::TouchEvent::new("touchstart").unwrap();
     button.dispatch_event(&touch_event).unwrap();
-
-    // Wait for event processing
-    gloo_timers::future::TimeoutFuture::new(100).await;
 
     assert_eq!(touch_count.get(), 1);
 }
