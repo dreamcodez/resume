@@ -1,9 +1,11 @@
-use gloo::utils::document;
+use gloo_utils::document;
 use wasm_bindgen::JsCast;
-use web_sys::Element;
+use wasm_bindgen_test::*;
 use yew::prelude::*;
 
 use crate::components::common::markdown::Markdown;
+
+wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn test_markdown_renders_basic_content() {
@@ -189,11 +191,22 @@ fn test_markdown_renders_whitespace_only() {
 fn test_markdown_renders_with_custom_classes() {
     let content = "# Test Title\n\nTest content.";
 
-    let rendered = render_markdown_with_classes(content, "custom-class another-class");
+    let div = document().create_element("div").unwrap();
+    let props = crate::components::common::markdown::MarkdownProps {
+        content: content.to_string(),
+        class: classes!("custom-class", "another-class"),
+    };
 
-    assert!(rendered.contains("custom-class"));
-    assert!(rendered.contains("another-class"));
-    assert!(rendered.contains("prose prose-sm max-w-none"));
+    let _rendered = yew::Renderer::<Markdown>::with_root_and_props(div.clone(), props).render();
+
+    // Wait for rendering to complete
+    std::thread::sleep(std::time::Duration::from_millis(100));
+
+    let html = div.inner_html();
+
+    assert!(html.contains("custom-class"));
+    assert!(html.contains("another-class"));
+    assert!(html.contains("prose prose-sm max-w-none"));
 }
 
 #[wasm_bindgen_test]
@@ -254,7 +267,7 @@ fn test_markdown_renders_unicode_content() {
     assert!(rendered.contains("🌍"));
 }
 
-// Helper function to render markdown component
+// Helper function to render markdown component and return the HTML string
 fn render_markdown(content: &str) -> String {
     let div = document().create_element("div").unwrap();
     let props = crate::components::common::markdown::MarkdownProps {
@@ -262,23 +275,7 @@ fn render_markdown(content: &str) -> String {
         class: Classes::new(),
     };
 
-    let rendered = yew::Renderer::<Markdown>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    std::thread::sleep(std::time::Duration::from_millis(100));
-
-    div.inner_html()
-}
-
-// Helper function to render markdown component with custom classes
-fn render_markdown_with_classes(content: &str, classes: &str) -> String {
-    let div = document().create_element("div").unwrap();
-    let props = crate::components::common::markdown::MarkdownProps {
-        content: content.to_string(),
-        class: classes!(classes),
-    };
-
-    let rendered = yew::Renderer::<Markdown>::with_root_and_props(div.clone(), props).render();
+    let _rendered = yew::Renderer::<Markdown>::with_root_and_props(div.clone(), props).render();
 
     // Wait for rendering to complete
     std::thread::sleep(std::time::Duration::from_millis(100));

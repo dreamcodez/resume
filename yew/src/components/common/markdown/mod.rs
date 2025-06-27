@@ -35,7 +35,7 @@ pub fn markdown(props: &MarkdownProps) -> Html {
 }
 
 /// Parse markdown content to HTML using pulldown-cmark
-fn parse_markdown_to_html(content: &str) -> String {
+pub fn parse_markdown_to_html(content: &str) -> String {
     let mut options = Options::empty();
     options.insert(Options::ENABLE_STRIKETHROUGH);
     options.insert(Options::ENABLE_TABLES);
