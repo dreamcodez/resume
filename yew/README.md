@@ -27,7 +27,7 @@ npm run test:browser # Browser tests (currently disabled - requires additional s
 
 - **`npm run test:unit`** - Regular Rust unit tests using `cargo test --lib` (fast, comprehensive)
 - **`npm test`** - Runs the unit test suite (same as `test:unit`)
-- **`npm run test:browser`** - Browser tests (currently disabled - requires additional setup)
+- **`npm run test:browser`** - WASM browser tests using `wasm-pack test --headless --firefox`
 
 **Unit Testing Environment**
 The `test:unit` script runs comprehensive Rust unit tests covering:
@@ -39,7 +39,7 @@ The `test:unit` script runs comprehensive Rust unit tests covering:
 - Blog post processing and markdown rendering
 - Interactive puzzle logic and state management
 
-**Note:** Browser-based visual regression tests are currently disabled due to WASM compilation complexity. The unit tests provide comprehensive coverage of all core functionality.
+**Note:** Browser tests use `wasm-pack test` with `wasm-bindgen-test` to run WASM code directly in headless browsers (Firefox). Visual testing uses canvas-based screenshot capture within the WASM environment. The unit tests provide comprehensive coverage of all core functionality.
 
 ### Build Commands
 
@@ -62,12 +62,12 @@ yew/
 │   ├── pages/             # Page components
 │   ├── data/              # Static data and blog posts
 │   ├── tests/             # Test modules
-│   │   ├── browser/       # Browser-based tests (disabled)
+│   │   ├── browser/       # WASM browser tests with wasm-bindgen-test
 │   │   └── visual.rs      # Visual testing utilities
 │   └── lib.rs             # Main application entry
 ├── static/                # Static assets (images, etc.)
 ├── styles/                # Tailwind CSS configuration
-├── tests/                 # Test files and reference screenshots
+├── tests/                 # Test files and helpers
 └── index.html             # HTML entry point
 ```
 
@@ -75,11 +75,11 @@ yew/
 
 - All Yew app source, static assets, and tests are organized under the `yew/` directory.
 - **Unit tests** run via `cargo test --lib` (fast, comprehensive coverage)
-- **Browser tests** are currently disabled due to WASM compilation complexity
-- Only generated test output (e.g., `test-results/`, `*.log`) should be ignored in `.gitignore`. All test source and reference screenshots should be tracked.
+- **Browser tests** use `wasm-pack test` to run WASM code in headless Firefox with `wasm-bindgen-test`
+- Only generated test output (e.g., `*.log`) should be ignored in `.gitignore`. All test source files should be tracked.
 - Static assets for the Yew app must be placed in `yew/static/` and referenced as `/static/...` in code.
 - Do not mix Sapper/Svelte and Yew test artifacts or static assets.
-- If you add new visual regression tests, always keep them in `yew/tests/` and update `.gitignore` if new artifact folders are created.
+- Visual regression tests use canvas-based screenshot capture within the WASM environment for authentic visual testing.
 - When moving or reorganizing files, always update documentation and config to match.
 - If you encounter a broken image, check the static asset path, Trunk copy config, and browser URL directly.
 - For interactive/animated features, keep logic and assets self-contained in the Yew app.

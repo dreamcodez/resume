@@ -2,9 +2,7 @@
 node_modules/
 dist/
 
-# Ignore Playwright test artifacts
-playwright-report/
-test-results/
+
 
 # Ignore other test artifacts
 # (do NOT ignore tests/reference-screenshots/ or any test source files)

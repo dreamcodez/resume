@@ -8,7 +8,7 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 // Test modules
 pub mod browser;
-pub mod visual;
+pub mod visual; // Visual testing module for screenshot comparison
 
 /// Generic helper to mount any Yew component and return the root element
 ///
@@ -118,6 +118,7 @@ where
 #[macro_export]
 macro_rules! mount_function_component_as_button {
     ($component:ty, $props:expr, $selector:expr) => {{
+        use wasm_bindgen_futures::JsFuture;
         use web_sys::HtmlButtonElement;
         use yew::platform::spawn_local;
 
@@ -132,11 +133,25 @@ macro_rules! mount_function_component_as_button {
             yew::Renderer::<$component>::with_root_and_props(div_clone, props_clone).render();
         });
 
-        div.query_selector($selector)
-            .unwrap()
-            .unwrap()
-            .dyn_into::<HtmlButtonElement>()
-            .unwrap()
+        // Wait for the rendering to complete by using a simple retry loop
+        let mut attempts = 0;
+        loop {
+            if let Some(element) = div.query_selector($selector).unwrap() {
+                break element.dyn_into::<HtmlButtonElement>().unwrap();
+            }
+
+            attempts += 1;
+            if attempts > 100 {
+                panic!(
+                    "Could not find element with selector '{}' after 100 attempts",
+                    $selector
+                );
+            }
+
+            // Small delay to allow for rendering
+            let promise = js_sys::Promise::resolve(&wasm_bindgen::JsValue::from(0));
+            let _ = JsFuture::from(promise).await;
+        }
     }};
 }
 

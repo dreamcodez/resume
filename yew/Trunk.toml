@@ -8,7 +8,7 @@ watch = ["src", "index.html", "styles", "static"]
 [serve]
 address = "127.0.0.1"
 
-# port will be provided by Playwright
+# port will be dynamically assigned
 [[hooks]]
 stage = "pre_build"
 command = "npm"
