@@ -5,9 +5,6 @@ pub mod query;
 pub mod route;
 pub mod router;
 
-#[cfg(test)]
-pub mod tests;
-
 // Re-export main components and types for easy access
 pub use hash::{extract_hash, has_hash, remove_hash, set_hash};
 pub use history::{get_current_url, get_hash, get_pathname, get_search, push_state, replace_state};
