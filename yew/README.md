@@ -1,8 +1,81 @@
+# Matthew Elders' Resume - Rust/WebAssembly Showcase
+
+A modern, responsive resume website built with Rust, Yew, and WebAssembly. Features a clean design, interactive elements, and comprehensive test coverage.
+
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Run all tests (unit + browser)
+npm test
+
+# Run specific test suites
+npm run test:unit    # Regular Rust unit tests (fast)
+npm run test:browser # Browser tests in yew/src/tests/browser (Firefox)
+npm run test:all     # Both unit and browser tests
+```
+
+## Development Workflow
+
+### Testing Strategy
+
+**Comprehensive Test Coverage**
+
+- **`npm run test:unit`** - Regular Rust unit tests using `cargo test --lib --exclude browser` (fast, comprehensive)
+- **`npm run test:browser`** - Browser tests in `yew/src/tests/browser` using `wasm-pack test --headless --firefox`
+- **`npm test`** / **`npm run test:all`** - Runs both unit and browser test suites
+
+**Browser Testing Environment**
+The `test:browser` script runs tests from `yew/src/tests/browser/` in a real Firefox browser via WASM, enabling:
+
+- Visual regression testing
+- Integration testing with real DOM
+- Component interaction testing
+- Cross-browser compatibility verification
+
+**Note:** Playwright is being phased out in favor of the more direct WASM-based testing approach.
+
+### Build Commands
+
+```bash
+# Development
+npm run dev          # Start Trunk dev server
+npm run build:css    # Watch and build CSS
+
+# Production
+npm run build        # Build for production
+npm run build:css:prod  # Build minified CSS
+```
+
+## Project Structure
+
+```
+yew/
+├── src/                    # Rust/Yew source code
+│   ├── components/         # Reusable UI components
+│   ├── pages/             # Page components
+│   ├── data/              # Static data and blog posts
+│   ├── tests/             # Test modules
+│   │   ├── browser/       # Browser-based tests (WASM)
+│   │   └── visual.rs      # Visual testing utilities
+│   └── lib.rs             # Main application entry
+├── static/                # Static assets (images, etc.)
+├── styles/                # Tailwind CSS configuration
+├── tests/                 # Test files and reference screenshots
+└── index.html             # HTML entry point
+```
+
 ## Notes for Future AI Contributors
 
-- All Yew app source, static assets, and Playwright tests are organized under the `yew/` directory.
-- Playwright visual regression tests, snapshots, and artifacts must be kept in `yew/tests/` (not at the project root).
-- Only generated test output (e.g., `playwright-report/`, `test-results/`, `*.log`) should be ignored in `.gitignore`. All test source and reference screenshots should be tracked.
+- All Yew app source, static assets, and tests are organized under the `yew/` directory.
+- **Unit tests** run via `cargo test --lib --exclude browser` (fast, comprehensive coverage)
+- **Browser tests** run from `yew/src/tests/browser/` via WASM in Firefox using `wasm-pack test --headless --firefox`
+- Only generated test output (e.g., `test-results/`, `*.log`) should be ignored in `.gitignore`. All test source and reference screenshots should be tracked.
 - Static assets for the Yew app must be placed in `yew/static/` and referenced as `/static/...` in code.
 - Do not mix Sapper/Svelte and Yew test artifacts or static assets.
 - If you add new visual regression tests, always keep them in `yew/tests/` and update `.gitignore` if new artifact folders are created.

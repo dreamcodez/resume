@@ -9,20 +9,17 @@
     "dev": "trunk serve",
     "build": "trunk build",
     "serve": "trunk serve",
-    "test": "wasm-pack test --headless --firefox --no-default-features",
-    "test:node": "wasm-pack test --node --no-default-features",
-    "test:chrome": "wasm-pack test --headless --chrome --no-default-features",
-    "test:firefox": "wasm-pack test --headless --firefox --no-default-features",
-    "test:jest": "jest",
-    "test:playwright": "npx playwright test",
-    "test:all": "wasm-pack test --headless --chrome && npm run test:jest && npm run test:playwright",
+    "test": "npm run test:all",
+    "test:unit": "cargo test --lib --exclude browser",
+    "test:browser": "wasm-pack test --headless --firefox --no-default-features -- src/tests/browser",
+    "test:all": "npm run test:unit && npm run test:browser",
     "test:update-screenshots": "npx playwright test --update-snapshots",
     "test:report": "npx playwright show-report"
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "<rootDir>/tests/.*\\.spec\\.js$",
-      "<rootDir>/tests/.*\\.spec\\.ts$"
+      "<rootDir>/tests/.*.spec.js$",
+      "<rootDir>/tests/.*.spec.ts$"
     ],
     "testMatch": [
       "<rootDir>/tests/**/*.test.js",
