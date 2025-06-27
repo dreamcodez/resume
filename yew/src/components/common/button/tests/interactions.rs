@@ -7,7 +7,6 @@ use yew::prelude::*;
 use crate::components::common::button::{
     get_button_classes, Button, ButtonProps, ButtonSize, ButtonVariant,
 };
-use crate::tests::mount_component_as_button;
 
 wasm_bindgen_test_configure!(run_in_browser);
 
@@ -25,7 +24,7 @@ async fn test_button_click_event() {
         ..Default::default()
     };
 
-    let button = mount_component_as_button::<Button>(props, "button").await;
+    let button = crate::tests::mount_function_component_as_button!(Button, props, "button");
 
     // Simulate click
     let click_event = web_sys::MouseEvent::new("click").unwrap();
@@ -50,7 +49,7 @@ async fn test_button_touch_event() {
         ..Default::default()
     };
 
-    let button = mount_component_as_button::<Button>(props, "button").await;
+    let button = crate::tests::mount_function_component_as_button!(Button, props, "button");
 
     // Simulate touch
     let touch_event = web_sys::TouchEvent::new("touchstart").unwrap();
@@ -169,7 +168,7 @@ async fn test_button_focus_behavior() {
         ..Default::default()
     };
 
-    let button = mount_component_as_button::<Button>(props, "button").await;
+    let button = crate::tests::mount_function_component_as_button!(Button, props, "button");
 
     // Test focus behavior
     button.focus().unwrap();
@@ -180,7 +179,7 @@ async fn test_button_focus_behavior() {
             .unwrap()
             .active_element()
             .unwrap(),
-        button
+        button.into()
     );
 }
 
@@ -191,7 +190,7 @@ async fn test_button_accessibility_attributes() {
         ..Default::default()
     };
 
-    let button = mount_component_as_button::<Button>(props, "button").await;
+    let button = crate::tests::mount_function_component_as_button!(Button, props, "button");
 
     // Check tabindex is present
     assert!(button.has_attribute("tabindex"));

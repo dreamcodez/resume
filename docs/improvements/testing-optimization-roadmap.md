@@ -16,9 +16,9 @@ This document consolidates our comprehensive testing strategy, current status, a
 
 **NEVER use a slower test type when a faster one suffices.**
 
-### **Pure Component Requirement**
+### **Pure Functional Component Requirement**
 
-**ALL components MUST be pure functions that:**
+**ALL components are now pure functional components** (using `#[function_component]`):
 
 - Take props as input
 - Return HTML as output
@@ -28,9 +28,24 @@ This document consolidates our comprehensive testing strategy, current status, a
 
 This enables comprehensive unit testing and eliminates the need for browser tests in most scenarios.
 
+### **Unified Test Helper for Functional Components**
+
+**A single macro-based test helper is now used for all DOM interaction tests:**
+
+- Use the `mount_function_component_as_button!` macro for mounting any functional component in browser tests.
+- This macro works for all components, since all are now functional components.
+- The legacy `Component` trait-based helpers are no longer needed for functional components.
+- All unit tests should continue to test pure logic, props, and class generation directly.
+
+**Example usage:**
+
+```rust
+let button = crate::tests::mount_function_component_as_button!(Button, props, "button");
+```
+
 ### **Wasm-Bindgen Tests Only for Interactions**
 
-**ONLY use `#[wasm_bindgen_test]` and the centralized DOM-mounting test helper for:**
+**ONLY use `#[wasm_bindgen_test]` and the macro-based DOM-mounting test helper for:**
 
 - Real DOM event handling (clicks, keyboard, focus)
 - Complex user interaction flows
@@ -46,7 +61,7 @@ This enables comprehensive unit testing and eliminates the need for browser test
 - Edge case data handling
 - Pure function testing
 
-**Use the centralized test helper (`mount_component_*` in `src/tests/mod.rs`) ONLY for interaction tests.**
+**Use the macro-based test helper ONLY for interaction tests.**
 
 ## 📊 **Current Status**
 

@@ -117,3 +117,36 @@ where
 
     div.dyn_into::<HtmlElement>().unwrap()
 }
+
+/// Macro to mount a function component and return a button element
+/// This works with function components by using the component type directly
+#[macro_export]
+macro_rules! mount_function_component_as_button {
+    ($component:ty, $props:expr, $selector:expr) => {{
+        use web_sys::HtmlButtonElement;
+        use yew::platform::spawn_local;
+
+        let document = web_sys::window().unwrap().document().unwrap();
+        let div = document.create_element("div").unwrap();
+        document.body().unwrap().append_child(&div).unwrap();
+
+        let div_clone = div.clone();
+        let props_clone = $props.clone();
+
+        spawn_local(async move {
+            yew::Renderer::<$component>::with_root_and_props(div_clone, props_clone).render();
+        });
+
+        // Wait for rendering
+        gloo_timers::future::TimeoutFuture::new(100).await;
+
+        div.query_selector($selector)
+            .unwrap()
+            .unwrap()
+            .dyn_into::<HtmlButtonElement>()
+            .unwrap()
+    }};
+}
+
+// Re-export the macro for use in tests
+pub use mount_function_component_as_button;
