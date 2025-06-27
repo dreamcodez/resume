@@ -2,10 +2,14 @@
 const { defineConfig, devices } = require("@playwright/test");
 
 /**
+ * Get the port from environment variable or use fallback
+ */
+function getPort() {
+  return process.env.TRUNK_PORT || "8080";
+}
+
+/**
  * @see https://playwright.dev/docs/test-configuration
- *
- * Note: Uses fixed port 8080 due to Playwright 1.53.1 bug with {{port}} substitution.
- * The trunk-serve-retry.js script handles dynamic port conflicts automatically.
  */
 module.exports = defineConfig({
   testDir: "./tests",
@@ -22,7 +26,7 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "http://localhost:8080",
+    baseURL: `http://localhost:${getPort()}`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
@@ -81,8 +85,8 @@ module.exports = defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "node trunk-serve-retry.js",
-    url: "http://localhost:8080",
+    command: "node trunk-serve-dynamic.js",
+    url: `http://localhost:${getPort()}`,
     reuseExistingServer: !process.env.CI,
     timeout: 30000, // 30 seconds for server startup (only startup, not tests)
     cwd: __dirname,
