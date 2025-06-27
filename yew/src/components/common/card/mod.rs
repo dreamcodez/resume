@@ -73,6 +73,15 @@ pub struct CardHeaderProps {
     pub children: Children,
 }
 
+impl Default for CardHeaderProps {
+    fn default() -> Self {
+        Self {
+            class: Classes::new(),
+            children: Children::new(vec![]),
+        }
+    }
+}
+
 /// A header component for cards
 #[function_component(CardHeader)]
 pub fn card_header(props: &CardHeaderProps) -> Html {
@@ -96,6 +105,15 @@ pub struct CardBodyProps {
     pub children: Children,
 }
 
+impl Default for CardBodyProps {
+    fn default() -> Self {
+        Self {
+            class: Classes::new(),
+            children: Children::new(vec![]),
+        }
+    }
+}
+
 /// A body component for cards
 #[function_component(CardBody)]
 pub fn card_body(props: &CardBodyProps) -> Html {
@@ -117,6 +135,15 @@ pub struct CardFooterProps {
     pub class: Classes,
     /// The footer content
     pub children: Children,
+}
+
+impl Default for CardFooterProps {
+    fn default() -> Self {
+        Self {
+            class: Classes::new(),
+            children: Children::new(vec![]),
+        }
+    }
 }
 
 /// A footer component for cards
