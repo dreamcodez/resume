@@ -59,10 +59,9 @@ pub struct ButtonProps {
     pub children: Children,
 }
 
-/// A reusable button component with consistent styling and behavior
-#[function_component(Button)]
-pub fn button(props: &ButtonProps) -> Html {
-    let variant_classes = match props.variant {
+/// Get CSS classes for button variant
+pub fn get_button_variant_classes(variant: &ButtonVariant) -> &'static str {
+    match variant {
         ButtonVariant::Primary => "bg-blue-600 hover:bg-blue-700 text-white",
         ButtonVariant::Secondary => "bg-gray-600 hover:bg-gray-700 text-white",
         ButtonVariant::Success => "bg-green-600 hover:bg-green-700 text-white",
@@ -72,32 +71,63 @@ pub fn button(props: &ButtonProps) -> Html {
         ButtonVariant::Ghost => {
             "bg-transparent hover:bg-gray-100 text-gray-700 border border-gray-300"
         }
-    };
+    }
+}
 
-    let size_classes = match props.size {
+/// Get CSS classes for button size
+pub fn get_button_size_classes(size: &ButtonSize) -> &'static str {
+    match size {
         ButtonSize::Small => "px-3 py-1.5 text-sm",
         ButtonSize::Medium => "px-4 py-2 text-base",
         ButtonSize::Large => "px-6 py-3 text-lg",
-    };
+    }
+}
 
-    let disabled_classes = if props.disabled {
+/// Get CSS classes for button disabled state
+pub fn get_button_disabled_classes(disabled: bool) -> &'static str {
+    if disabled {
         "opacity-50 cursor-not-allowed"
     } else {
         "cursor-pointer"
-    };
+    }
+}
 
-    let loading_classes = if props.loading { "animate-pulse" } else { "" };
+/// Get CSS classes for button loading state
+pub fn get_button_loading_classes(loading: bool) -> &'static str {
+    if loading {
+        "animate-pulse"
+    } else {
+        ""
+    }
+}
 
-    let base_classes = "font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation";
+/// Get base CSS classes for button
+pub fn get_button_base_classes() -> &'static str {
+    "font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation"
+}
 
-    let all_classes = classes!(
+/// Get all CSS classes for button based on props
+pub fn get_button_classes(props: &ButtonProps) -> Classes {
+    let base_classes = get_button_base_classes();
+    let variant_classes = get_button_variant_classes(&props.variant);
+    let size_classes = get_button_size_classes(&props.size);
+    let disabled_classes = get_button_disabled_classes(props.disabled);
+    let loading_classes = get_button_loading_classes(props.loading);
+
+    classes!(
         base_classes,
         variant_classes,
         size_classes,
         disabled_classes,
         loading_classes,
         props.class.clone()
-    );
+    )
+}
+
+/// A reusable button component with consistent styling and behavior
+#[function_component(Button)]
+pub fn button(props: &ButtonProps) -> Html {
+    let all_classes = get_button_classes(props);
 
     html! {
         <button
@@ -122,10 +152,4 @@ mod tests {
     pub mod props;
     pub mod rendering;
     pub mod variants;
-
-    use super::*;
-    use wasm_bindgen_test::*;
-    use yew::platform::spawn_local;
-
-    wasm_bindgen_test_configure!(run_in_browser);
 }

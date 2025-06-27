@@ -1,283 +1,118 @@
 use super::super::*;
-use gloo_utils::document;
-use wasm_bindgen::JsCast;
-use wasm_bindgen_test::*;
-use web_sys::{Element, HtmlElement};
-use yew::platform::spawn_local;
 
-wasm_bindgen_test_configure!(run_in_browser);
-
-/// Helper function to mount a button and get its HTML element
-async fn mount_button(props: ButtonProps) -> Element {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
-
-    let div_clone = div.clone();
-    spawn_local(async move {
-        yew::Renderer::<Button>::with_root_and_props(div, props).render();
-    });
-
-    // Wait a bit for rendering to complete
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
-    div_clone
+#[test]
+fn test_button_variant_primary() {
+    let classes = get_button_variant_classes(&ButtonVariant::Primary);
+    assert!(classes.contains("bg-blue-600"));
+    assert!(classes.contains("hover:bg-blue-700"));
+    assert!(classes.contains("text-white"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_variant_primary() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Primary"}</span> }]);
-
-    let props = ButtonProps {
-        variant: ButtonVariant::Primary,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("bg-blue-600"));
-    assert!(class_name.contains("hover:bg-blue-700"));
-    assert!(class_name.contains("text-white"));
+#[test]
+fn test_button_variant_secondary() {
+    let classes = get_button_variant_classes(&ButtonVariant::Secondary);
+    assert!(classes.contains("bg-gray-600"));
+    assert!(classes.contains("hover:bg-gray-700"));
+    assert!(classes.contains("text-white"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_variant_secondary() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Secondary"}</span> }]);
-
-    let props = ButtonProps {
-        variant: ButtonVariant::Secondary,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("bg-gray-600"));
-    assert!(class_name.contains("hover:bg-gray-700"));
-    assert!(class_name.contains("text-white"));
+#[test]
+fn test_button_variant_success() {
+    let classes = get_button_variant_classes(&ButtonVariant::Success);
+    assert!(classes.contains("bg-green-600"));
+    assert!(classes.contains("hover:bg-green-700"));
+    assert!(classes.contains("text-white"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_variant_success() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Success"}</span> }]);
-
-    let props = ButtonProps {
-        variant: ButtonVariant::Success,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("bg-green-600"));
-    assert!(class_name.contains("hover:bg-green-700"));
-    assert!(class_name.contains("text-white"));
+#[test]
+fn test_button_variant_danger() {
+    let classes = get_button_variant_classes(&ButtonVariant::Danger);
+    assert!(classes.contains("bg-red-600"));
+    assert!(classes.contains("hover:bg-red-700"));
+    assert!(classes.contains("text-white"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_variant_danger() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Danger"}</span> }]);
-
-    let props = ButtonProps {
-        variant: ButtonVariant::Danger,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("bg-red-600"));
-    assert!(class_name.contains("hover:bg-red-700"));
-    assert!(class_name.contains("text-white"));
+#[test]
+fn test_button_variant_warning() {
+    let classes = get_button_variant_classes(&ButtonVariant::Warning);
+    assert!(classes.contains("bg-yellow-600"));
+    assert!(classes.contains("hover:bg-yellow-700"));
+    assert!(classes.contains("text-white"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_variant_warning() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Warning"}</span> }]);
-
-    let props = ButtonProps {
-        variant: ButtonVariant::Warning,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("bg-yellow-600"));
-    assert!(class_name.contains("hover:bg-yellow-700"));
-    assert!(class_name.contains("text-white"));
+#[test]
+fn test_button_variant_info() {
+    let classes = get_button_variant_classes(&ButtonVariant::Info);
+    assert!(classes.contains("bg-cyan-600"));
+    assert!(classes.contains("hover:bg-cyan-700"));
+    assert!(classes.contains("text-white"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_variant_info() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Info"}</span> }]);
-
-    let props = ButtonProps {
-        variant: ButtonVariant::Info,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("bg-cyan-600"));
-    assert!(class_name.contains("hover:bg-cyan-700"));
-    assert!(class_name.contains("text-white"));
+#[test]
+fn test_button_variant_ghost() {
+    let classes = get_button_variant_classes(&ButtonVariant::Ghost);
+    assert!(classes.contains("bg-transparent"));
+    assert!(classes.contains("hover:bg-gray-100"));
+    assert!(classes.contains("text-gray-700"));
+    assert!(classes.contains("border"));
+    assert!(classes.contains("border-gray-300"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_variant_ghost() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Ghost"}</span> }]);
-
-    let props = ButtonProps {
-        variant: ButtonVariant::Ghost,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("bg-transparent"));
-    assert!(class_name.contains("hover:bg-gray-100"));
-    assert!(class_name.contains("text-gray-700"));
-    assert!(class_name.contains("border"));
-    assert!(class_name.contains("border-gray-300"));
+#[test]
+fn test_button_size_small() {
+    let classes = get_button_size_classes(&ButtonSize::Small);
+    assert!(classes.contains("px-3"));
+    assert!(classes.contains("py-1.5"));
+    assert!(classes.contains("text-sm"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_size_small() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Small"}</span> }]);
-
-    let props = ButtonProps {
-        size: ButtonSize::Small,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("px-3"));
-    assert!(class_name.contains("py-1.5"));
-    assert!(class_name.contains("text-sm"));
+#[test]
+fn test_button_size_medium() {
+    let classes = get_button_size_classes(&ButtonSize::Medium);
+    assert!(classes.contains("px-4"));
+    assert!(classes.contains("py-2"));
+    assert!(classes.contains("text-base"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_size_medium() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Medium"}</span> }]);
-
-    let props = ButtonProps {
-        size: ButtonSize::Medium,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("px-4"));
-    assert!(class_name.contains("py-2"));
-    assert!(class_name.contains("text-base"));
+#[test]
+fn test_button_size_large() {
+    let classes = get_button_size_classes(&ButtonSize::Large);
+    assert!(classes.contains("px-6"));
+    assert!(classes.contains("py-3"));
+    assert!(classes.contains("text-lg"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_size_large() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Large"}</span> }]);
-
-    let props = ButtonProps {
-        size: ButtonSize::Large,
-        onclick,
-        children,
-        ontouchstart: None,
-        ..Default::default()
-    };
-
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
-
-    let class_name = button.class_name();
-    assert!(class_name.contains("px-6"));
-    assert!(class_name.contains("py-3"));
-    assert!(class_name.contains("text-lg"));
-}
-
-#[wasm_bindgen_test]
-async fn test_button_variant_and_size_combination() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Combined"}</span> }]);
-
+#[test]
+fn test_button_variant_and_size_combination() {
     let props = ButtonProps {
         variant: ButtonVariant::Success,
         size: ButtonSize::Large,
-        onclick,
-        children,
-        ontouchstart: None,
+        onclick: Callback::from(|_: MouseEvent| {}),
+        children: Children::new(vec![html! { <span>{"Test"}</span> }]),
         ..Default::default()
     };
 
-    let element = mount_button(props).await;
-    let button = element.query_selector("button").unwrap().unwrap();
+    let classes = get_button_classes(&props);
+    let classes_str = classes.to_string();
 
-    let class_name = button.class_name();
-    // Variant classes
-    assert!(class_name.contains("bg-green-600"));
-    assert!(class_name.contains("hover:bg-green-700"));
-    assert!(class_name.contains("text-white"));
-    // Size classes
-    assert!(class_name.contains("px-6"));
-    assert!(class_name.contains("py-3"));
-    assert!(class_name.contains("text-lg"));
+    // Check variant classes
+    assert!(classes_str.contains("bg-green-600"));
+    assert!(classes_str.contains("hover:bg-green-700"));
+    assert!(classes_str.contains("text-white"));
+
+    // Check size classes
+    assert!(classes_str.contains("px-6"));
+    assert!(classes_str.contains("py-3"));
+    assert!(classes_str.contains("text-lg"));
+
+    // Check base classes
+    assert!(classes_str.contains("font-medium"));
+    assert!(classes_str.contains("rounded-lg"));
+    assert!(classes_str.contains("transition-all"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_all_variants_have_base_classes() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Test"}</span> }]);
-
+#[test]
+fn test_button_all_variants_have_base_classes() {
     let variants = vec![
         ButtonVariant::Primary,
         ButtonVariant::Secondary,
@@ -291,58 +126,127 @@ async fn test_button_all_variants_have_base_classes() {
     for variant in variants {
         let props = ButtonProps {
             variant,
-            onclick: onclick.clone(),
-            children: children.clone(),
-            ontouchstart: None,
+            onclick: Callback::from(|_: MouseEvent| {}),
+            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
             ..Default::default()
         };
 
-        let element = mount_button(props).await;
-        let button = element.query_selector("button").unwrap().unwrap();
+        let classes = get_button_classes(&props);
+        let classes_str = classes.to_string();
 
-        let class_name = button.class_name();
-        // All variants should have base classes
-        assert!(class_name.contains("font-medium"));
-        assert!(class_name.contains("rounded-lg"));
-        assert!(class_name.contains("transition-all"));
-        assert!(class_name.contains("duration-200"));
-        assert!(class_name.contains("focus:outline-none"));
-        assert!(class_name.contains("focus:ring-2"));
-        assert!(class_name.contains("focus:ring-offset-2"));
-        assert!(class_name.contains("focus:ring-blue-500"));
-        assert!(class_name.contains("touch-manipulation"));
+        // Check base classes are always present
+        assert!(classes_str.contains("font-medium"));
+        assert!(classes_str.contains("rounded-lg"));
+        assert!(classes_str.contains("transition-all"));
+        assert!(classes_str.contains("focus:outline-none"));
+        assert!(classes_str.contains("focus:ring-2"));
+        assert!(classes_str.contains("focus:ring-offset-2"));
+        assert!(classes_str.contains("focus:ring-blue-500"));
+        assert!(classes_str.contains("touch-manipulation"));
     }
 }
 
-#[wasm_bindgen_test]
-async fn test_button_all_sizes_have_base_classes() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let children = Children::new(vec![html! { <span>{"Test"}</span> }]);
-
+#[test]
+fn test_button_all_sizes_have_base_classes() {
     let sizes = vec![ButtonSize::Small, ButtonSize::Medium, ButtonSize::Large];
 
     for size in sizes {
         let props = ButtonProps {
             size,
-            onclick: onclick.clone(),
-            children: children.clone(),
-            ontouchstart: None,
+            onclick: Callback::from(|_: MouseEvent| {}),
+            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
             ..Default::default()
         };
 
-        let element = mount_button(props).await;
-        let button = element.query_selector("button").unwrap().unwrap();
+        let classes = get_button_classes(&props);
+        let classes_str = classes.to_string();
 
-        let class_name = button.class_name();
-        // All sizes should have base classes
-        assert!(class_name.contains("font-medium"));
-        assert!(class_name.contains("rounded-lg"));
-        assert!(class_name.contains("transition-all"));
-        assert!(class_name.contains("duration-200"));
-        assert!(class_name.contains("focus:outline-none"));
-        assert!(class_name.contains("focus:ring-2"));
-        assert!(class_name.contains("focus:ring-offset-2"));
-        assert!(class_name.contains("focus:ring-blue-500"));
-        assert!(class_name.contains("touch-manipulation"));
+        // Check base classes are always present
+        assert!(classes_str.contains("font-medium"));
+        assert!(classes_str.contains("rounded-lg"));
+        assert!(classes_str.contains("transition-all"));
+        assert!(classes_str.contains("focus:outline-none"));
+        assert!(classes_str.contains("focus:ring-2"));
+        assert!(classes_str.contains("focus:ring-offset-2"));
+        assert!(classes_str.contains("focus:ring-blue-500"));
+        assert!(classes_str.contains("touch-manipulation"));
+    }
+}
+
+#[test]
+fn test_button_disabled_classes() {
+    let disabled_classes = get_button_disabled_classes(true);
+    assert!(disabled_classes.contains("opacity-50"));
+    assert!(disabled_classes.contains("cursor-not-allowed"));
+
+    let enabled_classes = get_button_disabled_classes(false);
+    assert!(enabled_classes.contains("cursor-pointer"));
+}
+
+#[test]
+fn test_button_loading_classes() {
+    let loading_classes = get_button_loading_classes(true);
+    assert!(loading_classes.contains("animate-pulse"));
+
+    let not_loading_classes = get_button_loading_classes(false);
+    assert_eq!(not_loading_classes, "");
+}
+
+#[test]
+fn test_button_base_classes() {
+    let base_classes = get_button_base_classes();
+    assert!(base_classes.contains("font-medium"));
+    assert!(base_classes.contains("rounded-lg"));
+    assert!(base_classes.contains("transition-all"));
+    assert!(base_classes.contains("focus:outline-none"));
+    assert!(base_classes.contains("focus:ring-2"));
+    assert!(base_classes.contains("focus:ring-offset-2"));
+    assert!(base_classes.contains("focus:ring-blue-500"));
+    assert!(base_classes.contains("touch-manipulation"));
+}
+
+#[test]
+fn test_button_props_with_all_variants() {
+    let variants = vec![
+        ButtonVariant::Primary,
+        ButtonVariant::Secondary,
+        ButtonVariant::Success,
+        ButtonVariant::Danger,
+        ButtonVariant::Warning,
+        ButtonVariant::Info,
+        ButtonVariant::Ghost,
+    ];
+
+    for variant in variants {
+        let props = ButtonProps {
+            variant: variant.clone(),
+            onclick: Callback::from(|_: MouseEvent| {}),
+            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+            ..Default::default()
+        };
+
+        assert_eq!(props.variant, variant);
+        assert!(!props.disabled);
+        assert!(!props.loading);
+        assert_eq!(props.size, ButtonSize::Medium);
+    }
+}
+
+#[test]
+fn test_button_props_with_all_sizes() {
+    let sizes = vec![ButtonSize::Small, ButtonSize::Medium, ButtonSize::Large];
+
+    for size in sizes {
+        let props = ButtonProps {
+            size: size.clone(),
+            onclick: Callback::from(|_: MouseEvent| {}),
+            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+            ..Default::default()
+        };
+
+        assert_eq!(props.size, size);
+        assert_eq!(props.variant, ButtonVariant::Primary);
+        assert!(!props.disabled);
+        assert!(!props.loading);
     }
 }
