@@ -14,6 +14,15 @@ pub use snapshot_manager::{SnapshotManager, SnapshotMetadata, VisualTestResult};
 // Include example tests demonstrating the functionality
 pub mod example_test;
 
+// Include CDP screenshot capture for native Rust context
+pub mod cdp_screenshot;
+
+// Include headless_chrome screenshot capture (more robust CDP implementation)
+pub mod headless_chrome_screenshot;
+
+// Include debug tests for CDP troubleshooting
+pub mod debug_cdp;
+
 // Import screenshot functions from the browser test JS
 #[wasm_bindgen(module = "/src/tests/browser/js/screenshot.js")]
 extern "C" {
