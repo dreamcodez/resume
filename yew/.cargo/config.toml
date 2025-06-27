@@ -1,13 +1,5 @@
 [target.wasm32-unknown-unknown]
-rustflags = [
-    "--cfg",
-    "target_arch=\"wasm32\"",
-    "--cfg",
-    "target_os=\"unknown\"",
-    "--cfg",
-    "wasm_js",
-]
+rustflags = ["--cfg", "wasm_js"]
 
 [env]
-CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS = "--cfg target_arch=\"wasm32\" --cfg target_os=\"unknown\" --cfg wasm_js"
 CARGO_CFG_WASM_JS = "1"

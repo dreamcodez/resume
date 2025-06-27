@@ -28,7 +28,6 @@ console_error_panic_hook = "0.1"
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
 image = "0.24"
-headless_chrome = "1.0"
 
 # Trunk is only needed for development builds, not WASM tests
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]

@@ -11,8 +11,8 @@
     "serve": "trunk serve",
     "test": "npm run test:unit",
     "test:unit": "cargo test --lib",
-    "test:browser": "echo 'Browser tests require additional setup. Run: npm run test:unit'",
-    "test:all": "npm run test:unit",
+    "test:browser": "wasm-pack test --headless --firefox",
+    "test:all": "npm run test:unit && npm run test:browser",
     "test:update-screenshots": "npx playwright test --update-snapshots",
     "test:report": "npx playwright show-report"
   },
