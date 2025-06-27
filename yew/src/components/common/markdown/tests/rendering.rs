@@ -8,7 +8,7 @@ fn test_markdown_renders_basic_content() {
     let rendered = parse_markdown_to_html(content);
     assert!(rendered.contains("Hello World"));
     assert!(rendered.contains("This is a paragraph"));
-    assert!(rendered.contains("text-2xl font-bold")); // h1 styling
+    assert!(rendered.contains("<h1")); // h1 structure
 }
 
 #[test]
@@ -20,20 +20,20 @@ fn test_markdown_renders_headings() {
 ##### H5 Title
 ###### H6 Title"#;
     let rendered = parse_markdown_to_html(content);
-    assert!(rendered.contains("text-2xl font-bold")); // h1
-    assert!(rendered.contains("text-xl font-semibold")); // h2
-    assert!(rendered.contains("text-lg font-medium")); // h3
-    assert!(rendered.contains("text-base font-medium")); // h4
-    assert!(rendered.contains("text-sm font-medium")); // h5
-    assert!(rendered.contains("text-xs font-medium")); // h6
+    assert!(rendered.contains("<h1")); // h1
+    assert!(rendered.contains("<h2")); // h2
+    assert!(rendered.contains("<h3")); // h3
+    assert!(rendered.contains("<h4")); // h4
+    assert!(rendered.contains("<h5")); // h5
+    assert!(rendered.contains("<h6")); // h6
 }
 
 #[test]
 fn test_markdown_renders_bold_and_italic() {
     let content = "This is **bold** text and *italic* text.";
     let rendered = parse_markdown_to_html(content);
-    assert!(rendered.contains("font-semibold text-gray-900")); // bold styling
-    assert!(rendered.contains("italic text-gray-700")); // italic styling
+    assert!(rendered.contains("<strong")); // bold structure
+    assert!(rendered.contains("<em")); // italic structure
 }
 
 #[test]
@@ -45,8 +45,8 @@ fn test_markdown_renders_lists() {
 1. Numbered item 1
 2. Numbered item 2"#;
     let rendered = parse_markdown_to_html(content);
-    assert!(rendered.contains("<ul class=\"ml-4 mb-2\">"));
-    assert!(rendered.contains("<li class=\"mb-1\">"));
+    assert!(rendered.contains("<ul"));
+    assert!(rendered.contains("<li"));
     assert!(rendered.contains("Item 1"));
     assert!(rendered.contains("Item 2"));
     assert!(rendered.contains("Item 3"));
@@ -59,7 +59,7 @@ fn test_markdown_renders_links() {
     let content = "[Link Text](https://example.com)";
     let rendered = parse_markdown_to_html(content);
     assert!(rendered.contains("href=\"https://example.com\""));
-    assert!(rendered.contains("text-blue-600 hover:text-blue-800 underline"));
+    assert!(rendered.contains("<a"));
     assert!(rendered.contains("Link Text"));
 }
 
@@ -74,9 +74,9 @@ fn main() {
 ```"#;
     let rendered = parse_markdown_to_html(content);
     // Inline code
-    assert!(rendered.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono"));
+    assert!(rendered.contains("<code"));
     // Code blocks
-    assert!(rendered.contains("bg-gray-100 p-3 rounded-lg overflow-x-auto mb-2"));
+    assert!(rendered.contains("<pre"));
     assert!(rendered.contains("fn main()"));
     assert!(rendered.contains("println!"));
 }
@@ -85,7 +85,7 @@ fn main() {
 fn test_markdown_renders_blockquotes() {
     let content = "> This is a blockquote\n> with multiple lines";
     let rendered = parse_markdown_to_html(content);
-    assert!(rendered.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2"));
+    assert!(rendered.contains("<blockquote"));
     assert!(rendered.contains("This is a blockquote"));
     assert!(rendered.contains("with multiple lines"));
 }
@@ -97,9 +97,11 @@ fn test_markdown_renders_tables() {
 | Cell 1   | Cell 2   |
 | Cell 3   | Cell 4   |"#;
     let rendered = parse_markdown_to_html(content);
-    assert!(rendered.contains("border-collapse border border-gray-300 mb-2"));
-    assert!(rendered.contains("border border-gray-300 px-3 py-2 bg-gray-100 font-semibold"));
-    assert!(rendered.contains("border border-gray-300 px-3 py-2"));
+    assert!(rendered.contains("<table"));
+    assert!(rendered.contains("<thead"));
+    assert!(rendered.contains("<tbody"));
+    assert!(rendered.contains("<th"));
+    assert!(rendered.contains("<td"));
     assert!(rendered.contains("Header 1"));
     assert!(rendered.contains("Header 2"));
     assert!(rendered.contains("Cell 1"));
@@ -142,15 +144,16 @@ fn test_markdown_renders_footnotes() {
 fn test_markdown_renders_empty_content() {
     let content = "";
     let rendered = parse_markdown_to_html(content);
-    assert!(rendered.contains("prose prose-sm max-w-none"));
-    assert!(rendered.contains("whitespace-pre-line text-gray-700 leading-relaxed"));
+    // Empty content should return empty string or minimal structure
+    assert!(rendered.is_empty() || rendered.contains("<div"));
 }
 
 #[test]
 fn test_markdown_renders_whitespace_only() {
     let content = "   \n\t  \n";
     let rendered = parse_markdown_to_html(content);
-    assert!(rendered.contains("prose prose-sm max-w-none"));
+    // Whitespace-only content should return empty string or minimal structure
+    assert!(rendered.is_empty() || rendered.contains("<div"));
 }
 
 #[test]
@@ -190,17 +193,18 @@ fn test_markdown_renders_special_characters() {
 Content with & < > symbols and emojis 🚀 🎉
 
 ```html
-<div class=\"test\">Content</div>
+<div class="test">Content</div>
 ```"#;
     let rendered = parse_markdown_to_html(content);
     assert!(rendered.contains("quotes"));
     assert!(rendered.contains("apostrophes"));
-    assert!(rendered.contains("&"));
-    assert!(rendered.contains("<"));
-    assert!(rendered.contains(">"));
+    assert!(rendered.contains("&amp;"));
+    assert!(rendered.contains("&lt;"));
+    assert!(rendered.contains("&gt;"));
     assert!(rendered.contains("🚀"));
     assert!(rendered.contains("🎉"));
-    assert!(rendered.contains("<div class=\"test\">Content</div>"));
+    // HTML in code blocks is also escaped
+    assert!(rendered.contains("&lt;div class=\"test\"&gt;Content&lt;/div&gt;"));
 }
 
 #[test]

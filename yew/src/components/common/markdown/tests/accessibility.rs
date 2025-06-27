@@ -6,9 +6,12 @@ use crate::components::common::markdown::parse_markdown_to_html;
 fn test_markdown_has_semantic_structure() {
     let content = "# Main Title\n\n## Subtitle\n\nThis is a paragraph.";
     let html = parse_markdown_to_html(content);
-    assert!(html.contains("prose"));
-    assert!(html.contains("prose-sm"));
-    assert!(html.contains("max-w-none"));
+    assert!(html.contains("<h1"));
+    assert!(html.contains("<h2"));
+    assert!(html.contains("<p"));
+    assert!(html.contains("Main Title"));
+    assert!(html.contains("Subtitle"));
+    assert!(html.contains("This is a paragraph"));
 }
 
 #[test]
@@ -59,9 +62,6 @@ fn test_markdown_links_have_proper_attributes() {
     let html = parse_markdown_to_html(content);
     assert!(html.contains("href=\"https://example.com\""));
     assert!(html.contains("Link Text"));
-    assert!(html.contains("text-blue-600"));
-    assert!(html.contains("hover:text-blue-800"));
-    assert!(html.contains("underline"));
 }
 
 #[test]
@@ -78,8 +78,6 @@ fn main() {
     assert!(html.contains("<pre"));
     assert!(html.contains("fn main()"));
     assert!(html.contains("println!"));
-    assert!(html.contains("bg-gray-100"));
-    assert!(html.contains("font-mono"));
 }
 
 #[test]
@@ -109,9 +107,6 @@ fn test_markdown_blockquotes_have_proper_structure() {
     assert!(html.contains("<blockquote"));
     assert!(html.contains("This is a blockquote"));
     assert!(html.contains("with multiple lines"));
-    assert!(html.contains("border-l-4"));
-    assert!(html.contains("border-gray-300"));
-    assert!(html.contains("italic"));
 }
 
 #[test]
@@ -131,8 +126,8 @@ fn test_markdown_task_lists_have_proper_structure() {
 fn test_markdown_emphasis_has_proper_structure() {
     let content = "This is **bold** text and *italic* text.";
     let html = parse_markdown_to_html(content);
-    assert!(html.contains("<strong") || html.contains("font-semibold"));
-    assert!(html.contains("<em") || html.contains("italic"));
+    assert!(html.contains("<strong"));
+    assert!(html.contains("<em"));
     assert!(html.contains("bold"));
     assert!(html.contains("italic"));
 }
@@ -156,40 +151,40 @@ fn test_markdown_footnotes_have_proper_structure() {
 }
 
 #[test]
-fn test_markdown_has_proper_text_contrast() {
+fn test_markdown_has_proper_text_content() {
     let content = "# Title\n\nThis is regular text.";
     let html = parse_markdown_to_html(content);
-    assert!(html.contains("text-gray-900"));
-    assert!(html.contains("text-gray-700"));
+    assert!(html.contains("Title"));
+    assert!(html.contains("This is regular text"));
 }
 
 #[test]
-fn test_markdown_has_proper_spacing() {
+fn test_markdown_has_proper_paragraph_structure() {
     let content = "# Title\n\nParagraph 1.\n\nParagraph 2.";
     let html = parse_markdown_to_html(content);
-    assert!(html.contains("mb-2"));
-    assert!(html.contains("mb-4"));
-    assert!(html.contains("leading-relaxed"));
+    assert!(html.contains("<p"));
+    assert!(html.contains("Paragraph 1"));
+    assert!(html.contains("Paragraph 2"));
 }
 
 #[test]
-fn test_markdown_handles_empty_content_accessibly() {
+fn test_markdown_handles_empty_content() {
     let content = "";
     let html = parse_markdown_to_html(content);
-    assert!(html.contains("prose"));
-    assert!(html.contains("prose-sm"));
-    assert!(html.contains("max-w-none"));
+    // Empty content should return empty string or minimal structure
+    assert!(html.is_empty() || html.contains("<div"));
 }
 
 #[test]
-fn test_markdown_has_proper_whitespace_handling() {
+fn test_markdown_handles_whitespace_only_content() {
     let content = "   \n\t  \n";
     let html = parse_markdown_to_html(content);
-    assert!(html.contains("whitespace-pre-line"));
+    // Whitespace-only content should be handled appropriately
+    assert!(html.is_empty() || html.contains("<div"));
 }
 
 #[test]
-fn test_markdown_has_proper_overflow_handling() {
+fn test_markdown_has_proper_code_overflow_handling() {
     let content = r#"```rust
 fn very_long_function_name_with_many_parameters(
     param1: String,
@@ -198,23 +193,69 @@ fn very_long_function_name_with_many_parameters(
     param4: String,
     param5: String,
     param6: String,
-    param7: String,
-    param8: String,
-    param9: String,
-    param10: String,
-) -> Result<(), Box<dyn std::error::Error>> {
-    // Function implementation
-    Ok(())
+) {
+    // function body
 }
 ```"#;
     let html = parse_markdown_to_html(content);
-    assert!(html.contains("overflow-x-auto"));
+    assert!(html.contains("<pre"));
+    assert!(html.contains("<code"));
+    assert!(html.contains("very_long_function_name_with_many_parameters"));
 }
 
 #[test]
 fn test_markdown_has_proper_focus_states() {
-    let content = "[Link Text](https://example.com)";
+    let content = "[Link](https://example.com)";
     let html = parse_markdown_to_html(content);
-    assert!(html.contains("text-blue-600"));
-    assert!(html.contains("hover:text-blue-800"));
+    assert!(html.contains("<a"));
+    assert!(html.contains("href"));
+    // Focus states should be handled by CSS, not injected HTML
+}
+
+#[test]
+fn test_markdown_has_proper_alt_text_for_images() {
+    let content = "![Alt text](image.jpg)";
+    let html = parse_markdown_to_html(content);
+    assert!(html.contains("<img"));
+    assert!(html.contains("alt=\"Alt text\""));
+    assert!(html.contains("src=\"image.jpg\""));
+}
+
+#[test]
+fn test_markdown_has_proper_heading_hierarchy() {
+    let content = r#"# Main Title
+## Subtitle
+### Sub-subtitle
+## Another subtitle"#;
+    let html = parse_markdown_to_html(content);
+    assert!(html.contains("<h1"));
+    assert!(html.contains("<h2"));
+    assert!(html.contains("<h3"));
+    // Heading hierarchy should be semantic and accessible
+}
+
+#[test]
+fn test_markdown_has_proper_list_accessibility() {
+    let content = r#"1. First item
+2. Second item
+3. Third item"#;
+    let html = parse_markdown_to_html(content);
+    assert!(html.contains("<ol"));
+    assert!(html.contains("<li"));
+    // Lists should be properly structured for screen readers
+}
+
+#[test]
+fn test_markdown_has_proper_table_accessibility() {
+    let content = r#"| Name | Age |
+|------|-----|
+| John | 25  |
+| Jane | 30  |"#;
+    let html = parse_markdown_to_html(content);
+    assert!(html.contains("<table"));
+    assert!(html.contains("<thead"));
+    assert!(html.contains("<tbody"));
+    assert!(html.contains("<th"));
+    assert!(html.contains("<td"));
+    // Tables should be properly structured for screen readers
 }

@@ -116,9 +116,9 @@ This is **bold** and *italic* text with `code`.
     assert!(result.contains("Sub-sub-subtitle"));
     assert!(result.contains("Sub-sub-sub-subtitle"));
     assert!(result.contains("Sub-sub-sub-sub-subtitle"));
-    assert!(result.contains("font-semibold text-gray-900")); // bold
-    assert!(result.contains("italic text-gray-700")); // italic
-    assert!(result.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono")); // code
+    assert!(result.contains("<strong")); // bold
+    assert!(result.contains("<em")); // italic
+    assert!(result.contains("<code")); // code
     assert!(result.contains("List item 1"));
     assert!(result.contains("Nested item 1"));
     assert!(result.contains("Deep nested item 1"));
@@ -144,15 +144,18 @@ More markdown content with **bold** and *italic*."#;
 
     let result = parse_markdown_to_html(content);
 
-    // Should handle HTML content
+    // Should handle HTML passthrough (pulldown-cmark passes HTML through by default)
     assert!(result.contains("HTML in Markdown"));
-    assert!(result.contains("<div class=\"custom-html\">"));
+    assert!(
+        result.contains("<div class=\"custom-html\">")
+            || result.contains("<div class='custom-html'>")
+    );
     assert!(result.contains("<p>This is HTML content</p>"));
     assert!(result.contains("<script>alert('test');</script>"));
     assert!(result.contains("<style>"));
     assert!(result.contains("More markdown content"));
-    assert!(result.contains("font-semibold text-gray-900")); // bold
-    assert!(result.contains("italic text-gray-700")); // italic
+    assert!(result.contains("<strong")); // bold
+    assert!(result.contains("<em")); // italic
 }
 
 #[test]
@@ -173,15 +176,16 @@ Content with & < > symbols and emojis 🚀 🎉
 
     let result = parse_markdown_to_html(content);
 
-    // Should handle special characters
+    // Should handle special characters (pulldown-cmark escapes them by default)
     assert!(result.contains("quotes"));
     assert!(result.contains("apostrophes"));
-    assert!(result.contains("&"));
-    assert!(result.contains("<"));
-    assert!(result.contains(">"));
+    assert!(result.contains("&amp;"));
+    assert!(result.contains("&lt;"));
+    assert!(result.contains("&gt;"));
     assert!(result.contains("🚀"));
     assert!(result.contains("🎉"));
-    assert!(result.contains("<div class=\"test\">Content</div>"));
+    // HTML in code blocks is also escaped
+    assert!(result.contains("&lt;div class=\"test\"&gt;Content&lt;/div&gt;"));
 }
 
 #[test]
@@ -244,16 +248,16 @@ Here is a sentence with a footnote[^1].
 
     // Should handle all content types together
     assert!(result.contains("Mixed Content"));
-    assert!(result.contains("font-semibold text-gray-900")); // bold
-    assert!(result.contains("italic text-gray-700")); // italic
-    assert!(result.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono")); // inline code
-    assert!(result.contains("bg-gray-100 p-3 rounded-lg overflow-x-auto mb-2")); // code block
+    assert!(result.contains("<strong")); // bold
+    assert!(result.contains("<em")); // italic
+    assert!(result.contains("<code")); // inline code
+    assert!(result.contains("<pre")); // code block
     assert!(result.contains("Item 1"));
     assert!(result.contains("Nested item"));
-    assert!(result.contains("border-collapse border border-gray-300 mb-2")); // table
-    assert!(result.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2")); // blockquote
-    assert!(result.contains("text-blue-600 hover:text-blue-800 underline")); // links
-    assert!(result.contains("<del>")); // strikethrough
+    assert!(result.contains("<table")); // table
+    assert!(result.contains("<blockquote")); // blockquote
+    assert!(result.contains("<a")); // links
+    assert!(result.contains("<del")); // strikethrough
     assert!(result.contains("<input")); // task lists
     assert!(result.contains("footnote")); // footnotes
 }
@@ -301,10 +305,10 @@ fn test_markdown_handles_consecutive_special_characters() {
     let result = parse_markdown_to_html(content);
 
     // Should handle consecutive special characters
-    assert!(result.contains("font-semibold text-gray-900")); // multiple bold
-    assert!(result.contains("italic text-gray-700")); // multiple italic
-    assert!(result.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono")); // multiple code
-    assert!(result.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2")); // multiple quotes
-    assert!(result.contains("<ul class=\"ml-4 mb-2\">")); // multiple lists
-    assert!(result.contains("<ol>")); // multiple numbered lists
+    assert!(result.contains("<strong")); // multiple bold
+    assert!(result.contains("<em")); // multiple italic
+    assert!(result.contains("<code")); // multiple code
+    assert!(result.contains("<blockquote")); // multiple quotes
+    assert!(result.contains("<ul")); // multiple lists
+    assert!(result.contains("<ol")); // multiple numbered lists
 }

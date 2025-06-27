@@ -28,15 +28,23 @@ base64ct = "1.7.3"
 pulldown-cmark = "0.13.0"
 serde_yaml = "0.9.34"
 console_error_panic_hook = "0.1"
+getrandom = { version = "0.3", features = ["wasm_js"] }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
 image = "0.24"
-headless_chrome = "1.0"
 
+# headless_chrome = "1.0"  # Temporarily commented out due to getrandom/wasm_js issue
 # Trunk is only needed for development builds, not WASM tests
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 trunk = "0.17"
 
 [lib]
 crate-type = ["cdylib"]
+
+[features]
+default = []
+wasm-support = ["getrandom/wasm_js"]
+
+[workspace.dependencies]
+getrandom = { version = "0.3", features = ["wasm_js"] }

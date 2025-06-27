@@ -6,9 +6,9 @@ fn test_markdown_variant_basic_text() {
 
     let html = parse_markdown_to_html(content);
 
-    // Should render basic text with proper styling
+    // Should render basic text with proper structure
     assert!(html.contains("This is basic text content"));
-    assert!(html.contains("mb-2")); // paragraph styling
+    assert!(html.contains("<p")); // paragraph structure
 }
 
 #[test]
@@ -22,13 +22,19 @@ fn test_markdown_variant_headings_only() {
 
     let html = parse_markdown_to_html(content);
 
-    // Should render all heading levels with proper styling
-    assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1
-    assert!(html.contains("text-xl font-semibold mb-3 text-gray-900")); // h2
-    assert!(html.contains("text-lg font-medium mb-2 text-gray-900")); // h3
-    assert!(html.contains("text-base font-medium mb-2 text-gray-900")); // h4
-    assert!(html.contains("text-sm font-medium mb-1 text-gray-900")); // h5
-    assert!(html.contains("text-xs font-medium mb-1 text-gray-900")); // h6
+    // Should render all heading levels with proper structure
+    assert!(html.contains("<h1"));
+    assert!(html.contains("<h2"));
+    assert!(html.contains("<h3"));
+    assert!(html.contains("<h4"));
+    assert!(html.contains("<h5"));
+    assert!(html.contains("<h6"));
+    assert!(html.contains("H1 Title"));
+    assert!(html.contains("H2 Title"));
+    assert!(html.contains("H3 Title"));
+    assert!(html.contains("H4 Title"));
+    assert!(html.contains("H5 Title"));
+    assert!(html.contains("H6 Title"));
 }
 
 #[test]
@@ -43,10 +49,10 @@ fn test_markdown_variant_lists_only() {
 
     let html = parse_markdown_to_html(content);
 
-    // Should render lists with proper styling
-    assert!(html.contains("<ul class=\"ml-4 mb-2\">"));
-    assert!(html.contains("<li class=\"mb-1\">"));
-    assert!(html.contains("<ol>"));
+    // Should render lists with proper structure
+    assert!(html.contains("<ul"));
+    assert!(html.contains("<li"));
+    assert!(html.contains("<ol"));
     assert!(html.contains("Unordered item 1"));
     assert!(html.contains("Unordered item 2"));
     assert!(html.contains("Unordered item 3"));
@@ -69,9 +75,9 @@ More inline `code`."#;
 
     let html = parse_markdown_to_html(content);
 
-    // Should render code with proper styling
-    assert!(html.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono")); // inline code
-    assert!(html.contains("bg-gray-100 p-3 rounded-lg overflow-x-auto mb-2")); // code block
+    // Should render code with proper structure
+    assert!(html.contains("<code")); // inline code
+    assert!(html.contains("<pre")); // code block
     assert!(html.contains("fn main()"));
     assert!(html.contains("println!"));
 }
@@ -84,8 +90,8 @@ fn test_markdown_variant_links_only() {
 
     let html = parse_markdown_to_html(content);
 
-    // Should render links with proper styling
-    assert!(html.contains("text-blue-600 hover:text-blue-800 underline"));
+    // Should render links with proper structure
+    assert!(html.contains("<a"));
     assert!(html.contains("href=\"https://example.com\""));
     assert!(html.contains("href=\"/about\""));
     assert!(html.contains("External Link"));
@@ -102,10 +108,12 @@ fn test_markdown_variant_tables_only() {
 
     let html = parse_markdown_to_html(content);
 
-    // Should render tables with proper styling
-    assert!(html.contains("border-collapse border border-gray-300 mb-2"));
-    assert!(html.contains("border border-gray-300 px-3 py-2 bg-gray-100 font-semibold")); // headers
-    assert!(html.contains("border border-gray-300 px-3 py-2")); // cells
+    // Should render tables with proper structure
+    assert!(html.contains("<table"));
+    assert!(html.contains("<thead"));
+    assert!(html.contains("<tbody"));
+    assert!(html.contains("<th"));
+    assert!(html.contains("<td"));
     assert!(html.contains("Header 1"));
     assert!(html.contains("Header 2"));
     assert!(html.contains("Header 3"));
@@ -129,14 +137,14 @@ fn test_markdown_variant_blockquotes_only() {
 
     let html = parse_markdown_to_html(content);
 
-    // Should render blockquotes with proper styling
-    assert!(html.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2"));
+    // Should render blockquotes with proper structure
+    assert!(html.contains("<blockquote"));
     assert!(html.contains("This is a single line blockquote"));
     assert!(html.contains("This is a multi-line"));
     assert!(html.contains("blockquote with"));
     assert!(html.contains("multiple lines"));
-    assert!(html.contains("font-semibold text-gray-900")); // bold in blockquote
-    assert!(html.contains("italic text-gray-700")); // italic in blockquote
+    assert!(html.contains("<strong")); // bold in blockquote
+    assert!(html.contains("<em")); // italic in blockquote
 }
 
 #[test]
@@ -148,10 +156,10 @@ This is ~~strikethrough~~ text."#;
 
     let html = parse_markdown_to_html(content);
 
-    // Should render emphasis with proper styling
-    assert!(html.contains("font-semibold text-gray-900")); // bold
-    assert!(html.contains("italic text-gray-700")); // italic
-    assert!(html.contains("<del>")); // strikethrough
+    // Should render emphasis with proper structure
+    assert!(html.contains("<strong")); // bold
+    assert!(html.contains("<em")); // italic
+    assert!(html.contains("<del")); // strikethrough
     assert!(html.contains("bold"));
     assert!(html.contains("italic"));
     assert!(html.contains("strikethrough"));
@@ -221,18 +229,18 @@ fn main() {
 
     let html = parse_markdown_to_html(content);
 
-    // Should render mixed content with proper styling
-    assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1
-    assert!(html.contains("text-xl font-semibold mb-3 text-gray-900")); // h2
-    assert!(html.contains("font-semibold text-gray-900")); // bold
-    assert!(html.contains("italic text-gray-700")); // italic
-    assert!(html.contains("<ul class=\"ml-4 mb-2\">")); // unordered list
-    assert!(html.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono")); // inline code
-    assert!(html.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2")); // blockquote
-    assert!(html.contains("text-blue-600 hover:text-blue-800 underline")); // link
-    assert!(html.contains("bg-gray-100 p-3 rounded-lg overflow-x-auto mb-2")); // code block
-    assert!(html.contains("border-collapse border border-gray-300 mb-2")); // table
-    assert!(html.contains("type=\"checkbox\"")); // task list
+    // Should render mixed content with proper structure
+    assert!(html.contains("<h1"));
+    assert!(html.contains("<h2"));
+    assert!(html.contains("<strong")); // bold
+    assert!(html.contains("<em")); // italic
+    assert!(html.contains("<ul")); // unordered list
+    assert!(html.contains("<code")); // inline code
+    assert!(html.contains("<blockquote")); // blockquote
+    assert!(html.contains("<a")); // link
+    assert!(html.contains("<pre")); // code block
+    assert!(html.contains("<table")); // table
+    assert!(html.contains("<input")); // task list
 }
 
 #[test]
@@ -270,7 +278,7 @@ This is content with emojis: 🎉 🎯 ⚡
 
     let html = parse_markdown_to_html(content);
 
-    // Should render unicode content with proper styling
+    // Should render unicode content with proper structure
     assert!(html.contains("🚀 Unicode Title"));
     assert!(html.contains("🎉 🎯 ⚡"));
     assert!(html.contains("🏗️"));
@@ -278,9 +286,9 @@ This is content with emojis: 🎉 🎯 ⚡
     assert!(html.contains("🌟 and 💎"));
     assert!(html.contains("🎭"));
     assert!(html.contains("🎪"));
-    assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1 styling
-    assert!(html.contains("font-semibold text-gray-900")); // bold styling
-    assert!(html.contains("italic text-gray-700")); // italic styling
+    assert!(html.contains("<h1"));
+    assert!(html.contains("<strong"));
+    assert!(html.contains("<em"));
 }
 
 #[test]
@@ -298,17 +306,17 @@ This has special chars: & < > " ' \ / | ! @ # $ % ^ * ( ) _ + = { } [ ] : ; , . 
 
     let html = parse_markdown_to_html(content);
 
-    // Should render special characters with proper styling
-    assert!(html.contains("Title with &amp; &lt; &gt; &quot; &#39;"));
-    assert!(html.contains("This has special chars: &amp; &lt; &gt; &quot; &#39;"));
+    // Should render special characters with proper structure
+    assert!(html.contains("Title with &amp; &lt; &gt; \" '"));
+    assert!(html.contains("This has special chars: &amp; &lt; &gt; \" '"));
     assert!(html.contains("List with &amp; &lt; &gt; chars"));
-    assert!(html.contains("Another with &quot; &#39; chars"));
-    assert!(html.contains("Blockquote with special chars: &amp; &lt; &gt; &quot; &#39;"));
-    assert!(html.contains("Bold with &amp; &lt; &gt;"));
-    assert!(html.contains("italic with &quot; &#39;"));
-    assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1 styling
-    assert!(html.contains("font-semibold text-gray-900")); // bold styling
-    assert!(html.contains("italic text-gray-700")); // italic styling
+    assert!(html.contains("Another with \" ' chars"));
+    assert!(html.contains("Blockquote with special chars: &amp; &lt; &gt; \" '"));
+    assert!(html.contains("<strong"));
+    assert!(html.contains("<em"));
+    assert!(html.contains("<h1"));
+    assert!(html.contains("<strong"));
+    assert!(html.contains("<em"));
 }
 
 #[test]
@@ -349,14 +357,14 @@ This is a paragraph.
 
     let html = parse_markdown_to_html(content);
 
-    // Should render nested structures with proper styling
-    assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1
-    assert!(html.contains("text-xl font-semibold mb-3 text-gray-900")); // h2
-    assert!(html.contains("text-lg font-medium mb-2 text-gray-900")); // h3
-    assert!(html.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2")); // blockquote
-    assert!(html.contains("<ul class=\"ml-4 mb-2\">")); // unordered list
-    assert!(html.contains("<ol>")); // ordered list
-    assert!(html.contains("border-collapse border border-gray-300 mb-2")); // table
-    assert!(html.contains("font-semibold text-gray-900")); // bold
-    assert!(html.contains("italic text-gray-700")); // italic
+    // Should render nested structures with proper structure
+    assert!(html.contains("<h1"));
+    assert!(html.contains("<h2"));
+    assert!(html.contains("<h3"));
+    assert!(html.contains("<blockquote"));
+    assert!(html.contains("<ul"));
+    assert!(html.contains("<ol"));
+    assert!(html.contains("<table"));
+    assert!(html.contains("<strong"));
+    assert!(html.contains("<em"));
 }

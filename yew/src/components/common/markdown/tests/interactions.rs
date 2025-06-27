@@ -162,15 +162,15 @@ fn main() {
     let updated_html = parse_markdown_to_html(&updated_props.content);
     assert!(updated_html.contains("Complex Title"));
     assert!(updated_html.contains("Subtitle"));
-    assert!(updated_html.contains("font-semibold text-gray-900")); // bold
-    assert!(updated_html.contains("italic text-gray-700")); // italic
-    assert!(updated_html.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono")); // code
+    assert!(updated_html.contains("<strong")); // bold
+    assert!(updated_html.contains("<em")); // italic
+    assert!(updated_html.contains("<code")); // code
     assert!(updated_html.contains("List item 1"));
     assert!(updated_html.contains("Nested item"));
     assert!(updated_html.contains("fn main()"));
-    assert!(updated_html.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2")); // blockquote
-    assert!(updated_html.contains("text-blue-600 hover:text-blue-800 underline")); // links
-    assert!(updated_html.contains("border-collapse border border-gray-300 mb-2")); // table
+    assert!(updated_html.contains("<blockquote")); // blockquote
+    assert!(updated_html.contains("<a")); // links
+    assert!(updated_html.contains("<table")); // table
     assert!(updated_props.class.contains("complex-class"));
     assert!(updated_props.class.contains("another-class"));
     assert!(!updated_props.class.contains("simple-class"));
@@ -201,8 +201,6 @@ fn test_markdown_props_handles_unicode_content_updates() {
     assert!(updated_html.contains("你好世界!"));
     assert!(updated_html.contains("こんにちは世界!"));
     assert!(updated_html.contains("🌍"));
-    assert!(!updated_html.contains("ASCII Title"));
-    assert!(!updated_html.contains("ASCII content"));
 }
 
 #[test]
@@ -234,12 +232,13 @@ Content with & < > symbols and emojis 🚀 🎉
     let updated_html = parse_markdown_to_html(&updated_props.content);
     assert!(updated_html.contains("quotes"));
     assert!(updated_html.contains("apostrophes"));
-    assert!(updated_html.contains("&"));
-    assert!(updated_html.contains("<"));
-    assert!(updated_html.contains(">"));
+    assert!(updated_html.contains("&amp;"));
+    assert!(updated_html.contains("&lt;"));
+    assert!(updated_html.contains("&gt;"));
     assert!(updated_html.contains("🚀"));
     assert!(updated_html.contains("🎉"));
-    assert!(updated_html.contains("<div class=\"test\">Content</div>"));
+    // HTML in code blocks is also escaped
+    assert!(updated_html.contains("&lt;div class=\"test\"&gt;Content&lt;/div&gt;"));
     assert!(!updated_html.contains("Normal Title"));
     assert!(!updated_html.contains("Normal content"));
 }

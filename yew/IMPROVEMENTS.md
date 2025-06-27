@@ -73,6 +73,12 @@ This document tracks the progress of refactoring the Yew application into a clea
 - [x] **Test Coverage Requirements** - 100% coverage across all test categories
 - [x] **Documentation Standards** - Comprehensive README requirements for all components
 
+### **Markdown Component Refactor & Testing**
+
+- [x] **Markdown Component Refactored** - Removed all custom HTML/CSS styling from the markdown component. Now, it only converts markdown to HTML using pulldown-cmark, with no injected classes or wrappers. Styling is handled purely by the markdown content or external CSS (e.g., Tailwind).
+- [x] **Passthrough HTML Behavior** - Confirmed that pulldown-cmark passes raw HTML through by default (does not escape). Updated documentation and tests to reflect this behavior.
+- [x] **Comprehensive Test Updates** - Systematically updated all markdown component unit tests (accessibility, edge cases, interactions, variants, rendering) to focus on semantic HTML structure and content, not custom classes. Adjusted tests for special characters and HTML passthrough to match actual parser output. All tests now pass.
+
 ## 🚧 **In Progress**
 
 ### **Build System Issues**
