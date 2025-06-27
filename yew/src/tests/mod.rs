@@ -71,9 +71,35 @@ where
 }
 
 /// Helper to mount a component and return the div container
-pub async fn mount_component_container<T: Component + 'static>(props: T::Properties) -> HtmlElement
+/// This works with both function components and regular components
+pub async fn mount_component_container<T>(props: T::Properties) -> HtmlElement
 where
+    T: Component + 'static,
     T::Properties: Clone,
+{
+    let document = web_sys::window().unwrap().document().unwrap();
+    let div = document.create_element("div").unwrap();
+    document.body().unwrap().append_child(&div).unwrap();
+
+    let div_clone = div.clone();
+    let props_clone = props.clone();
+
+    spawn_local(async move {
+        yew::Renderer::<T>::with_root_and_props(div_clone, props_clone).render();
+    });
+
+    // Wait for rendering
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    div.dyn_into::<HtmlElement>().unwrap()
+}
+
+/// Helper to mount a function component and return the div container
+/// This is specifically for function components that don't implement Component directly
+pub async fn mount_function_component_container<T, P>(props: P) -> HtmlElement
+where
+    T: Component<Properties = P> + 'static,
+    P: Clone + 'static,
 {
     let document = web_sys::window().unwrap().document().unwrap();
     let div = document.create_element("div").unwrap();

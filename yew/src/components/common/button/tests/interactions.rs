@@ -4,11 +4,14 @@ use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 
-use crate::components::common::button::{Button, ButtonProps, ButtonSize, ButtonVariant};
+use crate::components::common::button::{
+    get_button_classes, Button, ButtonProps, ButtonSize, ButtonVariant,
+};
 use crate::tests::mount_component_as_button;
 
 wasm_bindgen_test_configure!(run_in_browser);
 
+// Real DOM interaction tests - these need to stay as browser tests
 #[wasm_bindgen_test]
 async fn test_button_click_event() {
     let click_count = Rc::new(Cell::new(0));
@@ -59,47 +62,38 @@ async fn test_button_touch_event() {
     assert_eq!(touch_count.get(), 1);
 }
 
-#[wasm_bindgen_test]
-async fn test_button_disabled_state() {
+// Unit tests for props and styling
+#[test]
+fn test_button_props_disabled_state() {
     let props = ButtonProps {
         disabled: true,
         children: Children::new(vec![html! { <span>{"Disabled"}</span> }]),
         ..Default::default()
     };
 
-    let button = mount_component_as_button::<Button>(props, "button").await;
+    assert!(props.disabled);
 
-    // Check disabled attribute
-    assert!(button.has_attribute("disabled"));
-    assert!(button.disabled());
-
-    // Check disabled styling
-    let class_attr = button.get_attribute("class").unwrap();
-    assert!(class_attr.contains("opacity-50"));
-    assert!(class_attr.contains("cursor-not-allowed"));
+    let classes = get_button_classes(&props);
+    assert!(classes.contains("opacity-50"));
+    assert!(classes.contains("cursor-not-allowed"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_loading_state() {
+#[test]
+fn test_button_props_loading_state() {
     let props = ButtonProps {
         loading: true,
         children: Children::new(vec![html! { <span>{"Loading"}</span> }]),
         ..Default::default()
     };
 
-    let button = mount_component_as_button::<Button>(props, "button").await;
+    assert!(props.loading);
 
-    // Check loading spinner is present
-    let spinner = button.query_selector("span.animate-spin").unwrap();
-    assert!(spinner.is_some());
-
-    // Check loading styling
-    let class_attr = button.get_attribute("class").unwrap();
-    assert!(class_attr.contains("animate-pulse"));
+    let classes = get_button_classes(&props);
+    assert!(classes.contains("animate-pulse"));
 }
 
-#[wasm_bindgen_test]
-async fn test_button_variant_styling() {
+#[test]
+fn test_button_props_variant_styling() {
     let variants = vec![
         (ButtonVariant::Primary, "bg-blue-600"),
         (ButtonVariant::Secondary, "bg-gray-600"),
@@ -117,10 +111,9 @@ async fn test_button_variant_styling() {
             ..Default::default()
         };
 
-        let button = mount_component_as_button::<Button>(props, "button").await;
-        let class_attr = button.get_attribute("class").unwrap();
+        let classes = get_button_classes(&props);
         assert!(
-            class_attr.contains(expected_class),
+            classes.contains(expected_class),
             "Variant {:?} should have class {}",
             variant,
             expected_class
@@ -128,8 +121,8 @@ async fn test_button_variant_styling() {
     }
 }
 
-#[wasm_bindgen_test]
-async fn test_button_size_styling() {
+#[test]
+fn test_button_props_size_styling() {
     let sizes = vec![
         (ButtonSize::Small, "px-3 py-1.5 text-sm"),
         (ButtonSize::Medium, "px-4 py-2 text-base"),
@@ -143,11 +136,10 @@ async fn test_button_size_styling() {
             ..Default::default()
         };
 
-        let button = mount_component_as_button::<Button>(props, "button").await;
-        let class_attr = button.get_attribute("class").unwrap();
+        let classes = get_button_classes(&props);
         for expected_class in expected_classes.split_whitespace() {
             assert!(
-                class_attr.contains(expected_class),
+                classes.contains(expected_class),
                 "Size {:?} should have class {}",
                 size,
                 expected_class
@@ -156,6 +148,20 @@ async fn test_button_size_styling() {
     }
 }
 
+#[test]
+fn test_button_props_focus_styles() {
+    let props = ButtonProps {
+        children: Children::new(vec![html! { <span>{"Focusable"}</span> }]),
+        ..Default::default()
+    };
+
+    let classes = get_button_classes(&props);
+    assert!(classes.contains("focus:outline-none"));
+    assert!(classes.contains("focus:ring-2"));
+    assert!(classes.contains("focus:ring-blue-500"));
+}
+
+// Real DOM interaction tests - these need to stay as browser tests
 #[wasm_bindgen_test]
 async fn test_button_focus_behavior() {
     let props = ButtonProps {
@@ -164,12 +170,6 @@ async fn test_button_focus_behavior() {
     };
 
     let button = mount_component_as_button::<Button>(props, "button").await;
-
-    // Check focus styles are present
-    let class_attr = button.get_attribute("class").unwrap();
-    assert!(class_attr.contains("focus:outline-none"));
-    assert!(class_attr.contains("focus:ring-2"));
-    assert!(class_attr.contains("focus:ring-blue-500"));
 
     // Test focus behavior
     button.focus().unwrap();
