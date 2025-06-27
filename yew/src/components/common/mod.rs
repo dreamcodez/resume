@@ -12,6 +12,7 @@ pub mod button;
 pub mod card;
 pub mod icon;
 pub mod layout;
+pub mod markdown;
 pub mod progress;
 
 // Re-export common components for easy access
@@ -23,4 +24,5 @@ pub use layout::{
     Container, ContainerProps, ContainerVariant, Grid, GridProps, Section, SectionProps, Stack,
     StackProps,
 };
+pub use markdown::Markdown;
 pub use progress::{Progress, ProgressProps, ProgressVariant, Spinner, SpinnerProps};

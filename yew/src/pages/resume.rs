@@ -1,3 +1,4 @@
+use crate::components::common::Markdown;
 use crate::data::{get_education, get_jobs, get_skills};
 use crate::models::SkillLevel;
 use yew::prelude::*;
@@ -36,37 +37,8 @@ pub fn resume() -> Html {
 
                                 {if !job.markdown.is_empty() {
                                     html! {
-                                        <div class="mt-4 prose prose-sm max-w-none">
-                                            <div class="whitespace-pre-line text-gray-700 leading-relaxed">
-                                                {job.markdown.split('\n').map(|line| {
-                                                    if line.trim().starts_with("* **") {
-                                                        html! {
-                                                            <div class="ml-4 mb-2">
-                                                                <span class="font-semibold text-gray-900">
-                                                                    {line.trim_start_matches("* **").split("**").next().unwrap_or("")}
-                                                                </span>
-                                                                <span class="text-gray-700">
-                                                                    {line.trim_start_matches("* **").split("**").nth(1).unwrap_or("")}
-                                                                </span>
-                                                            </div>
-                                                        }
-                                                    } else if line.trim().starts_with("* ") {
-                                                        html! {
-                                                            <div class="ml-4 mb-2 text-gray-700">
-                                                                {line.trim_start_matches("* ")}
-                                                            </div>
-                                                        }
-                                                    } else if !line.trim().is_empty() {
-                                                        html! {
-                                                            <div class="mb-2 text-gray-700">
-                                                                {line}
-                                                            </div>
-                                                        }
-                                                    } else {
-                                                        html! {}
-                                                    }
-                                                }).collect::<Html>()}
-                                            </div>
+                                        <div class="mt-4">
+                                            <Markdown content={job.markdown.clone()} />
                                         </div>
                                     }
                                 } else {
