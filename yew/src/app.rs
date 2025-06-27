@@ -1,85 +1,78 @@
 use web_sys::console;
 use yew::prelude::*;
-// use yew_router::prelude::*;  // Temporarily commented out
 
+use crate::components::router::{get_current_route_info, parse_route, Link, RouteInfo, Router};
 use crate::pages::{About, Blog, BlogPostPage, Home, Resume};
-
-// #[derive(Clone, Debug, Routable, PartialEq)]
-// enum Route {
-//     #[at("/")]
-//     Home,
-//     #[at("/about")]
-//     About,
-//     #[at("/resume")]
-//     Resume,
-//     #[at("/blog")]
-//     Blog,
-//     #[at("/blog/:slug")]
-//     BlogPost { slug: String },
-//     #[not_found]
-//     #[at("/404")]
-//     NotFound,
-// }
 
 #[function_component(App)]
 pub fn app() -> Html {
     console::log_1(&"App component rendering".into());
 
+    let on_route_change = Callback::from(|route_info: RouteInfo| {
+        log::info!("Route changed to: {}", route_info.path);
+    });
+
     html! {
-        // <BrowserRouter>  // Temporarily commented out
+        <Router on_route_change={on_route_change}>
             <div class="main-container">
                 <nav class="nav-container">
                     <div class="nav-inner">
-                        <a href="/" class="text-2xl font-bold text-gray-900 no-underline hover:text-blue-600 transition-colors duration-200">
+                        <Link to="/" class="text-2xl font-bold text-gray-900 no-underline hover:text-blue-600 transition-colors duration-200">
                             {"Matthew Elders"}
-                        </a>
+                        </Link>
                         <ul class="flex list-none gap-8">
                             <li>
-                                // <Link<Route> to={Route::Home} classes="nav-link">{"Home"}</Link<Route>>  // Temporarily commented out
-                                <a href="/" class="nav-link">{"Home"}</a>
+                                <Link to="/" class="nav-link">{"Home"}</Link>
                             </li>
                             <li>
-                                // <Link<Route> to={Route::Resume} classes="nav-link">{"Resume"}</Link<Route>>  // Temporarily commented out
-                                <a href="/resume" class="nav-link">{"Resume"}</a>
+                                <Link to="/resume" class="nav-link">{"Resume"}</Link>
                             </li>
                             <li>
-                                // <Link<Route> to={Route::Blog} classes="nav-link">{"Blog"}</Link<Route>>  // Temporarily commented out
-                                <a href="/blog" class="nav-link">{"Blog"}</a>
+                                <Link to="/blog" class="nav-link">{"Blog"}</Link>
                             </li>
                             <li>
-                                // <Link<Route> to={Route::About} classes="nav-link">{"About"}</Link<Route>>  // Temporarily commented out
-                                <a href="/about" class="nav-link">{"About"}</a>
+                                <Link to="/about" class="nav-link">{"About"}</Link>
                             </li>
                         </ul>
                     </div>
                 </nav>
 
                 <main class="content-container">
-                    // <Switch<Route> render={switch} />  // Temporarily commented out
-                    <Home />
+                    <RouteContent />
                 </main>
             </div>
-        // </BrowserRouter>  // Temporarily commented out
+        </Router>
     }
 }
 
-// fn switch(routes: Route) -> Html {  // Temporarily commented out
-//     match routes {
-//         Route::Home => html! { <Home /> },
-//         Route::About => html! { <About /> },
-//         Route::Resume => html! { <Resume /> },
-//         Route::Blog => html! { <Blog /> },
-//         Route::BlogPost { slug } => html! { <BlogPostPage {slug} /> },
-//         Route::NotFound => html! {
-//             <div class="page-container section-container text-center">
-//                 <div class="fade-in">
-//                     <h1 class="text-6xl text-red-600 mb-4">{"404"}</h1>
-//                     <p class="mb-6 text-gray-600">{"Page not found"}</p>
-//                     <a href="/" class="btn btn-primary">
-//                         {"← Go back home"}
-//                     </a>
-//                 </div>
-//             </div>
-//         },
-//     }
-// }
+#[function_component(RouteContent)]
+fn route_content() -> Html {
+    let route_info = get_current_route_info();
+
+    match route_info.path.as_str() {
+        "/" => html! { <Home /> },
+        "/about" => html! { <About /> },
+        "/resume" => html! { <Resume /> },
+        "/blog" => html! { <Blog /> },
+        path => {
+            // Check for blog post routes
+            if let Some(params) = parse_route(path, "/blog/:slug") {
+                let slug = params.get("slug").unwrap().clone();
+                html! { <BlogPostPage {slug} /> }
+            } else {
+                // 404 page
+                html! {
+                    <div class="page-container section-container text-center">
+                        <div class="fade-in">
+                            <h1 class="text-6xl text-red-600 mb-4">{"404"}</h1>
+                            <p class="mb-6 text-gray-600">{"Page not found"}</p>
+                            <Link to="/" class="btn btn-primary">
+                                {"← Go back home"}
+                            </Link>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    }
+}
