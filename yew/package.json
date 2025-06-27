@@ -2,6 +2,7 @@
   "name": "resume-yew",
   "version": "0.1.0",
   "description": "Matthew Elders' Resume - Rust/WebAssembly Showcase",
+  "private": true,
   "scripts": {
     "build:css": "tailwindcss -i ./styles/input.css -o ./styles/output.css --watch",
     "build:css:prod": "tailwindcss -i ./styles/input.css -o ./styles/output.css --minify",
@@ -27,10 +28,7 @@
   "devDependencies": {
     "@playwright/test": "^1.53.1",
     "@tailwindcss/typography": "^0.5.10",
-    "@types/node": "^24.0.4",
-    "autoprefixer": "^10.4.16",
     "jest": "^30.0.3",
-    "postcss": "^8.4.32",
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.1"
   }
 }
