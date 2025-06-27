@@ -1,4 +1,3 @@
-use gloo_utils::document;
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::HtmlElement;
@@ -306,7 +305,12 @@ fn test_markdown_has_proper_focus_states() {
 
 // Helper function to render markdown component and return the element
 fn render_markdown_element(content: &str) -> HtmlElement {
-    let div = document().create_element("div").unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
     let props = crate::components::common::markdown::MarkdownProps {
         content: content.to_string(),
         class: Classes::new(),
@@ -322,7 +326,12 @@ fn render_markdown_element(content: &str) -> HtmlElement {
 
 // Helper function to render markdown component and return the HTML string
 fn render_markdown_html(content: &str) -> String {
-    let div = document().create_element("div").unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
     let props = crate::components::common::markdown::MarkdownProps {
         content: content.to_string(),
         class: Classes::new(),

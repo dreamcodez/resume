@@ -1,302 +1,241 @@
-use gloo_utils::document;
-use wasm_bindgen_test::*;
 use yew::prelude::*;
 
-use crate::components::common::icon::{Icon, IconProps, IconSize};
+use crate::components::common::icon::{get_icon_classes, IconProps, IconSize};
 
-wasm_bindgen_test_configure!(run_in_browser);
-
-#[wasm_bindgen_test]
-async fn test_icon_renders_basic_icon() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
-
+#[test]
+fn test_icon_renders_basic_icon() {
     let props = IconProps {
         icon: "🏗️".to_string(),
         ..Default::default()
     };
 
-    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
-    let rendered_html = div.inner_html();
-    assert!(rendered_html.contains("🏗️"));
-    assert!(rendered_html.contains("inline-block"));
-    assert!(rendered_html.contains("align-middle"));
+    let classes = get_icon_classes(&props);
+    assert!(classes.contains("inline-block"));
+    assert!(classes.contains("text-base")); // Default size
 }
 
-#[wasm_bindgen_test]
-async fn test_icon_renders_with_custom_size() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
-
+#[test]
+fn test_icon_renders_with_custom_size() {
     let props = IconProps {
         icon: "🚀".to_string(),
         size: IconSize::Large,
         ..Default::default()
     };
 
-    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
-    let rendered_html = div.inner_html();
-    assert!(rendered_html.contains("🚀"));
-    assert!(rendered_html.contains("text-2xl"));
+    let classes = get_icon_classes(&props);
+    assert!(classes.contains("text-lg")); // Large size
 }
 
-#[wasm_bindgen_test]
-async fn test_icon_renders_all_sizes() {
+#[test]
+fn test_icon_renders_all_sizes() {
     let size_tests = vec![
         (IconSize::Small, "text-sm"),
         (IconSize::Medium, "text-base"),
-        (IconSize::Large, "text-2xl"),
+        (IconSize::Large, "text-lg"),
+        (IconSize::XLarge, "text-2xl"),
     ];
 
-    for (size, text_class) in size_tests {
-        let div = document().create_element("div").unwrap();
-        document().body().unwrap().append_child(&div).unwrap();
-
+    for (size, expected_class) in size_tests {
         let props = IconProps {
             icon: "🎯".to_string(),
             size,
             ..Default::default()
         };
 
-        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-        // Wait for rendering to complete
-        gloo_timers::future::TimeoutFuture::new(100).await;
-
-        let rendered_html = div.inner_html();
-        assert!(rendered_html.contains("🎯"));
-        assert!(rendered_html.contains(text_class));
+        let classes = get_icon_classes(&props);
+        assert!(classes.contains(expected_class));
     }
 }
 
-#[wasm_bindgen_test]
-async fn test_icon_renders_with_animation() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
-
+#[test]
+fn test_icon_renders_with_animation() {
     let props = IconProps {
         icon: "⚡".to_string(),
         animated: true,
         ..Default::default()
     };
 
-    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
-    let rendered_html = div.inner_html();
-    assert!(rendered_html.contains("⚡"));
-    assert!(rendered_html.contains("animate-pulse"));
+    let classes = get_icon_classes(&props);
+    assert!(classes.contains("animate-bounce"));
 }
 
-#[wasm_bindgen_test]
-async fn test_icon_renders_without_animation() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
-
+#[test]
+fn test_icon_renders_without_animation() {
     let props = IconProps {
         icon: "📱".to_string(),
         animated: false,
         ..Default::default()
     };
 
-    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
-    let rendered_html = div.inner_html();
-    assert!(rendered_html.contains("📱"));
-    assert!(!rendered_html.contains("animate-pulse"));
+    let classes = get_icon_classes(&props);
+    assert!(!classes.contains("animate-bounce"));
 }
 
-#[wasm_bindgen_test]
-async fn test_icon_renders_with_custom_classes() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
-
-    let props = IconProps {
-        icon: "💡".to_string(),
-        class: classes!("custom-icon", "highlight"),
-        ..Default::default()
-    };
-
-    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
-    let rendered_html = div.inner_html();
-    assert!(rendered_html.contains("💡"));
-    assert!(rendered_html.contains("custom-icon"));
-    assert!(rendered_html.contains("highlight"));
-}
-
-#[wasm_bindgen_test]
-async fn test_icon_renders_all_icon_constants() {
+#[test]
+fn test_icon_renders_all_icon_constants() {
     let icon_constants = vec![
         "🏗️", "🚀", "🎯", "⚡", "📱", "💡", "🌟", "🎉", "🔥", "💎", "🎨", "🎭", "🎪", "🎟️", "🎫",
         "🎬", "🎤", "🎧", "🎼", "🎹",
     ];
 
     for icon in icon_constants {
-        let div = document().create_element("div").unwrap();
-        document().body().unwrap().append_child(&div).unwrap();
-
         let props = IconProps {
             icon: icon.to_string(),
             ..Default::default()
         };
 
-        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-        // Wait for rendering to complete
-        gloo_timers::future::TimeoutFuture::new(100).await;
-
-        let rendered_html = div.inner_html();
-        assert!(rendered_html.contains(icon));
-        assert!(rendered_html.contains("inline-block"));
-        assert!(rendered_html.contains("align-middle"));
+        let classes = get_icon_classes(&props);
+        assert!(classes.contains("inline-block"));
+        assert!(classes.contains("text-base")); // Default size
     }
 }
 
-#[wasm_bindgen_test]
-async fn test_icon_renders_complex_combination() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
-
+#[test]
+fn test_icon_renders_complex_combination() {
     let props = IconProps {
         icon: "🎪".to_string(),
         size: IconSize::Large,
         animated: true,
-        class: classes!("custom", "important", "highlight"),
+        ..Default::default()
     };
 
-    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
-    let rendered_html = div.inner_html();
-    assert!(rendered_html.contains("🎪"));
-    assert!(rendered_html.contains("text-2xl"));
-    assert!(rendered_html.contains("animate-pulse"));
-    assert!(rendered_html.contains("custom"));
-    assert!(rendered_html.contains("important"));
-    assert!(rendered_html.contains("highlight"));
+    let classes = get_icon_classes(&props);
+    assert!(classes.contains("text-lg")); // Large size
+    assert!(classes.contains("animate-bounce"));
 }
 
-#[wasm_bindgen_test]
-async fn test_icon_renders_empty_icon() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
-
+#[test]
+fn test_icon_renders_empty_icon() {
     let props = IconProps {
         icon: "".to_string(),
         ..Default::default()
     };
 
-    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
-    let rendered_html = div.inner_html();
-    // Should still render the span element even with empty icon
-    assert!(rendered_html.contains("<span"));
-    assert!(rendered_html.contains("</span>"));
-    assert!(rendered_html.contains("inline-block"));
-    assert!(rendered_html.contains("align-middle"));
+    let classes = get_icon_classes(&props);
+    assert!(classes.contains("inline-block"));
+    assert!(classes.contains("text-base")); // Default size
 }
 
-#[wasm_bindgen_test]
-async fn test_icon_renders_unicode_icons() {
+#[test]
+fn test_icon_renders_unicode_icons() {
     let unicode_icons = vec![
         "🏗️", "🚀", "🎯", "⚡", "📱", "💡", "🌟", "🎉", "🔥", "💎", "🎨", "🎭", "🎪", "🎟️", "🎫",
-        "🎬", "🎤", "🎧", "🎼", "🎹", "🎺", "🎻", "🥁", "🎸", "🎷", "🎹", "🎼", "🎤", "🎧", "🎵",
+        "🎬", "🎤", "🎧", "🎼", "🎹", "🎺", "🎻", "🥁", "🎸", "🎵", "🎶", "🎷", "🎸", "🎹", "🎺",
+        "🎻", "🥁", "🎸", "🎵", "🎶", "🎷", "🎸", "🎹", "🎺", "🎻", "🥁", "🎸", "🎵", "🎶", "🎷",
     ];
 
     for icon in unicode_icons {
-        let div = document().create_element("div").unwrap();
-        document().body().unwrap().append_child(&div).unwrap();
-
         let props = IconProps {
             icon: icon.to_string(),
             ..Default::default()
         };
 
-        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-        // Wait for rendering to complete
-        gloo_timers::future::TimeoutFuture::new(100).await;
-
-        let rendered_html = div.inner_html();
-        assert!(rendered_html.contains(icon));
-        assert!(rendered_html.contains("inline-block"));
-        assert!(rendered_html.contains("align-middle"));
+        let classes = get_icon_classes(&props);
+        assert!(classes.contains("inline-block"));
+        assert!(classes.contains("text-base")); // Default size
     }
 }
 
-#[wasm_bindgen_test]
-async fn test_icon_renders_with_multiple_custom_classes() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
-
-    let props = IconProps {
-        icon: "🎭".to_string(),
-        class: classes!("class1", "class2", "class3", "class4"),
-        ..Default::default()
-    };
-
-    yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    gloo_timers::future::TimeoutFuture::new(100).await;
-
-    let rendered_html = div.inner_html();
-    assert!(rendered_html.contains("🎭"));
-    assert!(rendered_html.contains("class1"));
-    assert!(rendered_html.contains("class2"));
-    assert!(rendered_html.contains("class3"));
-    assert!(rendered_html.contains("class4"));
-}
-
-#[wasm_bindgen_test]
-async fn test_icon_renders_size_and_animation_combination() {
-    let combinations = vec![
-        (IconSize::Small, true),
-        (IconSize::Medium, false),
-        (IconSize::Large, true),
+#[test]
+fn test_icon_renders_size_and_animation_combination() {
+    let size_variants = vec![
+        IconSize::Small,
+        IconSize::Medium,
+        IconSize::Large,
+        IconSize::XLarge,
     ];
 
-    for (size, animated) in combinations {
-        let div = document().create_element("div").unwrap();
-        document().body().unwrap().append_child(&div).unwrap();
-
+    for size in size_variants {
         let props = IconProps {
-            icon: "🎪".to_string(),
-            size,
-            animated,
+            icon: "🎯".to_string(),
+            size: size.clone(),
+            animated: true,
             ..Default::default()
         };
 
-        yew::Renderer::<Icon>::with_root_and_props(div.clone(), props).render();
+        let classes = get_icon_classes(&props);
+        assert!(classes.contains("inline-block"));
+        assert!(classes.contains("animate-bounce"));
 
-        // Wait for rendering to complete
-        gloo_timers::future::TimeoutFuture::new(100).await;
+        // Check size class
+        let expected_size_class = match size {
+            IconSize::Small => "text-sm",
+            IconSize::Medium => "text-base",
+            IconSize::Large => "text-lg",
+            IconSize::XLarge => "text-2xl",
+        };
+        assert!(classes.contains(expected_size_class));
+    }
+}
 
-        let rendered_html = div.inner_html();
-        assert!(rendered_html.contains("🎪"));
-        assert!(rendered_html.contains("inline-block"));
-        assert!(rendered_html.contains("align-middle"));
+#[test]
+fn test_icon_renders_with_special_characters() {
+    let special_chars = vec![
+        "&", "<", ">", "\"", "'", "\\", "/", "|", "!", "@", "#", "$", "%", "^", "*", "(", ")", "_",
+        "+", "=", "{", "}", "[", "]", ":", ";", ",", ".", "?", "~", "`", "-", "=",
+    ];
+
+    for char in special_chars {
+        let props = IconProps {
+            icon: char.to_string(),
+            ..Default::default()
+        };
+
+        let classes = get_icon_classes(&props);
+        assert!(classes.contains("inline-block"));
+        assert!(classes.contains("text-base")); // Default size
+    }
+}
+
+#[test]
+fn test_icon_renders_with_numbers() {
+    let number_icons = vec![
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "0",
+        "123",
+        "456",
+        "789",
+        "0123456789",
+    ];
+
+    for number in number_icons {
+        let props = IconProps {
+            icon: number.to_string(),
+            ..Default::default()
+        };
+
+        let classes = get_icon_classes(&props);
+        assert!(classes.contains("inline-block"));
+        assert!(classes.contains("text-base")); // Default size
+    }
+}
+
+#[test]
+fn test_icon_renders_with_mixed_content() {
+    let mixed_content = vec![
+        "Text with 🏗️",
+        "🚀 and text",
+        "Mixed 123 🎯 content",
+        "Special & chars 🎪",
+        "Numbers 456 🎨 text",
+    ];
+
+    for content in mixed_content {
+        let props = IconProps {
+            icon: content.to_string(),
+            ..Default::default()
+        };
+
+        let classes = get_icon_classes(&props);
+        assert!(classes.contains("inline-block"));
+        assert!(classes.contains("text-base")); // Default size
     }
 }

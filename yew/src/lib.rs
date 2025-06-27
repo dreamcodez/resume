@@ -10,6 +10,9 @@ pub mod models;
 pub mod pages;
 pub mod styles;
 
+#[cfg(test)]
+pub mod tests;
+
 pub use app::App;
 
 #[wasm_bindgen]

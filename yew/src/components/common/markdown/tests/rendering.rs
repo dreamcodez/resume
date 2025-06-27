@@ -1,4 +1,3 @@
-use gloo_utils::document;
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use yew::prelude::*;
@@ -191,7 +190,12 @@ fn test_markdown_renders_whitespace_only() {
 fn test_markdown_renders_with_custom_classes() {
     let content = "# Test Title\n\nTest content.";
 
-    let div = document().create_element("div").unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
     let props = crate::components::common::markdown::MarkdownProps {
         content: content.to_string(),
         class: classes!("custom-class", "another-class"),
@@ -269,7 +273,12 @@ fn test_markdown_renders_unicode_content() {
 
 // Helper function to render markdown component and return the HTML string
 fn render_markdown(content: &str) -> String {
-    let div = document().create_element("div").unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
     let props = crate::components::common::markdown::MarkdownProps {
         content: content.to_string(),
         class: Classes::new(),

@@ -1,274 +1,201 @@
-use super::super::*;
-use std::cell::RefCell;
+use std::cell::Cell;
 use std::rc::Rc;
+use wasm_bindgen::JsCast;
+use wasm_bindgen_test::*;
+use yew::prelude::*;
 
-#[test]
-fn test_button_click_handler_props() {
-    let click_count = Rc::new(RefCell::new(0));
+use crate::components::common::button::{Button, ButtonProps, ButtonSize, ButtonVariant};
+use crate::tests::mount_component_as_button;
+
+wasm_bindgen_test_configure!(run_in_browser);
+
+#[wasm_bindgen_test]
+async fn test_button_click_event() {
+    let click_count = Rc::new(Cell::new(0));
     let click_count_clone = click_count.clone();
 
-    let onclick = Callback::from(move |_: MouseEvent| {
-        *click_count_clone.borrow_mut() += 1;
-    });
-
     let props = ButtonProps {
-        onclick: onclick.clone(),
-        children: Children::new(vec![html! { <span>{"Click Me"}</span> }]),
+        onclick: Callback::from(move |_| {
+            click_count_clone.set(click_count_clone.get() + 1);
+        }),
+        children: Children::new(vec![html! { <span>{"Click me"}</span> }]),
         ..Default::default()
     };
 
-    // Test that onclick is properly set (we can't call it in native tests)
-    assert_eq!(*click_count.borrow(), 0);
+    let button = mount_component_as_button::<Button>(props, "button").await;
+
+    // Simulate click
+    let click_event = web_sys::MouseEvent::new("click").unwrap();
+    button.dispatch_event(&click_event).unwrap();
+
+    // Wait for event processing
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    assert_eq!(click_count.get(), 1);
 }
 
-#[test]
-fn test_button_touch_handler_props() {
-    let touch_count = Rc::new(RefCell::new(0));
+#[wasm_bindgen_test]
+async fn test_button_touch_event() {
+    let touch_count = Rc::new(Cell::new(0));
     let touch_count_clone = touch_count.clone();
 
-    let ontouchstart = Some(Callback::from(move |_: TouchEvent| {
-        *touch_count_clone.borrow_mut() += 1;
-    }));
-
     let props = ButtonProps {
-        ontouchstart: ontouchstart.clone(),
-        onclick: Callback::from(|_: MouseEvent| {}),
-        children: Children::new(vec![html! { <span>{"Touch Me"}</span> }]),
+        ontouchstart: Some(Callback::from(move |_| {
+            touch_count_clone.set(touch_count_clone.get() + 1);
+        })),
+        children: Children::new(vec![html! { <span>{"Touch me"}</span> }]),
         ..Default::default()
     };
 
-    // Test that ontouchstart is properly set
-    assert!(props.ontouchstart.is_some());
-    assert_eq!(*touch_count.borrow(), 0);
+    let button = mount_component_as_button::<Button>(props, "button").await;
+
+    // Simulate touch
+    let touch_event = web_sys::TouchEvent::new("touchstart").unwrap();
+    button.dispatch_event(&touch_event).unwrap();
+
+    // Wait for event processing
+    gloo_timers::future::TimeoutFuture::new(100).await;
+
+    assert_eq!(touch_count.get(), 1);
 }
 
-#[test]
-fn test_button_disabled_props() {
-    let click_count = Rc::new(RefCell::new(0));
-    let click_count_clone = click_count.clone();
-
-    let onclick = Callback::from(move |_: MouseEvent| {
-        *click_count_clone.borrow_mut() += 1;
-    });
-
+#[wasm_bindgen_test]
+async fn test_button_disabled_state() {
     let props = ButtonProps {
         disabled: true,
-        onclick: onclick.clone(),
         children: Children::new(vec![html! { <span>{"Disabled"}</span> }]),
         ..Default::default()
     };
 
-    // Test that disabled state is properly set
-    assert!(props.disabled);
-    assert_eq!(*click_count.borrow(), 0);
+    let button = mount_component_as_button::<Button>(props, "button").await;
+
+    // Check disabled attribute
+    assert!(button.has_attribute("disabled"));
+    assert!(button.disabled());
+
+    // Check disabled styling
+    let class_attr = button.get_attribute("class").unwrap();
+    assert!(class_attr.contains("opacity-50"));
+    assert!(class_attr.contains("cursor-not-allowed"));
 }
 
-#[test]
-fn test_button_enabled_props() {
-    let click_count = Rc::new(RefCell::new(0));
-    let click_count_clone = click_count.clone();
-
-    let onclick = Callback::from(move |_: MouseEvent| {
-        *click_count_clone.borrow_mut() += 1;
-    });
-
-    let props = ButtonProps {
-        disabled: false,
-        onclick: onclick.clone(),
-        children: Children::new(vec![html! { <span>{"Enabled"}</span> }]),
-        ..Default::default()
-    };
-
-    // Test that enabled state is properly set
-    assert!(!props.disabled);
-    assert_eq!(*click_count.borrow(), 0);
-}
-
-#[test]
-fn test_button_loading_state_props() {
-    let click_count = Rc::new(RefCell::new(0));
-    let click_count_clone = click_count.clone();
-
-    let onclick = Callback::from(move |_: MouseEvent| {
-        *click_count_clone.borrow_mut() += 1;
-    });
-
+#[wasm_bindgen_test]
+async fn test_button_loading_state() {
     let props = ButtonProps {
         loading: true,
-        onclick: onclick.clone(),
         children: Children::new(vec![html! { <span>{"Loading"}</span> }]),
         ..Default::default()
     };
 
-    // Test that loading state is properly set
-    assert!(props.loading);
-    assert_eq!(*click_count.borrow(), 0);
+    let button = mount_component_as_button::<Button>(props, "button").await;
+
+    // Check loading spinner is present
+    let spinner = button.query_selector("span.animate-spin").unwrap();
+    assert!(spinner.is_some());
+
+    // Check loading styling
+    let class_attr = button.get_attribute("class").unwrap();
+    assert!(class_attr.contains("animate-pulse"));
 }
 
-#[test]
-fn test_button_multiple_clicks_props() {
-    let click_count = Rc::new(RefCell::new(0));
-    let click_count_clone = click_count.clone();
-
-    let onclick = Callback::from(move |_: MouseEvent| {
-        *click_count_clone.borrow_mut() += 1;
-    });
-
-    let props = ButtonProps {
-        onclick: onclick.clone(),
-        children: Children::new(vec![html! { <span>{"Multiple Clicks"}</span> }]),
-        ..Default::default()
-    };
-
-    // Test that onclick is properly set
-    assert_eq!(*click_count.borrow(), 0);
-}
-
-#[test]
-fn test_button_touch_and_click_props() {
-    let click_count = Rc::new(RefCell::new(0));
-    let touch_count = Rc::new(RefCell::new(0));
-
-    let click_count_clone = click_count.clone();
-    let touch_count_clone = touch_count.clone();
-
-    let onclick = Callback::from(move |_: MouseEvent| {
-        *click_count_clone.borrow_mut() += 1;
-    });
-
-    let ontouchstart = Some(Callback::from(move |_: TouchEvent| {
-        *touch_count_clone.borrow_mut() += 1;
-    }));
-
-    let props = ButtonProps {
-        onclick: onclick.clone(),
-        ontouchstart: ontouchstart.clone(),
-        children: Children::new(vec![html! { <span>{"Touch and Click"}</span> }]),
-        ..Default::default()
-    };
-
-    // Test that ontouchstart is properly set
-    assert!(props.ontouchstart.is_some());
-    assert_eq!(*click_count.borrow(), 0);
-    assert_eq!(*touch_count.borrow(), 0);
-}
-
-#[test]
-fn test_button_props_with_all_states() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let ontouchstart = Some(Callback::from(|_: TouchEvent| {}));
-
-    // Test all combinations of disabled and loading states
-    let states = vec![
-        (false, false), // enabled, not loading
-        (false, true),  // enabled, loading
-        (true, false),  // disabled, not loading
-        (true, true),   // disabled, loading
+#[wasm_bindgen_test]
+async fn test_button_variant_styling() {
+    let variants = vec![
+        (ButtonVariant::Primary, "bg-blue-600"),
+        (ButtonVariant::Secondary, "bg-gray-600"),
+        (ButtonVariant::Success, "bg-green-600"),
+        (ButtonVariant::Danger, "bg-red-600"),
+        (ButtonVariant::Warning, "bg-yellow-600"),
+        (ButtonVariant::Info, "bg-cyan-600"),
+        (ButtonVariant::Ghost, "bg-transparent"),
     ];
 
-    for (disabled, loading) in states {
+    for (variant, expected_class) in variants {
         let props = ButtonProps {
-            disabled,
-            loading,
-            onclick: onclick.clone(),
-            ontouchstart: ontouchstart.clone(),
-            children: Children::new(vec![html! { <span>{"Test"}</span> }]),
+            variant: variant.clone(),
+            children: Children::new(vec![html! { <span>{format!("{:?}", variant)}</span> }]),
             ..Default::default()
         };
 
-        assert_eq!(props.disabled, disabled);
-        assert_eq!(props.loading, loading);
-        assert!(props.ontouchstart.is_some());
+        let button = mount_component_as_button::<Button>(props, "button").await;
+        let class_attr = button.get_attribute("class").unwrap();
+        assert!(
+            class_attr.contains(expected_class),
+            "Variant {:?} should have class {}",
+            variant,
+            expected_class
+        );
     }
 }
 
-#[test]
-fn test_button_props_with_different_variants_and_sizes() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let ontouchstart = Some(Callback::from(|_: TouchEvent| {}));
-
-    let variants = vec![
-        ButtonVariant::Primary,
-        ButtonVariant::Secondary,
-        ButtonVariant::Success,
-        ButtonVariant::Danger,
-        ButtonVariant::Warning,
-        ButtonVariant::Info,
-        ButtonVariant::Ghost,
+#[wasm_bindgen_test]
+async fn test_button_size_styling() {
+    let sizes = vec![
+        (ButtonSize::Small, "px-3 py-1.5 text-sm"),
+        (ButtonSize::Medium, "px-4 py-2 text-base"),
+        (ButtonSize::Large, "px-6 py-3 text-lg"),
     ];
 
-    let sizes = vec![ButtonSize::Small, ButtonSize::Medium, ButtonSize::Large];
+    for (size, expected_classes) in sizes {
+        let props = ButtonProps {
+            size: size.clone(),
+            children: Children::new(vec![html! { <span>{format!("{:?}", size)}</span> }]),
+            ..Default::default()
+        };
 
-    for variant in &variants {
-        for size in &sizes {
-            let props = ButtonProps {
-                variant: variant.clone(),
-                size: size.clone(),
-                onclick: onclick.clone(),
-                ontouchstart: ontouchstart.clone(),
-                children: Children::new(vec![html! { <span>{"Test"}</span> }]),
-                ..Default::default()
-            };
-
-            assert_eq!(props.variant, *variant);
-            assert_eq!(props.size, *size);
-            assert!(props.ontouchstart.is_some());
-            assert!(!props.disabled);
-            assert!(!props.loading);
+        let button = mount_component_as_button::<Button>(props, "button").await;
+        let class_attr = button.get_attribute("class").unwrap();
+        for expected_class in expected_classes.split_whitespace() {
+            assert!(
+                class_attr.contains(expected_class),
+                "Size {:?} should have class {}",
+                size,
+                expected_class
+            );
         }
     }
 }
 
-#[test]
-fn test_button_props_with_custom_classes() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-    let custom_classes = Classes::from("custom-class another-class");
-
+#[wasm_bindgen_test]
+async fn test_button_focus_behavior() {
     let props = ButtonProps {
-        class: custom_classes.clone(),
-        onclick: onclick.clone(),
-        children: Children::new(vec![html! { <span>{"Custom Classes"}</span> }]),
+        children: Children::new(vec![html! { <span>{"Focusable"}</span> }]),
         ..Default::default()
     };
 
-    assert_eq!(props.class, custom_classes);
+    let button = mount_component_as_button::<Button>(props, "button").await;
 
-    // Test that custom classes are included in generated classes
-    let classes = get_button_classes(&props);
-    let classes_str = classes.to_string();
-    assert!(classes_str.contains("custom-class"));
-    assert!(classes_str.contains("another-class"));
+    // Check focus styles are present
+    let class_attr = button.get_attribute("class").unwrap();
+    assert!(class_attr.contains("focus:outline-none"));
+    assert!(class_attr.contains("focus:ring-2"));
+    assert!(class_attr.contains("focus:ring-blue-500"));
+
+    // Test focus behavior
+    button.focus().unwrap();
+    assert_eq!(
+        web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .active_element()
+            .unwrap(),
+        button
+    );
 }
 
-#[test]
-fn test_button_props_with_empty_ontouchstart() {
-    let onclick = Callback::from(|_: MouseEvent| {});
-
+#[wasm_bindgen_test]
+async fn test_button_accessibility_attributes() {
     let props = ButtonProps {
-        onclick: onclick.clone(),
-        ontouchstart: None,
-        children: Children::new(vec![html! { <span>{"No Touch"}</span> }]),
+        children: Children::new(vec![html! { <span>{"Accessible"}</span> }]),
         ..Default::default()
     };
 
-    assert!(props.ontouchstart.is_none());
-}
+    let button = mount_component_as_button::<Button>(props, "button").await;
 
-#[test]
-fn test_button_props_default_values() {
-    let onclick = Callback::from(|_: MouseEvent| {});
+    // Check tabindex is present
+    assert!(button.has_attribute("tabindex"));
 
-    let props = ButtonProps {
-        onclick: onclick.clone(),
-        children: Children::new(vec![html! { <span>{"Defaults"}</span> }]),
-        ..Default::default()
-    };
-
-    // Test default values
-    assert_eq!(props.variant, ButtonVariant::Primary);
-    assert_eq!(props.size, ButtonSize::Medium);
-    assert!(!props.disabled);
-    assert!(!props.loading);
-    assert!(props.ontouchstart.is_none());
-    assert!(props.class.is_empty());
+    // Check role is present (button element has implicit role)
+    assert!(button.has_attribute("role"));
 }

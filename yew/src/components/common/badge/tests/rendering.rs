@@ -1,4 +1,3 @@
-use gloo_utils::document;
 use wasm_bindgen_test::*;
 use yew::prelude::*;
 
@@ -47,8 +46,20 @@ fn get_badge_classes(
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_basic_badge() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         children: Children::new(vec![html! { <span>{"Test Badge"}</span> }]),
@@ -71,8 +82,20 @@ async fn test_badge_renders_basic_badge() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_with_custom_variant() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         variant: BadgeVariant::Success,
@@ -103,8 +126,20 @@ async fn test_badge_renders_all_variants() {
     ];
 
     for (variant, bg_class, text_class) in variant_tests {
-        let div = document().create_element("div").unwrap();
-        document().body().unwrap().append_child(&div).unwrap();
+        let div = web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .create_element("div")
+            .unwrap();
+        web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .body()
+            .unwrap()
+            .append_child(&div)
+            .unwrap();
 
         let props = BadgeProps {
             variant,
@@ -125,8 +160,20 @@ async fn test_badge_renders_all_variants() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_with_custom_size() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         size: BadgeSize::Large,
@@ -155,8 +202,20 @@ async fn test_badge_renders_all_sizes() {
     ];
 
     for (size, px_class, py_class, text_class) in size_tests {
-        let div = document().create_element("div").unwrap();
-        document().body().unwrap().append_child(&div).unwrap();
+        let div = web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .create_element("div")
+            .unwrap();
+        web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .body()
+            .unwrap()
+            .append_child(&div)
+            .unwrap();
 
         let props = BadgeProps {
             size,
@@ -178,8 +237,20 @@ async fn test_badge_renders_all_sizes() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_rounded_variant() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         rounded: true,
@@ -200,8 +271,20 @@ async fn test_badge_renders_rounded_variant() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_non_rounded_variant() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         rounded: false,
@@ -222,8 +305,20 @@ async fn test_badge_renders_non_rounded_variant() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_with_custom_classes() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         class: classes!("custom-class", "highlight"),
@@ -244,8 +339,20 @@ async fn test_badge_renders_with_custom_classes() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_complex_children() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         children: Children::new(vec![
@@ -270,8 +377,20 @@ async fn test_badge_renders_complex_children() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_empty_children() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         children: Children::new(vec![]),
@@ -292,8 +411,20 @@ async fn test_badge_renders_empty_children() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_complex_combination() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         variant: BadgeVariant::Danger,
@@ -322,8 +453,20 @@ async fn test_badge_renders_complex_combination() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_all_base_classes() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         children: Children::new(vec![html! { <span>{"Test"}</span> }]),
@@ -351,8 +494,20 @@ async fn test_badge_renders_variant_and_size_combination() {
     ];
 
     for (variant, size) in combinations {
-        let div = document().create_element("div").unwrap();
-        document().body().unwrap().append_child(&div).unwrap();
+        let div = web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .create_element("div")
+            .unwrap();
+        web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .body()
+            .unwrap()
+            .append_child(&div)
+            .unwrap();
 
         let props = BadgeProps {
             variant,
@@ -376,8 +531,20 @@ async fn test_badge_renders_variant_and_size_combination() {
 
 #[wasm_bindgen_test]
 async fn test_badge_renders_with_multiple_custom_classes() {
-    let div = document().create_element("div").unwrap();
-    document().body().unwrap().append_child(&div).unwrap();
+    let div = web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .create_element("div")
+        .unwrap();
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .body()
+        .unwrap()
+        .append_child(&div)
+        .unwrap();
 
     let props = BadgeProps {
         class: classes!("class1", "class2", "class3", "class4"),

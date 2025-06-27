@@ -1,4 +1,3 @@
-use gloo_utils::document;
 use std::time::Duration;
 use wasm_bindgen_test::*;
 use yew::platform::spawn_local;

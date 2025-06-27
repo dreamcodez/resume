@@ -16,7 +16,7 @@ impl Default for IconSize {
 }
 
 /// Props for the Icon component
-#[derive(Properties, PartialEq, Default, Debug)]
+#[derive(Properties, PartialEq, Default, Debug, Clone)]
 pub struct IconProps {
     /// The icon content (emoji or text)
     pub icon: String,

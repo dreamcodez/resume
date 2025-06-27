@@ -14,7 +14,7 @@ fn test_icon_size_variants() {
     for size in size_variants {
         let props = IconProps {
             icon: "Size Variant".to_string(),
-            size,
+            size: size.clone(),
             ..Default::default()
         };
 

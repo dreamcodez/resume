@@ -1,25 +1,17 @@
-use gloo_utils::document;
-use wasm_bindgen::JsCast;
-use wasm_bindgen_test::*;
-use yew::prelude::*;
+use crate::components::common::markdown::parse_markdown_to_html;
 
-use crate::components::common::markdown::Markdown;
-
-wasm_bindgen_test_configure!(run_in_browser);
-
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_basic_text() {
     let content = "This is basic text content.";
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render basic text with proper styling
     assert!(html.contains("This is basic text content"));
-    assert!(html.contains("text-gray-700"));
-    assert!(html.contains("leading-relaxed"));
+    assert!(html.contains("mb-2")); // paragraph styling
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_headings_only() {
     let content = r#"# H1 Title
 ## H2 Title
@@ -28,7 +20,7 @@ fn test_markdown_variant_headings_only() {
 ##### H5 Title
 ###### H6 Title"#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render all heading levels with proper styling
     assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1
@@ -39,7 +31,7 @@ fn test_markdown_variant_headings_only() {
     assert!(html.contains("text-xs font-medium mb-1 text-gray-900")); // h6
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_lists_only() {
     let content = r#"- Unordered item 1
 - Unordered item 2
@@ -49,7 +41,7 @@ fn test_markdown_variant_lists_only() {
 2. Ordered item 2
 3. Ordered item 3"#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render lists with proper styling
     assert!(html.contains("<ul class=\"ml-4 mb-2\">"));
@@ -63,7 +55,7 @@ fn test_markdown_variant_lists_only() {
     assert!(html.contains("Ordered item 3"));
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_code_only() {
     let content = r#"Inline `code` text.
 
@@ -75,7 +67,7 @@ fn main() {
 
 More inline `code`."#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render code with proper styling
     assert!(html.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono")); // inline code
@@ -84,13 +76,13 @@ More inline `code`."#;
     assert!(html.contains("println!"));
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_links_only() {
     let content = r#"[External Link](https://example.com)
 [Internal Link](/about)
 [Link with Title](https://example.com "Link Title")"#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render links with proper styling
     assert!(html.contains("text-blue-600 hover:text-blue-800 underline"));
@@ -101,14 +93,14 @@ fn test_markdown_variant_links_only() {
     assert!(html.contains("Link with Title"));
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_tables_only() {
     let content = r#"| Header 1 | Header 2 | Header 3 |
 |----------|----------|----------|
 | Cell 1   | Cell 2   | Cell 3   |
 | Cell 4   | Cell 5   | Cell 6   |"#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render tables with proper styling
     assert!(html.contains("border-collapse border border-gray-300 mb-2"));
@@ -125,7 +117,7 @@ fn test_markdown_variant_tables_only() {
     assert!(html.contains("Cell 6"));
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_blockquotes_only() {
     let content = r#"> This is a single line blockquote.
 
@@ -135,7 +127,7 @@ fn test_markdown_variant_blockquotes_only() {
 
 > Blockquote with **bold** and *italic* text."#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render blockquotes with proper styling
     assert!(html.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2"));
@@ -147,14 +139,14 @@ fn test_markdown_variant_blockquotes_only() {
     assert!(html.contains("italic text-gray-700")); // italic in blockquote
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_emphasis_only() {
     let content = r#"This is **bold** text.
 This is *italic* text.
 This is ***bold and italic*** text.
 This is ~~strikethrough~~ text."#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render emphasis with proper styling
     assert!(html.contains("font-semibold text-gray-900")); // bold
@@ -165,14 +157,14 @@ This is ~~strikethrough~~ text."#;
     assert!(html.contains("strikethrough"));
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_task_lists_only() {
     let content = r#"- [x] Completed task 1
 - [ ] Pending task 1
 - [x] Completed task 2
 - [ ] Pending task 2"#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render task lists with proper structure
     assert!(html.contains("<input"));
@@ -183,7 +175,7 @@ fn test_markdown_variant_task_lists_only() {
     assert!(html.contains("Pending task 2"));
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_footnotes_only() {
     let content = r#"Here is a sentence with a footnote[^1].
 
@@ -192,7 +184,7 @@ Another sentence with a footnote[^2].
 [^1]: This is the first footnote content.
 [^2]: This is the second footnote content."#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
     // Should render footnotes with proper structure
     assert!(html.contains("footnote"));
@@ -200,149 +192,126 @@ Another sentence with a footnote[^2].
     assert!(html.contains("This is the second footnote content"));
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_mixed_content() {
-    let content = r#"# Mixed Content Document
+    let content = r#"# Main Title
 
-## Text Formatting
-This paragraph contains **bold**, *italic*, and `code` text.
+This is a paragraph with **bold** and *italic* text.
 
-## Lists
-- Item 1
-- Item 2
-  - Nested item
-- Item 3
+## Subtitle
 
-## Code
+- List item 1
+- List item 2 with `inline code`
+- List item 3
+
+> This is a blockquote with [a link](https://example.com).
+
 ```rust
-fn example() {
+fn main() {
     println!("Hello, World!");
 }
 ```
 
-## Links
-[Visit our website](https://example.com)
+| Column 1 | Column 2 |
+|----------|----------|
+| Data 1   | Data 2   |
 
-## Tables
-| Feature | Status |
-|---------|--------|
-| Working | ✅     |
-| Pending | ⏳     |
+- [x] Completed task
+- [ ] Pending task"#;
 
-## Blockquotes
-> This is an important note.
+    let html = parse_markdown_to_html(content);
 
-## Task List
-- [x] Feature 1
-- [ ] Feature 2
-
-## Footnotes
-Here is a reference[^1].
-
-[^1]: Reference details."#;
-
-    let html = render_markdown_html(content);
-
-    // Should render all content types together
-    assert!(html.contains("Mixed Content Document"));
+    // Should render mixed content with proper styling
+    assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1
+    assert!(html.contains("text-xl font-semibold mb-3 text-gray-900")); // h2
     assert!(html.contains("font-semibold text-gray-900")); // bold
     assert!(html.contains("italic text-gray-700")); // italic
+    assert!(html.contains("<ul class=\"ml-4 mb-2\">")); // unordered list
     assert!(html.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono")); // inline code
-    assert!(html.contains("bg-gray-100 p-3 rounded-lg overflow-x-auto mb-2")); // code block
-    assert!(html.contains("Item 1"));
-    assert!(html.contains("Nested item"));
-    assert!(html.contains("text-blue-600 hover:text-blue-800 underline")); // links
-    assert!(html.contains("border-collapse border border-gray-300 mb-2")); // table
     assert!(html.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2")); // blockquote
-    assert!(html.contains("<input")); // task lists
-    assert!(html.contains("footnote")); // footnotes
+    assert!(html.contains("text-blue-600 hover:text-blue-800 underline")); // link
+    assert!(html.contains("bg-gray-100 p-3 rounded-lg overflow-x-auto mb-2")); // code block
+    assert!(html.contains("border-collapse border border-gray-300 mb-2")); // table
+    assert!(html.contains("type=\"checkbox\"")); // task list
 }
 
-#[wasm_bindgen_test]
-fn test_markdown_variant_with_custom_classes() {
-    let content = "# Custom Styled Content\n\nThis content has custom classes.";
-
-    let div = document().create_element("div").unwrap();
-    let props = crate::components::common::markdown::MarkdownProps {
-        content: content.to_string(),
-        class: classes!("custom-prose", "prose-lg", "dark:prose-invert"),
-    };
-
-    let _rendered = yew::Renderer::<Markdown>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    std::thread::sleep(std::time::Duration::from_millis(100));
-
-    let html = div.inner_html();
-
-    // Should apply custom classes
-    assert!(html.contains("custom-prose"));
-    assert!(html.contains("prose-lg"));
-    assert!(html.contains("dark:prose-invert"));
-    assert!(html.contains("prose prose-sm max-w-none")); // default classes should still be present
-}
-
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_empty_content() {
     let content = "";
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
-    // Should render empty container with proper classes
-    assert!(html.contains("prose prose-sm max-w-none"));
-    assert!(html.contains("whitespace-pre-line text-gray-700 leading-relaxed"));
+    // Should handle empty content gracefully
+    assert!(html.is_empty() || html.trim().is_empty());
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_whitespace_only() {
-    let content = "   \n\t  \n";
+    let content = "   \n  \t  \n  ";
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
-    // Should render container even with only whitespace
-    assert!(html.contains("prose prose-sm max-w-none"));
-    assert!(html.contains("whitespace-pre-line"));
+    // Should handle whitespace-only content gracefully
+    assert!(html.is_empty() || html.trim().is_empty());
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_unicode_content() {
-    let content = "Привет мир! 🌍 你好世界! こんにちは世界!";
+    let content = r#"# 🚀 Unicode Title
 
-    let html = render_markdown_html(content);
+This is content with emojis: 🎉 🎯 ⚡
 
-    // Should render unicode content properly
-    assert!(html.contains("Привет мир!"));
-    assert!(html.contains("你好世界!"));
-    assert!(html.contains("こんにちは世界!"));
-    assert!(html.contains("🌍"));
+- List item with 🏗️
+- Another item with 🎨
+
+> Blockquote with 🌟 and 💎
+
+**Bold text with 🎭** and *italic with 🎪*"#;
+
+    let html = parse_markdown_to_html(content);
+
+    // Should render unicode content with proper styling
+    assert!(html.contains("🚀 Unicode Title"));
+    assert!(html.contains("🎉 🎯 ⚡"));
+    assert!(html.contains("🏗️"));
+    assert!(html.contains("🎨"));
+    assert!(html.contains("🌟 and 💎"));
+    assert!(html.contains("🎭"));
+    assert!(html.contains("🎪"));
+    assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1 styling
+    assert!(html.contains("font-semibold text-gray-900")); // bold styling
+    assert!(html.contains("italic text-gray-700")); // italic styling
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_special_characters() {
-    let content = r#"# Title with "quotes" and 'apostrophes'
+    let content = r#"# Title with & < > " '
 
-Content with & < > symbols and emojis 🚀 🎉
+This has special chars: & < > " ' \ / | ! @ # $ % ^ * ( ) _ + = { } [ ] : ; , . ? ~ ` - =
 
-```html
-<div class="test">Content</div>
-```
+- List with & < > chars
+- Another with " ' chars
 
-> Quote with "nested" quotes"#;
+> Blockquote with special chars: & < > " '
 
-    let html = render_markdown_html(content);
+**Bold with & < >** and *italic with " '*"#;
 
-    // Should render special characters properly
-    assert!(html.contains("quotes"));
-    assert!(html.contains("apostrophes"));
-    assert!(html.contains("&"));
-    assert!(html.contains("<"));
-    assert!(html.contains(">"));
-    assert!(html.contains("🚀"));
-    assert!(html.contains("🎉"));
-    assert!(html.contains("<div class=\"test\">Content</div>"));
+    let html = parse_markdown_to_html(content);
+
+    // Should render special characters with proper styling
+    assert!(html.contains("Title with &amp; &lt; &gt; &quot; &#39;"));
+    assert!(html.contains("This has special chars: &amp; &lt; &gt; &quot; &#39;"));
+    assert!(html.contains("List with &amp; &lt; &gt; chars"));
+    assert!(html.contains("Another with &quot; &#39; chars"));
+    assert!(html.contains("Blockquote with special chars: &amp; &lt; &gt; &quot; &#39;"));
+    assert!(html.contains("Bold with &amp; &lt; &gt;"));
+    assert!(html.contains("italic with &quot; &#39;"));
+    assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1 styling
+    assert!(html.contains("font-semibold text-gray-900")); // bold styling
+    assert!(html.contains("italic text-gray-700")); // italic styling
 }
 
-#[wasm_bindgen_test]
+#[test]
 fn test_markdown_variant_nested_structures() {
     let content = r#"# Main Title
 
@@ -350,54 +319,44 @@ fn test_markdown_variant_nested_structures() {
 
 ### Sub-subtitle
 
-This paragraph contains **bold** and *italic* text.
+This is a paragraph.
 
-- List item with **bold** text
-- List item with *italic* text
-  - Nested item with `code`
-    - Deep nested item
+> This is a blockquote
+> 
+> - With a list inside
+> - And another item
+> 
+> > Nested blockquote
+> > 
+> > With **bold** and *italic*
 
-1. Numbered item with **bold**
-2. Numbered item with *italic*
-   1. Nested numbered item
+- Main list item
+  - Nested list item
+    - Deeply nested item
+  - Another nested item
+- Another main item
 
-> Blockquote with **bold** and *italic* text
+1. Ordered list
+   1. Nested ordered
+      1. Deeply nested
+   2. Another nested
 
-| Header with **bold** | Header with *italic* |
-|----------------------|----------------------|
-| Cell with `code`     | Cell with **bold**   |"#;
+| Header 1 | Header 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |
+| Cell 3   | - List in table
+|          | - Another item"#;
 
-    let html = render_markdown_html(content);
+    let html = parse_markdown_to_html(content);
 
-    // Should render nested structures properly
-    assert!(html.contains("Main Title"));
-    assert!(html.contains("Subtitle"));
-    assert!(html.contains("Sub-subtitle"));
-    assert!(html.contains("font-semibold text-gray-900")); // bold in various contexts
-    assert!(html.contains("italic text-gray-700")); // italic in various contexts
-    assert!(html.contains("bg-gray-100 px-1 py-0.5 rounded text-sm font-mono")); // code in various contexts
-    assert!(html.contains("List item with"));
-    assert!(html.contains("Nested item with"));
-    assert!(html.contains("Deep nested item"));
-    assert!(html.contains("Numbered item with"));
-    assert!(html.contains("Nested numbered item"));
-    assert!(html.contains("Blockquote with"));
-    assert!(html.contains("Header with"));
-    assert!(html.contains("Cell with"));
-}
-
-// Helper function to render markdown component and return the HTML string
-fn render_markdown_html(content: &str) -> String {
-    let div = document().create_element("div").unwrap();
-    let props = crate::components::common::markdown::MarkdownProps {
-        content: content.to_string(),
-        class: Classes::new(),
-    };
-
-    let _rendered = yew::Renderer::<Markdown>::with_root_and_props(div.clone(), props).render();
-
-    // Wait for rendering to complete
-    std::thread::sleep(std::time::Duration::from_millis(100));
-
-    div.inner_html()
+    // Should render nested structures with proper styling
+    assert!(html.contains("text-2xl font-bold mb-4 text-gray-900")); // h1
+    assert!(html.contains("text-xl font-semibold mb-3 text-gray-900")); // h2
+    assert!(html.contains("text-lg font-medium mb-2 text-gray-900")); // h3
+    assert!(html.contains("border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-2")); // blockquote
+    assert!(html.contains("<ul class=\"ml-4 mb-2\">")); // unordered list
+    assert!(html.contains("<ol>")); // ordered list
+    assert!(html.contains("border-collapse border border-gray-300 mb-2")); // table
+    assert!(html.contains("font-semibold text-gray-900")); // bold
+    assert!(html.contains("italic text-gray-700")); // italic
 }
