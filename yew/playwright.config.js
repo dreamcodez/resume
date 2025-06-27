@@ -1,18 +1,15 @@
 // @ts-check
 const { defineConfig, devices } = require("@playwright/test");
+const path = require("path");
 
-/**
- * Get the port from environment variable or use fallback
- */
-function getPort() {
-  return process.env.TRUNK_PORT || "8080";
-}
+const port = process.env.TRUNK_PORT || "8080";
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
   testDir: "./tests",
+  testIgnore: ["**/*.test.js", "**/*.test.ts"],
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -26,7 +23,7 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: `http://localhost:${getPort()}`,
+    baseURL: `http://localhost:${port}`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
@@ -83,22 +80,11 @@ module.exports = defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    command: "node trunk-serve-dynamic.js",
-    url: `http://localhost:${getPort()}`,
-    reuseExistingServer: !process.env.CI,
-    timeout: 30000, // 30 seconds for server startup (only startup, not tests)
-    cwd: __dirname,
-  },
-
   /* Global timeout for all tests - prevents hanging */
   timeout: 10000, // 10 seconds per test
   expect: {
     timeout: 3000, // 3 seconds for assertions
   },
   /* Global setup timeout */
-  globalSetup: undefined,
-  /* Global teardown timeout */
-  globalTeardown: undefined,
+  globalSetup: require.resolve("./global-setup.js"),
 });

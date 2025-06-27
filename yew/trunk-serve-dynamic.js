@@ -2,14 +2,29 @@
 /**
  * Simple Dynamic Port Script
  *
- * Finds an available port and starts Trunk on it.
+ * Starts Trunk on a specified port (via argument or env), or finds a random port if not provided.
  */
 
 const { spawn } = require("child_process");
 const http = require("http");
 
-// Find an available port
-function findPort(startPort = 8080) {
+function parsePortArg() {
+  // Try command-line argument first
+  const argPort = process.argv[2];
+  if (argPort && !isNaN(argPort)) return parseInt(argPort, 10);
+  // Then environment variable
+  if (process.env.TRUNK_PORT && !isNaN(process.env.TRUNK_PORT))
+    return parseInt(process.env.TRUNK_PORT, 10);
+  return null;
+}
+
+// Find an available port, starting from a random port
+function findPort() {
+  const startPort = Math.floor(Math.random() * 6000) + 3000;
+  return findPortFrom(startPort);
+}
+
+function findPortFrom(startPort) {
   return new Promise((resolve) => {
     const server = http.createServer();
     server.listen(startPort, () => {
@@ -17,16 +32,18 @@ function findPort(startPort = 8080) {
       server.close(() => resolve(port));
     });
     server.on("error", () => {
-      findPort(startPort + 1).then(resolve);
+      findPortFrom(startPort + 1).then(resolve);
     });
   });
 }
 
-// Main execution
 (async () => {
-  const port = await findPort();
-  console.log(`TRUNK_PORT=${port}`);
+  let port = parsePortArg();
+  if (!port) {
+    port = await findPort();
+  }
   process.env.TRUNK_PORT = port.toString();
+  console.log(`TRUNK_PORT=${port}`);
 
   const trunk = spawn("trunk", ["serve", "--port", port.toString()], {
     stdio: "inherit",

@@ -8,16 +8,28 @@
     "dev": "trunk serve",
     "build": "trunk build --release",
     "test": "cargo test",
+    "test:jest": "jest",
     "test:playwright": "npx playwright test",
-    "test:all": "cargo test && npx playwright test",
+    "test:all": "cargo test && npm run test:jest && npm run test:playwright",
     "test:update-screenshots": "npx playwright test --update-snapshots",
     "test:report": "npx playwright show-report"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/tests/.*\\.spec\\.js$",
+      "<rootDir>/tests/.*\\.spec\\.ts$"
+    ],
+    "testMatch": [
+      "<rootDir>/tests/**/*.test.js",
+      "<rootDir>/tests/**/*.test.ts"
+    ]
   },
   "devDependencies": {
     "@playwright/test": "^1.53.1",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^24.0.4",
     "autoprefixer": "^10.4.16",
+    "jest": "^30.0.3",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0"
   }
